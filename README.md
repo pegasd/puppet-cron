@@ -1,5 +1,7 @@
 # Make your cron and incron jobs behave
 
+[![master branch status](https://travis-ci.org/pegasd/puppet-cron.svg?branch=master)](https://travis-ci.org/pegasd/puppet-cron)
+
 #### Table of Contents
 
 1. [Description](#description)
