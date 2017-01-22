@@ -55,16 +55,16 @@ class { 'cron':
 
 `cron::job` resource has the following defaults:
 ```puppet
-cron::job { $title:
-  command, # no default, MUST be specified
-  mode     = '0644',
-  user     = 'root',
-  minute   = '*',
-  hour     = '*',
-  monthday = '*',
-  month    = '*',
-  weekday  = '*',
-}
+define cron::job(
+  $command, # no default, MUST be specified
+  $mode     = '0644',
+  $user     = 'root',
+  $minute   = '*',
+  $hour     = '*',
+  $monthday = '*',
+  $month    = '*',
+  $weekday  = '*',
+) { }
 ```
 It is supposed to be as close to the regular Puppet's `cron` resource
 as possible.

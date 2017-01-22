@@ -1,3 +1,25 @@
+# Cron::job resource type.
+#
+# @author Evgeny Piven <epiven@gmail.com>
+#
+# @example Declaring cron jobs
+#   cron::job {
+#     'ping-host':
+#       command => '/usr/local/bin/my-host-pinger';
+#     'my-backup':
+#       command => '/usr/local/bin/my-backup',
+#       hour    => [ 0, 12 ],
+#       minute  => '*/10';
+#   }
+#
+# @param command Command path to be executed
+# @param mode Mode of /etc/cron.d/job_${title} file
+# @param minute Cron minute
+# @param hour Cron hour
+# @param monthday Cron monthday
+# @param month Cron month
+# @param weekday Cron weekday
+
 define cron::job (
   String                             $command,
   String[4, 4]                       $mode            = '0644',
