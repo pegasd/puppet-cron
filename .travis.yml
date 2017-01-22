@@ -1,7 +1,7 @@
 ---
 language: ruby
 install:
-- bundler
+- bundle install --without acceptance
 - bundle exec librarian-puppet install
 script:
 - bundle exec rake validate
