@@ -6,8 +6,6 @@ install:
 script:
 - bundle exec rake validate
 - bundle exec rake spec
-rvm:
-- 2.3.0
 env:
 - PUPPET_VERSION='4.4.1'
 - PUPPET_VERSION='~> 4.0'
