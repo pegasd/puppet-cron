@@ -2,14 +2,24 @@
   "name": "pegas-cron",
   "version": "0.1.0",
   "author": "PegaS",
-  "summary": "Manage cron and incron jobs in a tidy way.",
+  "summary": "Manage cron and incron jobs in a tidy way",
   "license": "Apache-2.0",
   "source": "https://github.com/pegasd/puppet-cron",
   "project_page": "https://github.com/pegasd/puppet-cron",
   "issues_url": "https://github.com/pegasd/puppet-cron/issues",
-  "dependencies": [
-    {"name":"puppetlabs-stdlib","version_requirement":">= 1.0.0"}
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Ubuntu",
+      "operatingsystemrelease": [
+        "14.04"
+      ]
+    }
   ],
-  "data_provider": null
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 4.0.0"
+    }
+  ],
+  "dependencies": []
 }
-
