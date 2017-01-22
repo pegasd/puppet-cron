@@ -1,0 +1,6 @@
+#
+# This file is managed by Puppet
+#
+## <%= $name %> Cron Job
+
+<%= $minute %> <%= $hour %> <%= $monthday %> <%= $month %> <%= $weekday %> <%= $user %> <%= $command %>

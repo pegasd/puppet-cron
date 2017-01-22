@@ -42,7 +42,18 @@
 #
 # Copyright 2017 Your name here, unless otherwise noted.
 #
-class cron {
+class cron (
+  String[4, 4] $dir_mode = '0755',
+) {
 
+  file { '/etc/cron.d':
+    ensure  => directory,
+    recurse => true,
+    purge   => true,
+    force   => true,
+    owner   => 'root',
+    group   => 'root',
+    mode    => $dir_mode,
+  }
 
 }
