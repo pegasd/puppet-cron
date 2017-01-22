@@ -14,6 +14,7 @@ RSpec.configure do |c|
   c.before :suite do
     hosts.each do |host|
       copy_module_to(host, :source => proj_root, :module_name => 'cron')
+      on host, puppet('module','install','puppetlabs-stdlib')
     end
   end
 end
