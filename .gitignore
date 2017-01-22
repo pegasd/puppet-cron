@@ -1,6 +1,7 @@
 # JetBrains products
 .idea/
 .dependencies/
+*.iml
 
 # Ruby
 .bundle/gems/
