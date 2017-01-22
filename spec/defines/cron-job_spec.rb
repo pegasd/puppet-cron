@@ -14,7 +14,7 @@ describe 'cron::job' do
       :owner  => 'root',
       :group  => 'root',
       :mode   => '0644',
-    }).with_content(/^* * * * * root \/usr\/bin\/backup$/) }
+    }).with_content(/^\* \* \* \* \* root \/usr\/bin\/backup$/) }
   end
 
   context 'with custom launch time' do
@@ -26,6 +26,12 @@ describe 'cron::job' do
     } }
 
     it { should compile }
+    it { should contain_file('cron-job_backup').with({
+      :ensure => 'file',
+      :owner  => 'root',
+      :group  => 'root',
+      :mode   => '0644',
+    }).with_content(/^50,20 1,5 \* \* 3 root \/usr\/bin\/backup$/) }
   end
 
   context 'with incorrect launch time' do

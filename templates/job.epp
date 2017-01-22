@@ -3,4 +3,16 @@
 #
 ## <%= $name %> Cron Job
 
-<%= $minute %> <%= $hour %> <%= $monthday %> <%= $month %> <%= $weekday %> <%= $user %> <%= $command %>
+<%
+  # Convert to array first and then join the result.
+  # This is needed so we support both single integers/strings
+  # and existing arrays.
+
+  $_minute   = join(any2array($minute), ',')
+  $_hour     = join(any2array($hour), ',')
+  $_monthday = join(any2array($monthday), ',')
+  $_month    = join(any2array($month), ',')
+  $_weekday  = join(any2array($weekday), ',')
+
+-%>
+<%= join([ $_minute, $_hour, $_monthday, $_month, $_weekday ], ' ') %> <%= $user %> <%= $command %>

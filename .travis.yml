@@ -1,8 +1,13 @@
 ---
 language: ruby
-script: 'bundle exec rake validate && bundle exec rake spec'
+install:
+- bundler
+- bundle exec librarian-puppet install
+script:
+- bundle exec rake validate
+- bundle exec rake spec
 rvm:
 - 2.3.0
 env:
 - PUPPET_VERSION='4.4.1'
-- PUPPET_VERSION='4.8.2'
+- PUPPET_VERSION='~> 4.0'
