@@ -1,9 +1,7 @@
-install:
-  - bundle install
-script:
-  - bundle exec rake validate
-  - bundle exec rake spec
-matrix:
-  include:
-  - env: PUPPET_VERSION='4.4.1'
-  - env: PUPPET_VERSION='~> 4.0' STRICT_VARIABLES='yes'
+---
+language: ruby
+script: 'bundle exec rake spec'
+rvm:
+- 2.3.0
+env:
+- PUPPET_VERSION='4.4.1'
