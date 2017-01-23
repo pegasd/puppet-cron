@@ -1,5 +1,7 @@
 ---
 language: ruby
+rvm:
+- 2.2
 install:
 - bundle install --without acceptance
 - bundle exec librarian-puppet install
