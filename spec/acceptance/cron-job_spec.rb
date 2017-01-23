@@ -16,28 +16,28 @@ cron::job {
 
     EOS
 
-    it 'should be idempotent' do
+    it 'is idempotent' do
       expect(apply_manifest(pp, :catch_failures => true).exit_code).to eq 2
       expect(apply_manifest(pp, :catch_failures => true).exit_code).to eq 0
     end
 
     describe file('/etc/cron.d') do
-      it { should be_directory }
-      it { should be_mode 750 }
-      it { should be_owned_by 'root' }
-      it { should be_grouped_into 'root' }
+      it { is_expected.to be_directory }
+      it { is_expected.to be_mode 750 }
+      it { is_expected.to be_owned_by 'root' }
+      it { is_expected.to be_grouped_into 'root' }
     end
     describe file('/etc/cron.d/job_backup') do
-      it { should be_file }
-      it { should be_mode 644 }
-      it { should be_owned_by 'root' }
-      it { should be_grouped_into 'root' }
+      it { is_expected.to be_file }
+      it { is_expected.to be_mode 644 }
+      it { is_expected.to be_owned_by 'root' }
+      it { is_expected.to be_grouped_into 'root' }
     end
     describe file('/etc/cron.d/job_other-backup') do
-      it { should be_file }
-      it { should be_mode 644 }
-      it { should be_owned_by 'root' }
-      it { should be_grouped_into 'root' }
+      it { is_expected.to be_file }
+      it { is_expected.to be_mode 644 }
+      it { is_expected.to be_owned_by 'root' }
+      it { is_expected.to be_grouped_into 'root' }
     end
   end
 
@@ -50,20 +50,20 @@ cron::job { 'backup':
 
     EOS
 
-    it 'should be idempotent' do
+    it 'is idempotent' do
       expect(apply_manifest(pp, :catch_failures => true).exit_code).to eq 2
       expect(apply_manifest(pp, :catch_failures => true).exit_code).to eq 0
     end
 
     describe file('/etc/cron.d') do
-      it { should be_directory }
-      it { should be_mode 755 }
+      it { is_expected.to be_directory }
+      it { is_expected.to be_mode 755 }
     end
     describe file('/etc/cron.d/job_backup') do
-      it { should be_file }
+      it { is_expected.to be_file }
     end
     describe file('/etc/cron.d/job_other-backup') do
-      it { should_not exist }
+      it { is_expected.to_not exist }
     end
   end
 

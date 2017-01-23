@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'cron' do
 
   context 'with default values for all parameters' do
-    it { should contain_file('/etc/cron.d').with({
+    it { is_expected.to contain_file('/etc/cron.d').with({
       :ensure  => 'directory',
       :owner   => 'root',
       :group   => 'root',
@@ -12,10 +12,12 @@ describe 'cron' do
       :purge   => true,
     }) }
 
-    it { should contain_file('/etc/incron.d').with({
+    it { is_expected.to contain_file('/etc/incron.d').with({
       :ensure => 'absent',
       :force  => true,
     }) }
+
+    it { is_expected.to contain_package('incron').with({ :ensure => 'absent' })}
   end
 
   context 'with custom dir permissions' do
@@ -24,14 +26,14 @@ describe 'cron' do
       :use_incron => true,
     } }
 
-    it { should contain_file('/etc/cron.d').with({ :mode => '0750' }) }
-    it { should contain_file('/etc/incron.d').with({ :mode => '0750' }) }
+    it { is_expected.to contain_file('/etc/cron.d').with({ :mode => '0750' }) }
+    it { is_expected.to contain_file('/etc/incron.d').with({ :mode => '0750' }) }
   end
 
   context 'with incron enabled' do
     let (:params) { { :use_incron => true } }
 
-    it { should contain_file('/etc/incron.d').with({
+    it { is_expected.to contain_file('/etc/incron.d').with({
       :ensure  => 'directory',
       :owner   => 'root',
       :group   => 'root',
@@ -40,15 +42,14 @@ describe 'cron' do
       :purge   => true,
     }) }
 
-    it { should contain_service('incron').with({
+    it { is_expected.to contain_service('incron').with({
       :ensure     => 'running',
       :enable     => true,
       :hasrestart => true,
       :hasstatus  => true,
-      :require    => "Package['incron']",
-    }) }
+    }).that_requires('Package[incron]') }
 
-    it { should contain_package('incron').with({
+    it { is_expected.to contain_package('incron').with({
       :ensure => 'present',
     }) }
   end

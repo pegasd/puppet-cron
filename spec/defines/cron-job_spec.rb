@@ -8,8 +8,8 @@ describe 'cron::job' do
       :command => '/usr/bin/backup',
     } }
 
-    it { should compile }
-    it { should contain_file('cron-job_backup').with({
+    it { is_expected.to compile }
+    it { is_expected.to contain_file('cron-job_backup').with({
       :ensure => 'file',
       :owner  => 'root',
       :group  => 'root',
@@ -25,8 +25,8 @@ describe 'cron::job' do
       :weekday => 3,
     } }
 
-    it { should compile }
-    it { should contain_file('cron-job_backup').with({
+    it { is_expected.to compile }
+    it { is_expected.to contain_file('cron-job_backup').with({
       :ensure => 'file',
       :owner  => 'root',
       :group  => 'root',
@@ -34,12 +34,16 @@ describe 'cron::job' do
     }).with_content(/^50,20 1,5 \* \* 3 root \/usr\/bin\/backup$/) }
   end
 
-  context 'with incorrect launch time' do
+  context 'with minute => 66' do
     let(:params) { {
       :command => '/usr/bin/backup',
       :minute  => 66,
     } }
 
-    it { should_not compile }
+    it do
+      expect {
+        is_expected.to compile
+      }.to raise_error(/Error while evaluating.*, got Integer\[66, 66\] at/)
+    end
   end
 end
