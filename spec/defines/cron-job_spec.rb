@@ -43,7 +43,7 @@ describe 'cron::job' do
     it do
       expect {
         is_expected.to compile
-      }.to raise_error(/Error while evaluating.*, got Integer\[66, 66\] at/)
+      }.to raise_error(/Error while evaluating.*, got Integer.* at/)
     end
   end
 end
