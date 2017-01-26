@@ -9,7 +9,7 @@ describe 'cron::job' do
     } }
 
     it { is_expected.to compile }
-    it { is_expected.to contain_file('cron-job_backup').with(
+    it { is_expected.to contain_file('/etc/cron.d/backup').with(
       :ensure => :file,
       :owner  => 'root',
       :group  => 'root',
@@ -26,7 +26,7 @@ describe 'cron::job' do
     } }
 
     it { is_expected.to compile }
-    it { is_expected.to contain_file('cron-job_backup').with(
+    it { is_expected.to contain_file('/etc/cron.d/backup').with(
       :ensure => :file,
       :owner  => 'root',
       :group  => 'root',

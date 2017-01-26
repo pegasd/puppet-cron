@@ -13,5 +13,8 @@ describe 'cron::incron_job' do
     } }
 
     it { is_expected.to compile }
+    it { is_expected.to contain_file('/etc/incron.d/process_file').with_content(
+      /^\/storage\/incoming\/upload IN_CLOSE_WRITE \/usr\/bin\/process_file$/
+    )}
   end
 end
