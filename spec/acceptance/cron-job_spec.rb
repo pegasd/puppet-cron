@@ -44,6 +44,8 @@ cron::job {
   describe 'second run with one of the resources removed' do
     pp = <<-EOS
 
+class { 'cron': dir_mode => '0750' }
+
 cron::job { 'backup':
   command => '/usr/bin/backup';
 }
@@ -63,6 +65,10 @@ cron::job { 'backup':
       it { is_expected.to be_file }
     end
     describe file('/etc/cron.d/job_other-backup') do
+      it { is_expected.to_not exist }
+    end
+
+    describe file('/etc/incron.d') do
       it { is_expected.to_not exist }
     end
   end
