@@ -1,6 +1,6 @@
-# Cron::job resource type.
+# cron job resource
 #
-# @author Evgeny Piven <epiven@gmail.com>
+# @author Eugene Piven <epiven@gmail.com>
 #
 # @example Declaring cron jobs
 #   cron::job {

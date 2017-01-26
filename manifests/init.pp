@@ -1,6 +1,6 @@
-# Cron class.
+# cron class
 #
-# @author Evgeny Piven <epiven@gmail.com>
+# @author Eugene Piven <epiven@gmail.com>
 #
 # @see https://github.com/pegasd/puppet-cron
 #
