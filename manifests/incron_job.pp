@@ -16,6 +16,22 @@ define cron::incron_job (
   Stdlib::Unixpath                      $path,
   Enum['IN_CLOSE_WRITE', 'IN_MOVED_TO'] $event,
   String                                $command,
+  String[4, 4]                          $mode = '0644',
 ) {
+
+  require ::cron
+
+  file { "/etc/incron.d/${title}":
+    ensure  => file,
+    owner   => 'root',
+    group   => 'root',
+    mode    => $mode,
+    content => epp('cron/incron_job.epp', {
+      name    => $title,
+      path    => $path,
+      event   => $event,
+      command => $command,
+    })
+  }
 
 }

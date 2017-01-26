@@ -38,14 +38,13 @@ define cron::job (
 
   require ::cron
 
-  file { "cron-job_${title}":
+  file { "/etc/cron.d/${title}":
     ensure  => file,
     owner   => 'root',
     group   => 'root',
     mode    => $mode,
-    path    => "/etc/cron.d/job_${title}",
     content => epp('cron/job.epp', {
-      name     => $name,
+      name     => $title,
       minute   => $minute,
       hour     => $hour,
       monthday => $monthday,
