@@ -5,7 +5,7 @@ describe 'cron::job' do
 
   context 'job with default values' do
     let(:params) { {
-      :command => '/usr/bin/backup'
+      :command => '/usr/bin/backup',
     } }
 
     it { is_expected.to compile }
@@ -37,7 +37,7 @@ describe 'cron::job' do
   context 'with minute => 66' do
     let(:params) { {
       :command => '/usr/bin/backup',
-      :minute => 66
+      :minute  => 66,
     } }
 
     it do
