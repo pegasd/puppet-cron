@@ -5,7 +5,7 @@ describe 'tidy cron::job' do
   describe 'first run with two cron::job resources' do
     pp = <<-EOS
     
-class { 'cron': dir_mode => '0750' }
+class { 'cron': crond_mode => '0750' }
 
 cron::job {
   'backup':
@@ -17,8 +17,8 @@ cron::job {
     EOS
 
     it 'is idempotent' do
-      expect(apply_manifest(pp, :catch_failures => true).exit_code).to eq 2
-      expect(apply_manifest(pp, :catch_failures => true).exit_code).to eq 0
+      apply_manifest(pp, :catch_failures => true)
+      apply_manifest(pp, :catch_changes => true)
     end
 
     describe file('/etc/cron.d') do
@@ -27,13 +27,13 @@ cron::job {
       it { is_expected.to be_owned_by 'root' }
       it { is_expected.to be_grouped_into 'root' }
     end
-    describe file('/etc/cron.d/job_backup') do
+    describe file('/etc/cron.d/backup') do
       it { is_expected.to be_file }
       it { is_expected.to be_mode 644 }
       it { is_expected.to be_owned_by 'root' }
       it { is_expected.to be_grouped_into 'root' }
     end
-    describe file('/etc/cron.d/job_other-backup') do
+    describe file('/etc/cron.d/other-backup') do
       it { is_expected.to be_file }
       it { is_expected.to be_mode 644 }
       it { is_expected.to be_owned_by 'root' }
@@ -44,7 +44,7 @@ cron::job {
   describe 'second run with one of the resources removed' do
     pp = <<-EOS
 
-class { 'cron': dir_mode => '0750' }
+include cron
 
 cron::job { 'backup':
   command => '/usr/bin/backup';
@@ -53,18 +53,18 @@ cron::job { 'backup':
     EOS
 
     it 'is idempotent' do
-      expect(apply_manifest(pp, :catch_failures => true).exit_code).to eq 2
-      expect(apply_manifest(pp, :catch_failures => true).exit_code).to eq 0
+      apply_manifest(pp, :catch_failures => true)
+      apply_manifest(pp, :catch_changes => true)
     end
 
     describe file('/etc/cron.d') do
       it { is_expected.to be_directory }
       it { is_expected.to be_mode 755 }
     end
-    describe file('/etc/cron.d/job_backup') do
+    describe file('/etc/cron.d/backup') do
       it { is_expected.to be_file }
     end
-    describe file('/etc/cron.d/job_other-backup') do
+    describe file('/etc/cron.d/other-backup') do
       it { is_expected.to_not exist }
     end
 
