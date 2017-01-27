@@ -21,8 +21,9 @@ describe 'cron' do
 
   context 'with custom dir permissions' do
     let(:params) { {
-      :dir_mode   => '0750',
-      :use_incron => true
+      :crond_mode   => '0750',
+      :incrond_mode => '0750',
+      :use_incron   => true,
     } }
 
     it { is_expected.to contain_file('/etc/cron.d').with(:mode => '0750') }
