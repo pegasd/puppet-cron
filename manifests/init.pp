@@ -11,8 +11,9 @@
 # @param use_incron Whether to also use incron.
 #   Note: When this is off (by default!), the module will keep /etc/incron.d directory clean!
 class cron (
-  String[4, 4] $dir_mode   = '0755',
-  Boolean      $use_incron = false,
+  String[4, 4] $crond_mode   = '0755',
+  String[4, 4] $incrond_mode = '0755',
+  Boolean      $use_incron   = false,
 ) {
 
   file { '/etc/cron.d':
@@ -22,7 +23,7 @@ class cron (
     force   => true,
     owner   => 'root',
     group   => 'root',
-    mode    => $dir_mode,
+    mode    => $crond_mode,
   }
 
   if $use_incron {
@@ -33,7 +34,7 @@ class cron (
       force   => true,
       owner   => 'root',
       group   => 'root',
-      mode    => $dir_mode,
+      mode    => $incrond_mode,
     }
 
     package { 'incron':
