@@ -1,4 +1,4 @@
-# cron
+# cron/incron puppet module
 
 [![master branch status](https://travis-ci.org/pegasd/puppet-cron.svg?branch=master)](https://travis-ci.org/pegasd/puppet-cron)
 
@@ -16,9 +16,9 @@
 
 ## Description
 
-This module is an interface for cron and incron jobs with the main goal to be tidy. That means that any jobs that are not managed
-should not exist. Once you switch all cron jobs to this module, simply removing the definition is sufficient without worrying about
-setting `ensure => disable` and waiting for changes to propagate.
+This module is an interface for cron and incron jobs with the main idea to be tidy. That means that any jobs that are not managed should not
+exist. Once you switch all cron jobs to this module, simply removing the definition is sufficient without worrying about setting
+`ensure => disable` and waiting for changes to propagate.
 
 ## Setup
 
@@ -29,10 +29,12 @@ To start out with cron:
 include cron
 ```
 This will start managing `/etc/cron.d` directory.
+
 **WARNING #1**: Unless you manage files with Puppet in this directory, they WILL be removed! This is the major idea behind the
 tidiness of this module.
-**WARNING #2**: Read on if you also want to use incron. Otherwise, this will remove `/etc/incron.d` directory and remove `incron`
-package. This is also about tidiness. Nothing personal.
+
+**WARNING #2**: Read on if you also want to use incron. If you don't specifically enable it, this declaration will also remove
+`/etc/incron.d` directory and remove `incron` package. This is also about tidiness. Nothing personal.
 
 If you also want to use incron:
 ```puppet
@@ -41,6 +43,7 @@ class { 'cron':
 }
 ```
 This will also start managing `/etc/incron.d` directory.
+
 **WARNING**: Just as with cron usage, this will remove all files under `/etc/incron.d` directory unless they are managed.
 
 ## Usage
@@ -61,7 +64,7 @@ All classes and resources in this module are public.
 ### Resources
 
 * [`cron::job`](#cronjob)
-* [`cron::incron_job`](#cronincronjob)
+* [`cron::incron_job`](#cronincron_job)
 
 ### Parameters
 
@@ -134,8 +137,10 @@ Permissions for incron job file located in /etc/incron.d
 ## Limitations
 
 * although the `cron::job` type checks for Integer boundaries, you're on your own if you are using strings for specifying time intervals.
-* all files in `/etc/cron.d` and `/etc/incron.d` directories that are managed manually are fair play. Don't expect them to go away once
-you start using this module. Hopefully, you won't need to, though.
+Those will be put into the template as-is.
+* all files in `/etc/cron.d` and `/etc/incron.d` directories that are managed manually through Puppet are fair play. Don't expect them to
+go away once you start using this module. Hopefully, you won't need to, though.
+* regular cron resources must be cleaned out using `ensure => absent` prior to using this module.
 
 ## Development
 
