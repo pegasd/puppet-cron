@@ -13,16 +13,15 @@
 #   }
 #
 # @param command Command path to be executed
-# @param mode Mode of /etc/cron.d/job_${title} file
+# @param user The user who owns the cron job
 # @param minute Cron minute
 # @param hour Cron hour
 # @param monthday Cron monthday
 # @param month Cron month
 # @param weekday Cron weekday
-
+# @param mode Cron job file permissions, which is located at /etc/cron.d/JOB_NAME
 define cron::job (
   String                             $command,
-  String[4, 4]                       $mode            = '0644',
   String                             $user            = 'root',
   Variant[Integer[0, 59], String,
     Array[Variant[Integer[0, 59], String]]] $minute   = '*',
@@ -34,9 +33,8 @@ define cron::job (
     Array[Variant[Integer[1, 12], String]]] $month    = '*',
   Variant[Integer[0, 6], String,
     Array[Variant[Integer[0, 6], String]]]  $weekday  = '*',
+  String[4, 4]                       $mode            = '0644',
 ) {
-
-  require ::cron
 
   file { "/etc/cron.d/${title}":
     ensure  => file,

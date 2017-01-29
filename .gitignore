@@ -16,3 +16,7 @@ Puppetfile.lock
 log/
 junit/
 spec/fixtures/
+
+# puppet-strings
+.yardoc/
+doc/

@@ -1,4 +1,4 @@
-# Make your cron and incron jobs behave
+# cron
 
 [![master branch status](https://travis-ci.org/pegasd/puppet-cron.svg?branch=master)](https://travis-ci.org/pegasd/puppet-cron)
 
@@ -16,63 +16,126 @@
 
 ## Description
 
-This module is an interface for cron jobs with the main goal to be tidy. At
-our company we required an interface for specifying cron jobs and removing them
-without waiting for puppet to run with `ensure => disable`. So, this is done by
-managing `/etc/cron.d` directory with `purge => true`.
+This module is an interface for cron and incron jobs with the main goal to be tidy. That means that any jobs that are not managed
+should not exist. Once you switch all cron jobs to this module, simply removing the definition is sufficient without worrying about
+setting `ensure => disable` and waiting for changes to propagate.
 
 ## Setup
 
-### What cron affects
-
-At this point this module has a single defined `cron::job` resource type which works similar
-to the regular `cron` resource, but instead of managing user's cron, it creates a file in
-`/etc/cron.d`.
-
 ### Beginning with cron
 
-Get up and running by using `cron::job` resource like this:
+To start out with cron:
 ```puppet
-cron::job { 'my-backup':
-  command => '/usr/local/bin/my-backup'
+include cron
+```
+This will start managing `/etc/cron.d` directory.
+**WARNING #1**: Unless you manage files with Puppet in this directory, they WILL be removed! This is the major idea behind the
+tidiness of this module.
+**WARNING #2**: Read on if you also want to use incron. Otherwise, this will remove `/etc/incron.d` directory and remove `incron`
+package. This is also about tidiness. Nothing personal.
+
+If you also want to use incron:
+```puppet
+class { 'cron':
+  use_incron => true
 }
 ```
-This will create a `/etc/cron.d/job_my-backup` file with a job that will run every minute.
-That may actually be quite an overkill for your backup script, so make sure you read on
-for customizations (-
+This will also start managing `/etc/incron.d` directory.
+**WARNING**: Just as with cron usage, this will remove all files under `/etc/incron.d` directory unless they are managed.
 
 ## Usage
 
-Usually there is no need to `include cron`, unless you want to specify custom permissions
-for `/etc/cron.d` directory. If so, start out by doing
-```puppet
-class { 'cron':
-  dir_mode => '0750'
-}
-```
+All interactions with cron jobs should be done using `cron::job` resource.
+
+To install and use incron, specify `use_incron => true` as a parameter for `cron` class and then use `cron::incron_job` resource
+to manage incron jobs.
 
 ## Reference
 
-`cron::job` resource has the following defaults:
-```puppet
-define cron::job(
-  $command, # no default, MUST be specified
-  $mode     = '0644',
-  $user     = 'root',
-  $minute   = '*',
-  $hour     = '*',
-  $monthday = '*',
-  $month    = '*',
-  $weekday  = '*',
-) { }
-```
-It is supposed to be as close to the regular Puppet's `cron` resource
-as possible.
+All classes and resources in this module are public.
+
+### Classes
+
+* [`cron`](#cron)
+
+### Resources
+
+* [`cron::job`](#cronjob)
+* [`cron::incron_job`](#cronincronjob)
+
+### Parameters
+
+#### cron
+
+##### `crond_mode`
+
+/etc/cron.d directory permissions
+
+##### `incrond_mode`
+
+/etc/incron.d directory permissions
+
+##### `use_incron`
+
+Whether to also use incron
+
+#### cron::job
+
+##### `command`
+
+Command path to be executed
+
+##### `user`
+
+The user who owns the cron job
+
+##### `minute`
+
+Cron minute
+
+##### `hour`
+
+Cron hour
+
+##### `monthday`
+
+Cron monthday
+
+##### `month`
+
+Cron month
+
+##### `weekday`
+
+Cron weekday
+
+##### `mode`
+
+Permissions for cron job file located in /etc/cron.d
+
+#### cron::incron_job
+
+##### `command`
+
+Command to execute on triggered event
+
+##### `event`
+
+inotify event (either 'IN_CLOSE_WRITE' or 'IN_MOVED_TO')
+
+##### `path`
+
+Path to watched directory
+
+##### `mode`
+
+Permissions for incron job file located in /etc/incron.d
 
 ## Limitations
 
-Although the `cron::job` type checks for Integer boundaries, you're on your own
-if you are using strings for specifying time intervals.
+* although the `cron::job` type checks for Integer boundaries, you're on your own if you are using strings for specifying time intervals.
+* all files in `/etc/cron.d` and `/etc/incron.d` directories that are managed manually are fair play. Don't expect them to go away once
+you start using this module. Hopefully, you won't need to, though.
 
 ## Development
 

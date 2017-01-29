@@ -1,5 +1,9 @@
 # cron class
 #
+# This is the main entry point into all cron- and incron-related resources on
+# the host. And because of its "tidiness", be very careful to manage evertyhing
+# that is needed through this class and related resources.
+#
 # @author Eugene Piven <epiven@gmail.com>
 #
 # @see https://github.com/pegasd/puppet-cron
@@ -7,14 +11,17 @@
 # @example Declaring the cron class
 #   include cron
 #
-# @param dir_mode /etc/cron.d directory mode
-# @param use_incron Whether to also use incron.
-#   Note: When this is off (by default!), the module will keep /etc/incron.d directory clean!
+# @param crond_mode /etc/cron.d directory permissions
+# @param incrond_mode /etc/incron.d directory permissions
+# @param use_incron Whether to also use incron
 class cron (
   String[4, 4] $crond_mode   = '0755',
   String[4, 4] $incrond_mode = '0755',
   Boolean      $use_incron   = false,
 ) {
+
+  Class['cron'] -> Cron::Job <| |>
+  Class['cron'] -> Cron::Incron_job <| |>
 
   file { '/etc/cron.d':
     ensure  => directory,

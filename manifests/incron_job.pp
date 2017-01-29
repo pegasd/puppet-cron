@@ -9,13 +9,14 @@
 #     command => '/usr/local/bin/process_file',
 #   }
 #
-# @param path Path to watched directory
-# @param event inotify event (either 'IN_CLOSE_WRITE' or 'IN_MOVED_TO')
 # @param command Command to execute on triggered event
+# @param event inotify event (either 'IN_CLOSE_WRITE' or 'IN_MOVED_TO')
+# @param path Path to watched directory
+# @param mode Incron job file permissions, which is located at /etc/incron.d/JOB_NAME
 define cron::incron_job (
-  Stdlib::Unixpath                      $path,
-  Enum['IN_CLOSE_WRITE', 'IN_MOVED_TO'] $event,
   String                                $command,
+  Enum['IN_CLOSE_WRITE', 'IN_MOVED_TO'] $event,
+  Stdlib::Unixpath                      $path,
   String[4, 4]                          $mode = '0644',
 ) {
 
