@@ -1,8 +1,7 @@
 require 'beaker-rspec'
 
-install_puppet_agent_on(hosts, {
-  :puppet_agent_version => '1.4.1',
-  :default_action       => 'gem_install',
+install_puppet_on(hosts, {
+  :version => ENV.key?('PUPPET_VERSION') ? ENV['PUPPET_VERSION'] : ['>= 4.4.1']
 })
 
 RSpec.configure do |c|
