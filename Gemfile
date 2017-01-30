@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-puppetversion = ENV.key?('PUPPET_VERSION') ? ENV['PUPPET_VERSION'] : ['= 4.4.1']
+puppetversion = ENV.key?('PUPPET_VERSION') ? ENV['PUPPET_VERSION'] : ['>= 4.4.1']
 
 group :validate do
   gem 'metadata-json-lint', '>= 1.0.0'
