@@ -15,9 +15,9 @@
 # @param incrond_mode /etc/incron.d directory permissions
 # @param use_incron Whether to also use incron
 class cron (
-  Pattern[/[0-7]{4}/] $crond_mode   = '0755',
-  Pattern[/[0-7]{4}/] $incrond_mode = '0755',
-  Boolean             $use_incron   = false,
+  Pattern[/^[0-7]{4}$/] $crond_mode   = '0755',
+  Pattern[/^[0-7]{4}$/] $incrond_mode = '0755',
+  Boolean               $use_incron   = false,
 ) {
 
   Class['cron'] -> Cron::Job <| |>
