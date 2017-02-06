@@ -8,7 +8,7 @@ describe 'cron::job' do
       :command => '/usr/bin/backup',
     } }
 
-    it { is_expected.to compile }
+    it { is_expected.to compile.with_all_deps }
     it { is_expected.to contain_file('/etc/cron.d/backup').with(
       :ensure => :file,
       :owner  => 'root',
@@ -25,7 +25,7 @@ describe 'cron::job' do
       :weekday => '*/2',
     } }
 
-    it { is_expected.to compile }
+    it { is_expected.to compile.with_all_deps }
     it { is_expected.to contain_file('/etc/cron.d/backup').with(
       :ensure => :file,
       :owner  => 'root',
@@ -46,4 +46,5 @@ describe 'cron::job' do
       }.to raise_error(/Error while evaluating.*, got Integer.* at/)
     end
   end
+
 end

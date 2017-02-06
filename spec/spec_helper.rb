@@ -9,4 +9,7 @@ RSpec.configure do |c|
   c.default_facts = {
     :operatingsystem => 'Ubuntu',
   }
+  c.after(:suite) do
+    RSpec::Puppet::Coverage.report!
+  end
 end

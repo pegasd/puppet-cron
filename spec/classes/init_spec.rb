@@ -4,6 +4,7 @@ describe 'cron' do
 
   context 'with default values for all parameters' do
     it { is_expected.to compile.with_all_deps }
+    it { is_expected.to contain_class('cron') }
     it { is_expected.to contain_file('/etc/cron.d').with(
       :ensure  => :directory,
       :owner   => 'root',
@@ -26,6 +27,7 @@ describe 'cron' do
       :use_incron   => true,
     } }
 
+    it { is_expected.to compile.with_all_deps }
     it { is_expected.to contain_file('/etc/cron.d').with(:mode => '0750') }
     it { is_expected.to contain_file('/etc/incron.d').with(:mode => '0750') }
   end
@@ -33,6 +35,7 @@ describe 'cron' do
   context 'with incron enabled' do
     let(:params) { { :use_incron => true } }
 
+    it { is_expected.to compile.with_all_deps }
     it { is_expected.to contain_file('/etc/incron.d').with(
       :ensure  => :directory,
       :owner   => 'root',
