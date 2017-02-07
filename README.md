@@ -139,8 +139,8 @@ Permissions for incron job file located in /etc/incron.d
 * although the `cron::job` type checks for Integer boundaries, you're on your own if you are using strings for specifying time intervals.
 Those will be put into the template as-is.
 * all files in `/etc/cron.d` and `/etc/incron.d` directories that are managed manually through Puppet are fair play. Don't expect them to
-go away once you start using this module. Hopefully, you won't need to, though.
-* regular cron resources must be cleaned out using `ensure => absent` prior to using this module.
+go away once you start using this module. Hopefully, you won't need to manage them anymore, though.
+* regular cron resources must be cleaned out using `ensure => absent` prior to using this module. Otherwise you'll get duplicates.
 
 ## Development
 

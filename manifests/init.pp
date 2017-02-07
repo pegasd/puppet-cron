@@ -11,6 +11,8 @@
 # @example Declaring the cron class
 #   include cron
 #
+#   class { 'cron': use_incron => true }
+#
 # @param crond_mode /etc/cron.d directory permissions
 # @param incrond_mode /etc/incron.d directory permissions
 # @param use_incron Whether to also use incron
