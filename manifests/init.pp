@@ -11,61 +11,30 @@
 # @example Declaring the cron class
 #   include cron
 #
-#   class { 'cron': use_incron => true }
+#   class { 'cron': dir_mode = 0700 }
 #
-# @param crond_mode /etc/cron.d directory permissions
-# @param incrond_mode /etc/incron.d directory permissions
-# @param use_incron Whether to also use incron
+# @param ensure Whether to enable or disable cron on the system.
+# @param dir_mode Permissions for /etc/cron.d directory.
 class cron (
-  Pattern[/^[0-7]{4}$/] $crond_mode   = '0755',
-  Pattern[/^[0-7]{4}$/] $incrond_mode = '0755',
-  Boolean               $use_incron   = false,
+  Enum[present, absent]   $ensure   = present,
+  Pattern[/^07[057]{2}$/] $dir_mode = '0755',
 ) {
 
-  Class['cron'] -> Cron::Job <| |>
-  Class['cron'] -> Cron::Incron_job <| |>
 
-  file { '/etc/cron.d':
-    ensure  => directory,
-    recurse => true,
-    purge   => true,
-    force   => true,
-    owner   => 'root',
-    group   => 'root',
-    mode    => $crond_mode,
-  }
+  if $ensure == present {
 
-  if $use_incron {
-    file { '/etc/incron.d':
-      ensure  => directory,
-      recurse => true,
-      purge   => true,
-      force   => true,
-      owner   => 'root',
-      group   => 'root',
-      mode    => $incrond_mode,
-    }
+    contain cron::install
+    contain cron::config
+    contain cron::service
 
-    package { 'incron':
-      ensure => present,
-    }
+    Class['::cron::install'] ->
+    Class['::cron::config'] ~>
+    Class['::cron::service']
 
-    service { 'incron':
-      ensure     => running,
-      enable     => true,
-      hasrestart => true,
-      hasstatus  => true,
-      require    => Package['incron'],
-    }
   } else {
-    file { '/etc/incron.d':
-      ensure => absent,
-      force  => true,
-    }
 
-    package { 'incron':
-      ensure => absent,
-    }
+    contain cron::remove
+
   }
 
 }

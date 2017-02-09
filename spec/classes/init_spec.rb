@@ -36,7 +36,7 @@ describe 'cron' do
   end
 
   context 'with ensure => absent' do
-    let(:params) { { :ensure => :absent } }
+    let(:params) { { :ensure => 'absent' } }
 
     it { is_expected.to compile.with_all_deps }
 
@@ -45,7 +45,7 @@ describe 'cron' do
     it { is_expected.not_to contain_class('cron::service') }
 
     it { is_expected.to contain_file('/etc/cron.d').with(
-      :ensure => absent,
+      :ensure => :absent,
       :force  => true,
     ) }
     it { is_expected.to contain_package('cron').with_ensure(:absent) }
