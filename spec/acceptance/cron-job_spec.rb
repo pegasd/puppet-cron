@@ -5,7 +5,7 @@ describe 'tidy cron::job' do
   describe 'first run with two cron::job resources' do
     pp = <<-EOS
     
-class { 'cron': crond_mode => '0750' }
+class { 'cron': dir_mode => '0750' }
 
 cron::job {
   'backup':
