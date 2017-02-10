@@ -1,6 +1,6 @@
 # cron class
 #
-# This is the main entry point into all cron- and incron-related resources on
+# This is the main entry point into all cron-related resources on
 # the host. And because of its "tidiness", be very careful to manage evertyhing
 # that is needed through this class and related resources.
 #

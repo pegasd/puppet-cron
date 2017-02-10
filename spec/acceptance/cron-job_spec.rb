@@ -68,9 +68,6 @@ cron::job { 'backup':
       it { is_expected.to_not exist }
     end
 
-    describe file('/etc/incron.d') do
-      it { is_expected.to_not exist }
-    end
   end
 
 end
