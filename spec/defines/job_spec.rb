@@ -38,8 +38,8 @@ describe 'cron::job' do
 
   context 'with minute => 66' do
     let(:params) { {
-      :command => '/usr/bin/backup',
-      :minute  => 66,
+      command: '/usr/bin/backup',
+      minute:  66,
     } }
 
     it do

@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'cron' do
-
   context 'with default values for all parameters' do
     it { is_expected.to compile.with_all_deps }
 
@@ -54,8 +53,8 @@ describe 'cron' do
     it { is_expected.not_to contain_class('cron::service') }
 
     it { is_expected.to contain_file('/etc/cron.d').with(
-      :ensure => :absent,
-      :force  => true,
+      ensure: :absent,
+      force:  true,
     ) }
     it { is_expected.to contain_package('cron').with_ensure(:absent) }
   end
