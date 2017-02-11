@@ -17,8 +17,8 @@ cron::job {
     EOS
 
     it 'is idempotent' do
-      apply_manifest(pp, :catch_failures => true)
-      apply_manifest(pp, :catch_changes => true)
+      apply_manifest(pp, catch_failures: true)
+      apply_manifest(pp, catch_changes: true)
     end
 
     describe file('/etc/cron.d') do
@@ -53,8 +53,8 @@ cron::job { 'backup':
     EOS
 
     it 'is idempotent' do
-      apply_manifest(pp, :catch_failures => true)
-      apply_manifest(pp, :catch_changes => true)
+      apply_manifest(pp, catch_failures: true)
+      apply_manifest(pp, catch_changes: true)
     end
 
     describe file('/etc/cron.d') do
