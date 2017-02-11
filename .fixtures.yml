@@ -1,4 +1,5 @@
 fixtures:
   symlinks:
     cron: "#{source_dir}"
+    type_class: "#{source_dir}/spec/.fixtures/type_class"
     stdlib: "#{source_dir}/.dependencies/stdlib"
