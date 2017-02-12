@@ -5,5 +5,6 @@
 type Cron::Weekday = Variant[
   Integer[0, 6],
   Array[Integer[0, 6]],
-  Enum['*'],
+  # Supports expressions like *, */2, 0-4/2, 0-4
+  Pattern[/^(\*|[0-6]-[0-6])(\/[2-6])?$/],
 ]

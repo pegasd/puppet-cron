@@ -23,7 +23,7 @@ describe 'cron::job' do
       command: '/usr/bin/backup',
       minute:  [50, 20],
       hour:    [1, 5],
-      weekday: '*',
+      weekday: '*/2',
     } }
 
     it { is_expected.to compile.with_all_deps }
@@ -32,7 +32,7 @@ describe 'cron::job' do
       owner:   'root',
       group:   'root',
       mode:    '0644',
-      content: /^50,20 1,5 \* \* \*\ root \/usr\/bin\/backup$/
+      content: /^50,20 1,5 \* \* \*\/2\ root \/usr\/bin\/backup$/
     ) }
   end
 
@@ -42,11 +42,7 @@ describe 'cron::job' do
       minute:  66,
     } }
 
-    it do
-      expect {
-        is_expected.to compile
-      }.to raise_error(/Error while evaluating.*, got Integer.* at/)
-    end
+    it { is_expected.to compile.and_raise_error(/Error while evaluating.*, got Integer.* at/) }
   end
 
 end
