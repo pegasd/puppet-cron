@@ -20,8 +20,8 @@ describe 'type_class::weekday', type: :class do
       end
     end
   end
-  describe 'accept only *' do
-    %w(*).each do |value|
+  describe 'accept expressions like *, */2, 0-4/2, 0-4' do
+    %w(* 0-4 5-6 */2 0-4/2).each do |value|
       context "with #{value}" do
         let(:params) { { value: value } }
         it { is_expected.to compile }
@@ -30,8 +30,7 @@ describe 'type_class::weekday', type: :class do
   end
   describe 'reject incorrect values' do
     [
-      '*/*', '*/0', '*/1', '1', '6', '0-4',
-      -1, 7, 34, '1-4/2', '*/2',
+      '*/*', '*/0', '*/1', '1', '6', -1, 7, 34
     ].each do |value|
       context "with #{value}" do
         let(:params) { { value: value } }
