@@ -33,7 +33,7 @@ define cron::job (
     Array[Variant[Integer[1, 12], String]]] $month    = '*',
   Variant[Integer[0, 6], String,
     Array[Variant[Integer[0, 6], String]]]  $weekday  = '*',
-  Pattern[/^[0-7]{4}$/]                     $mode     = '0644',
+  Pattern[/^0[0-7]{3}$/]                    $mode     = '0644',
 ) {
 
   file { "/etc/cron.d/${title}":
