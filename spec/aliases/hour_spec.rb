@@ -22,7 +22,7 @@ describe 'type_class::hour', type: :class do
       end
     end
   end
-  describe 'accept values similar to *, */2, 1-23/2, 11-23' do
+  describe 'accept expressions like *, */2, 1-23/2, 11-23' do
     %w(* 0-5 11-23 5-11 1-23 19-22 */2 */23 */11 1-23/2 12-23/3 2-20/4).each do |value|
       context "with #{value}" do
         let(:params) { { value: value } }
