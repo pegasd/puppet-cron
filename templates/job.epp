@@ -8,11 +8,12 @@
   # This is needed so we support both single integers/strings
   # and existing arrays.
 
-  $_minute   = join(any2array($minute), ',')
-  $_hour     = join(any2array($hour), ',')
-  $_monthday = join(any2array($monthday), ',')
-  $_month    = join(any2array($month), ',')
-  $_weekday  = join(any2array($weekday), ',')
+  $_minute   = join(sort(unique(any2array($minute))), ',')
+  $_hour     = join(sort(unique(any2array($hour))), ',')
+  $_monthday = join(sort(unique(any2array($monthday))), ',')
+  $_month    = join(sort(unique(any2array($month))), ',')
+  $_weekday  = join(sort(unique(any2array($weekday))), ',')
 
+  $cron_time = join([ $_minute, $_hour, $_monthday, $_month, $_weekday ], ' ')
 -%>
-<%= join([ $_minute, $_hour, $_monthday, $_month, $_weekday ], ' ') %> <%= $user %> <%= $command %>
+<%= $cron_time %> <%= $user %> <%= $command %>

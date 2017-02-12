@@ -21,8 +21,8 @@ describe 'cron::job' do
   context 'with custom launch time' do
     let(:params) { {
       command: '/usr/bin/backup',
-      minute:  [50, 20],
-      hour:    [1, 5],
+      minute:  [50, 20],  # This should be sorted to '20,50'
+      hour:    [1, 5, 1], # This should be uniq'd to '1,5'
       weekday: '*/2',
     } }
 
@@ -32,7 +32,7 @@ describe 'cron::job' do
       owner:   'root',
       group:   'root',
       mode:    '0644',
-      content: /^50,20 1,5 \* \* \*\/2\ root \/usr\/bin\/backup$/
+      content: /^20,50 1,5 \* \* \*\/2\ root \/usr\/bin\/backup$/
     ) }
   end
 
