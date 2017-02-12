@@ -4,7 +4,7 @@ describe 'type_class::minute', type: :class do
   describe 'accept integer values' do
     [0, 1, 02, 15, 27, 34, 59].each do |value|
       context "with #{value}" do
-        let(:params) { { minute: value } }
+        let(:params) { { value: value } }
         it { is_expected.to compile }
       end
     end
@@ -18,7 +18,7 @@ describe 'type_class::minute', type: :class do
       [1, 2, 3, 4]
     ].each do |value|
       context "with #{value}" do
-        let(:params) { { minute: value } }
+        let(:params) { { value: value } }
         it { is_expected.to compile }
       end
     end
@@ -26,7 +26,7 @@ describe 'type_class::minute', type: :class do
   describe 'accept values similar to *, */5, 1-59/5, 10-40' do
     %w(* */5 */10 */59 */3 1-59/5 10-40 2-59/10).each do |value|
       context "with #{value}" do
-        let(:params) { { minute: value } }
+        let(:params) { { value: value } }
         it { is_expected.to compile }
       end
     end
@@ -37,8 +37,8 @@ describe 'type_class::minute', type: :class do
       60, -1, '2-59/60', '*/*', '34', '*/*'
     ].each do |value|
       context "with #{value}" do
-        let(:params) { { minute: value } }
-        it { is_expected.to compile.and_raise_error(/parameter 'minute' expects a value of type/) }
+        let(:params) { { value: value } }
+        it { is_expected.to compile.and_raise_error(/parameter 'value' expects a value of type/) }
       end
     end
   end
