@@ -17,6 +17,7 @@ end
 
 group :unit do
   gem 'puppetlabs_spec_helper'
-  gem 'puppet', puppet_version
+  gem 'rspec-puppet-facts'
   gem 'librarian-puppet'
+  gem 'puppet', puppet_version
 end
