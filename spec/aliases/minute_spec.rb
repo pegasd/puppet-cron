@@ -24,7 +24,7 @@ describe 'type_class::minute', type: :class do
     end
   end
   describe 'accept *, */5, and 1-59/5 type values' do
-    %w(* */5 */10 */59 */3 1-59/5 2-59/10).each do |value|
+    %w(* */5 */10 */59 */3 1-59/5 10-40 2-59/10).each do |value|
       context "with #{value}" do
         let(:params) { { minute: value } }
         it { is_expected.to compile }
@@ -33,8 +33,8 @@ describe 'type_class::minute', type: :class do
   end
   describe 'reject incorrect values' do
     [
-      '*/0', '*/1', '*/60', '60', 60, -1,
-      '2-59/60', '*/*', '34'
+      '*/0', '*/1', '*/60', '60', '10-400',
+      60, -1, '2-59/60', '*/*', '34', '*/*'
     ].each do |value|
       context "with #{value}" do
         let(:params) { { minute: value } }
