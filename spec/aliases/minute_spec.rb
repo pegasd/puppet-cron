@@ -23,7 +23,7 @@ describe 'type_class::minute', type: :class do
       end
     end
   end
-  describe 'accept *, */5, and 1-59/5 type values' do
+  describe 'accept values similar to *, */5, 1-59/5, 10-40' do
     %w(* */5 */10 */59 */3 1-59/5 10-40 2-59/10).each do |value|
       context "with #{value}" do
         let(:params) { { minute: value } }
