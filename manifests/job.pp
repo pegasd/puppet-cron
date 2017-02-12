@@ -21,19 +21,14 @@
 # @param weekday Cron weekday
 # @param mode Cron job file permissions, which is located at /etc/cron.d/JOB_NAME
 define cron::job (
-  String                                    $command,
-  String                                    $user     = 'root',
-  Variant[Integer[0, 59], String,
-    Array[Variant[Integer[0, 59], String]]] $minute   = '*',
-  Variant[Integer[0, 23], String,
-    Array[Variant[Integer[0, 23], String]]] $hour     = '*',
-  Variant[Integer[1, 31], String,
-    Array[Variant[Integer[1, 31], String]]] $monthday = '*',
-  Variant[Integer[1, 12], String,
-    Array[Variant[Integer[1, 12], String]]] $month    = '*',
-  Variant[Integer[0, 6], String,
-    Array[Variant[Integer[0, 6], String]]]  $weekday  = '*',
-  Pattern[/^0[0-7]{3}$/]                    $mode     = '0644',
+  String                 $command,
+  String                 $user     = 'root',
+  Cron::Minute           $minute   = '*',
+  Cron::Hour             $hour     = '*',
+  Cron::Monthday         $monthday = '*',
+  Cron::Month            $month    = '*',
+  Cron::Weekday          $weekday  = '*',
+  Pattern[/^0[0-7]{3}$/] $mode     = '0644',
 ) {
 
   file { "/etc/cron.d/${title}":

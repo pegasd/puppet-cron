@@ -21,9 +21,9 @@ describe 'cron::job' do
   context 'with custom launch time' do
     let(:params) { {
       command: '/usr/bin/backup',
-      minute:  [50, '20'],
+      minute:  [50, 20],
       hour:    [1, 5],
-      weekday: '*/2',
+      weekday: '*',
     } }
 
     it { is_expected.to compile.with_all_deps }
@@ -32,7 +32,7 @@ describe 'cron::job' do
       owner:   'root',
       group:   'root',
       mode:    '0644',
-      content: /^50,20 1,5 \* \* \*\/2 root \/usr\/bin\/backup$/
+      content: /^50,20 1,5 \* \* \*\ root \/usr\/bin\/backup$/
     ) }
   end
 
