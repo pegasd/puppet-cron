@@ -1,7 +1,14 @@
-#
-# This file is managed by Puppet
-#
-## <%= $name %> Cron Job
+<%- |
+  String         $name,
+  Cron::Minute   $minute,
+  Cron::Hour     $hour,
+  Cron::Monthday $monthday,
+  Cron::Month    $month,
+  Cron::Weekday  $weekday,
+  String         $user,
+  String         $command,
+| -%>
+# <%= $name %> cron job
 
 <%
   # Convert to array first and then join the result.
