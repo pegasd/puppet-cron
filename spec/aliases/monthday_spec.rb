@@ -31,12 +31,13 @@ describe 'type_class::monthday', type: :class do
   end
   describe 'reject incorrect values' do
     [
-      '*/2', '*/5', '00-05', '0-05', '*/0',
+      '*/2', '*/5', '00-05', '0-05', '*/0', [], [''], '',
       '*/1', '*/24', '24', -1, 32, 0, '2-23/24', '*/*', '34',
     ].each do |value|
       context "with #{value}" do
         let(:params) { { value: value } }
-        it { is_expected.to compile.and_raise_error(/parameter 'value' expects a value of type/) }
+
+        it { is_expected.to compile.and_raise_error(/parameter 'value'.*expects/) }
       end
     end
   end

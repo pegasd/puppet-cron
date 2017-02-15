@@ -38,8 +38,10 @@ describe 'cron::cron2string' do
       end
     end
 
-    context 'fail with arrays of strings' do
+    context 'fail with arrays of strings or an empty string' do
       [
+        '',
+        %w(),
         %w(0),
         %w(1),
         %w(1 2 3),
