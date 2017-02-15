@@ -38,5 +38,18 @@ describe 'cron::cron2string' do
       end
     end
 
+    context 'fail with arrays of strings' do
+      [
+        %w(0),
+        %w(1),
+        %w(1 2 3),
+        %w(0 12 24 36 48),
+      ].each do |cron_value|
+
+        it { is_expected.to run.with_params(cron_value).and_raise_error(ArgumentError) }
+
+      end
+    end
+
   end
 end
