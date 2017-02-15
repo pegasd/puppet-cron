@@ -33,7 +33,7 @@ This will start managing `/etc/cron.d` directory.
 **WARNING #1**: Unless you manage files with Puppet in this directory, they WILL be removed! This is the major idea behind the
 tidiness of this module.
 
-**WARNING #2***: regular cron resources must be cleaned out using `ensure => absent` prior to using this module. Otherwise you'll get 
+**WARNING #2**: regular cron resources must be cleaned out using `ensure => absent` prior to using this module. Otherwise you'll get 
 duplicates.
 
 ## Usage
