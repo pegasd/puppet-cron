@@ -11,16 +11,17 @@
 # <%= $name %> cron job
 
 <%
-  # Convert to array first and then join the result.
-  # This is needed so we support both single integers/strings
-  # and existing arrays.
 
-  $_minute   = join(sort(unique(any2array($minute))), ',')
-  $_hour     = join(sort(unique(any2array($hour))), ',')
-  $_monthday = join(sort(unique(any2array($monthday))), ',')
-  $_month    = join(sort(unique(any2array($month))), ',')
-  $_weekday  = join(sort(unique(any2array($weekday))), ',')
+  # cron::cron2array
+  # throws away duplicates and sorts the array
 
-  $cron_time = join([ $_minute, $_hour, $_monthday, $_month, $_weekday ], ' ')
+  $cron_time = join( [
+      cron::cron2string($minute),
+      cron::cron2string($hour),
+      cron::cron2string($monthday),
+      cron::cron2string($month),
+      cron::cron2string($weekday),
+  ], ' ')
+
 -%>
 <%= $cron_time %> <%= $user %> <%= $command %>
