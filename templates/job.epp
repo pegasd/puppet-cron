@@ -12,10 +12,10 @@
 
 <%
 
-  # cron::cron2array
+  # cron::cron2string
   # throws away duplicates and sorts the array
 
-  $cron_time = join( [
+  $cron_time = join([
       cron::cron2string($minute),
       cron::cron2string($hour),
       cron::cron2string($monthday),
