@@ -48,6 +48,13 @@ All interactions with cron jobs should be done using `cron::job` resource.
 
 * [`cron`](#cron)
 
+#### Private classes
+
+* [`cron::install`](#croninstall)
+* [`cron::config`](#cronconfig)
+* [`cron::service`](#cronservice)
+* [`cron::remove`](#cronremove)
+
 ### Resources
 
 * [`cron::job`](#cronjob)
@@ -55,6 +62,10 @@ All interactions with cron jobs should be done using `cron::job` resource.
 ### Parameters
 
 #### cron
+
+##### `ensure`
+
+Whether cron should exist on host or not
 
 ##### `dir_mode`
 
