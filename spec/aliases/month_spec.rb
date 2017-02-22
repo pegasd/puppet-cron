@@ -22,8 +22,8 @@ describe 'type_class::month', type: :class do
       end
     end
   end
-  describe 'accept only *' do
-    %w(*).each do |value|
+  describe 'accept expressions like * and */2' do
+    %w(* */2 */3).each do |value|
       context "with #{value}" do
         let(:params) { { value: value } }
         it { is_expected.to compile }
@@ -33,7 +33,7 @@ describe 'type_class::month', type: :class do
   describe 'reject incorrect values' do
     [
       '*/*', '*/0', '*/1', '1', '12', '1-12',
-      '1-12/2', '*/2', -1, 0, 13, 34, [], [''], ''
+      '1-12/2', -1, 0, 13, 34, [], [''], ''
     ].each do |value|
       context "with #{value}" do
         let(:params) { { value: value } }
