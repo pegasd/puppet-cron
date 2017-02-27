@@ -77,27 +77,27 @@ This will make `/etc/cron.d/pkg_backup` immune, but keep the content of the file
 
 #### Public classes
 
-* [`cron`](#cron): Main entry point, must include to start managing
+* [`cron`](#cron): Main entry point, must include to start managing cron jobs.
 
 #### Private classes
 
-* [`cron::install`](#croninstall)
-* [`cron::config`](#cronconfig)
-* [`cron::service`](#cronservice)
-* [`cron::remove`](#cronremove)
+* `cron::install`
+* `cron::config`
+* `cron::service`
+* `cron::remove`
 
 ### Defined Resource Types
 
-* [`cron::job`](#cronjob): 
-* [`cron::whitelist`](#whitelist)
+* [`cron::job`](#cronjob)
+* [`cron::whitelist`](#cronwhitelist)
 
 ### Custom Types
 
-* [`Cron::Minute`](#cronminute)
-* [`Cron::Hour`](#cronhour)
-* [`Cron::Monthday`](#cronmonthday)
-* [`Cron::Month`](#cronmonth)
-* [`Cron::Weekday`](#cronweekday)
+* `Cron::Minute`
+* `Cron::Hour`
+* `Cron::Monthday`
+* `Cron::Month`
+* `Cron::Weekday`
 
 ### Parameters
 
