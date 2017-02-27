@@ -34,11 +34,11 @@ define cron::job (
     ensure   => present,
     user     => $user,
     command  => $command,
-    minute   => cron::cron2string($minute),
-    hour     => cron::cron2string($hour),
-    monthday => cron::cron2string($monthday),
-    month    => cron::cron2string($month),
-    weekday  => cron::cron2string($weekday),
+    minute   => cron::prep4cron($minute),
+    hour     => cron::prep4cron($hour),
+    monthday => cron::prep4cron($monthday),
+    month    => cron::prep4cron($month),
+    weekday  => cron::prep4cron($weekday),
   }
 
 }
