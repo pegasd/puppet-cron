@@ -22,7 +22,7 @@ describe 'type_class::monthday', type: :class do
     end
   end
   describe 'accept only *' do
-    %w(*).each do |value|
+    %w(* */2 */30).each do |value|
       context "with #{value}" do
         let(:params) { { value: value } }
         it { is_expected.to compile }
@@ -31,8 +31,12 @@ describe 'type_class::monthday', type: :class do
   end
   describe 'reject incorrect values' do
     [
-      '*/2', '*/5', '00-05', '0-05', '*/0', [], [''], '',
-      '*/1', '*/24', '24', -1, 32, 0, '2-23/24', '*/*', '34',
+      '00-05', '0-05',
+      [], [''], '',
+      '*/0', '*/1', '*/31',
+      '1', '30', '34', '-1', '0',
+      -1, 32, 0,
+      '2-23/24', '*/*',
     ].each do |value|
       context "with #{value}" do
         let(:params) { { value: value } }
