@@ -28,24 +28,17 @@ define cron::job (
   Cron::Monthday         $monthday = '*',
   Cron::Month            $month    = '*',
   Cron::Weekday          $weekday  = '*',
-  Pattern[/^0[0-7]{3}$/] $mode     = '0644',
 ) {
 
-  file { "/etc/cron.d/${title}":
-    ensure  => file,
-    owner   => 'root',
-    group   => 'root',
-    mode    => $mode,
-    content => epp('cron/job.epp', {
-      name     => $title,
-      minute   => $minute,
-      hour     => $hour,
-      monthday => $monthday,
-      month    => $month,
-      weekday  => $weekday,
-      user     => $user,
-      command  => $command,
-    }),
+  cron { $title:
+    ensure   => present,
+    user     => $user,
+    command  => $command,
+    minute   => cron::cron2string($minute),
+    hour     => cron::cron2string($hour),
+    monthday => cron::cron2string($monthday),
+    month    => cron::cron2string($month),
+    weekday  => cron::cron2string($weekday),
   }
 
 }
