@@ -6,9 +6,6 @@
 
 1. [Description](#description)
 1. [Setup - The basics of getting started with cron](#setup)
-    * [What cron affects](#what-cron-affects)
-    * [Setup requirements](#setup-requirements)
-    * [Beginning with cron](#beginning-with-cron)
 1. [Usage - Configuration options and additional functionality](#usage)
 1. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
 1. [Limitations - OS compatibility, etc.](#limitations)
@@ -151,6 +148,7 @@ Permissions for cron job file located in /etc/cron.d
 
 ## Limitations
 
+* Made for and tested only on Ubuntu
 * `Cron::*` custom types are strict!
 * all files in `/etc/cron.d` directory that are managed manually through Puppet are fair play. Don't expect them to
 go away once you start using this module. Hopefully, you won't need to manage them anymore, though.
