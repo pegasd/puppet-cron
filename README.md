@@ -16,9 +16,9 @@
 
 ## Description
 
-This module is an interface for cron jobs with the main idea to be tidy. That means that any jobs that are not managed should not
-exist. Once you switch all cron jobs to this module, simply removing the definition is sufficient without worrying about setting
-`ensure => disable` and waiting for changes to propagate.
+This module is an interface for cron jobs with the main idea to be tidy. That means that any jobs that are not managed
+should not exist. Once you switch all cron jobs to this module, simply removing the definition is sufficient without
+worrying about setting `ensure => disable` and waiting for changes to propagate.
 
 ## Setup
 
@@ -28,7 +28,8 @@ To start out with cron:
 ```puppet
 include cron
 ```
-This will start managing `/etc/cron.d` directory.
+This will start managing `/etc/cron.d` directory, and also make sure we have the package installed and the service is
+running.
 
 **WARNING #1**: Unless you manage files with Puppet in this directory, they WILL be removed! This is the major idea behind the
 tidiness of this module.
@@ -38,7 +39,37 @@ duplicates.
 
 ## Usage
 
-All interactions with cron jobs should be done using `cron::job` resource.
+### Custom cron.d permissions
+```puppet
+class { '::cron':
+  dir_mode => '0750', # default: '0755'
+}
+```
+
+### Wipe it all out
+```puppet
+class { '::cron': ensure => absent }
+```
+
+### cron::job example
+```puppet
+cron::job { 'backup':
+  user     => 'backup', # default: 'root'
+  minute   => '3-59/5',
+  hour     => '9-17',
+  monthday => '*/2',
+  month    => [ 4, 8, 12 ],
+  weekday  => '0-4',
+}
+```
+NB: My custom types are a lot stricter than default cron types. Careful - this may break existing cron jobs you are
+converting.
+
+### cron::whitelist example
+```puppet
+cron::whitelist { 'pkg_backup': }
+```
+This will make `/etc/cron.d/pkg_backup` immune, but keep the content of the file unmanaged.
 
 ## Reference
 
@@ -46,7 +77,7 @@ All interactions with cron jobs should be done using `cron::job` resource.
 
 #### Public classes
 
-* [`cron`](#cron)
+* [`cron`](#cron): Main entry point, must include to start managing
 
 #### Private classes
 
@@ -55,9 +86,18 @@ All interactions with cron jobs should be done using `cron::job` resource.
 * [`cron::service`](#cronservice)
 * [`cron::remove`](#cronremove)
 
-### Resources
+### Defined Resource Types
 
-* [`cron::job`](#cronjob)
+* [`cron::job`](#cronjob): 
+* [`cron::whitelist`](#whitelist)
+
+### Custom Types
+
+* [`Cron::Minute`](#cronminute)
+* [`Cron::Hour`](#cronhour)
+* [`Cron::Monthday`](#cronmonthday)
+* [`Cron::Month`](#cronmonth)
+* [`Cron::Weekday`](#cronweekday)
 
 ### Parameters
 
@@ -105,15 +145,18 @@ Cron weekday
 
 Permissions for cron job file located in /etc/cron.d
 
+#### cron::whitelist
+
+`cron::whitelist` does not have any arguments. Just use a unique name and we'll find it in `/etc/cron.d`
+
 ## Limitations
 
-* although the `cron::job` type checks for Integer boundaries, you're on your own if you are using strings for specifying time intervals.
-Those will be put into the template as-is.
+* `Cron::*` custom types are strict!
 * all files in `/etc/cron.d` directory that are managed manually through Puppet are fair play. Don't expect them to
 go away once you start using this module. Hopefully, you won't need to manage them anymore, though.
-* regular cron resources must be cleaned out using `ensure => absent` prior to using this module. Otherwise you'll get duplicates.
+* the warnings from [Beginning with cron](#beginningwithcron) apply
 
 ## Development
 
-I'll be happy to know you're using this for one reason or the other. And if you want to
-contribute - even better. Feel free to submit a pull request.
+I'll be happy to know you're using this for one reason or another. And if you want to contribute - even better!
+Feel free to submit a pull request.
