@@ -9,13 +9,17 @@ describe 'cron::job' do
     } }
 
     it { is_expected.to compile.with_all_deps }
-    it { is_expected.to contain_file('/etc/cron.d/backup').with(
-      ensure:  :file,
-      owner:   'root',
-      group:   'root',
-      mode:    '0644',
-      content: /^\* \* \* \* \* root \/usr\/bin\/backup$/)
-    }
+    it { is_expected.not_to contain_file('/etc/cron.d/backup') }
+    it { is_expected.to contain_cron('backup').with(
+      ensure:   :present,
+      user:     'root',
+      command:  '/usr/bin/backup',
+      minute:   '*',
+      hour:     '*',
+      month:    '*',
+      monthday: '*',
+      weekday:  '*',
+    ) }
   end
 
   context 'with custom launch time' do
@@ -27,12 +31,16 @@ describe 'cron::job' do
     } }
 
     it { is_expected.to compile.with_all_deps }
-    it { is_expected.to contain_file('/etc/cron.d/backup').with(
-      ensure:  :file,
-      owner:   'root',
-      group:   'root',
-      mode:    '0644',
-      content: /^20,50 1,5 \* \* \*\/2\ root \/usr\/bin\/backup$/
+    it { is_expected.not_to contain_file('/etc/cron.d/backup') }
+    it { is_expected.to contain_cron('backup').with(
+      ensure:   :present,
+      user:     'root',
+      command:  '/usr/bin/backup',
+      minute:   '20,50',
+      hour:     '1,5',
+      month:    '*',
+      monthday: '*',
+      weekday:  '*/2',
     ) }
   end
 
@@ -43,12 +51,16 @@ describe 'cron::job' do
     } }
 
     it { is_expected.to compile.with_all_deps }
-    it { is_expected.to contain_file('/etc/cron.d/backup').with(
-      ensure:  :file,
-      owner:   'root',
-      group:   'root',
-      mode:    '0644',
-      content: /^\* \* \* \* \* pegas \/usr\/bin\/backup$/
+    it { is_expected.not_to contain_file('/etc/cron.d/backup') }
+    it { is_expected.to contain_cron('backup').with(
+      ensure:   :present,
+      user:     'pegas',
+      command:  '/usr/bin/backup',
+      minute:   '*',
+      hour:     '*',
+      month:    '*',
+      monthday: '*',
+      weekday:  '*',
     ) }
   end
 
