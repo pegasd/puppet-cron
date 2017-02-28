@@ -21,24 +21,11 @@ cron::job {
       apply_manifest(pp, catch_changes: true)
     end
 
-    describe file('/etc/cron.d') do
-      it { is_expected.to be_directory }
-      it { is_expected.to be_mode 750 }
-      it { is_expected.to be_owned_by 'root' }
-      it { is_expected.to be_grouped_into 'root' }
+    describe cron do
+      it { is_expected.to have_entry '* * * * * /usr/bin/backup' }
+      it { is_expected.to have_entry '* * * * * /usr/bin/other-backup' }
     end
-    describe file('/etc/cron.d/backup') do
-      it { is_expected.to be_file }
-      it { is_expected.to be_mode 644 }
-      it { is_expected.to be_owned_by 'root' }
-      it { is_expected.to be_grouped_into 'root' }
-    end
-    describe file('/etc/cron.d/other-backup') do
-      it { is_expected.to be_file }
-      it { is_expected.to be_mode 644 }
-      it { is_expected.to be_owned_by 'root' }
-      it { is_expected.to be_grouped_into 'root' }
-    end
+
   end
 
   describe 'second run with one of the resources removed' do
@@ -57,15 +44,9 @@ cron::job { 'backup':
       apply_manifest(pp, catch_changes: true)
     end
 
-    describe file('/etc/cron.d') do
-      it { is_expected.to be_directory }
-      it { is_expected.to be_mode 755 }
-    end
-    describe file('/etc/cron.d/backup') do
-      it { is_expected.to be_file }
-    end
-    describe file('/etc/cron.d/other-backup') do
-      it { is_expected.to_not exist }
+    describe cron do
+      it { is_expected.to have_entry '* * * * * /usr/bin/backup' }
+      it { is_expected.not_to have_entry '* * * * * /usr/bin/other-backup' }
     end
 
   end
