@@ -16,10 +16,8 @@
 # @param ensure Whether to enable or disable cron on the system.
 # @param dir_mode Permissions for /etc/cron.d directory.
 class cron (
-  Enum[present, absent]   $ensure   = present,
-  Pattern[/^07[057]{2}$/] $dir_mode = '0755',
+  Enum[present, absent] $ensure = present,
 ) {
-
 
   if $ensure == present {
 
