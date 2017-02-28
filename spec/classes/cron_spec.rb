@@ -20,7 +20,10 @@ describe 'cron' do
         end
 
         describe 'cron::config' do
-          it { is_expected.to contain_file('/etc/cron.d').with(
+          it { is_expected.to contain_resources('cron').with(
+            purge: true,
+          )}
+          it { is_expected.not_to contain_file('/etc/cron.d').with(
             ensure:  :directory,
             owner:   'root',
             group:   'root',
@@ -38,13 +41,6 @@ describe 'cron' do
         end
       end
 
-      context 'with custom dir_mode' do
-        let(:params) { { dir_mode: '0700' } }
-
-        it { is_expected.to compile.with_all_deps }
-        it { is_expected.to contain_file('/etc/cron.d').with(mode: '0700') }
-      end
-
       context 'with ensure => absent' do
         let(:params) { { ensure: 'absent' } }
 
@@ -56,7 +52,7 @@ describe 'cron' do
         it { is_expected.not_to contain_class('cron::config') }
         it { is_expected.not_to contain_class('cron::service') }
 
-        it { is_expected.to contain_file('/etc/cron.d').with(
+        it { is_expected.not_to contain_file('/etc/cron.d').with(
           ensure: :absent,
           force:  true,
         ) }
