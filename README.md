@@ -25,21 +25,16 @@ To start out with cron:
 ```puppet
 include cron
 ```
-This will start managing `/etc/cron.d` directory, and also make sure we have the package installed and the service is
-running.
+This will start purging all unmanaged cron resources and also make sure the 'cron' package is installed and the service is running.
 
-**WARNING #1**: Unless you manage files with Puppet in this directory, they WILL be removed! This is the major idea behind the
-tidiness of this module.
-
-**WARNING #2**: regular cron resources must be cleaned out using `ensure => absent` prior to using this module. Otherwise you'll get 
-duplicates.
+**WARNING #1**: All existing unmanaged cron jobs will be purged!
 
 ## Usage
 
-### Custom cron.d permissions
+### Also manage /etc/cron.d directory
 ```puppet
 class { '::cron':
-  dir_mode => '0750', # default: '0755'
+  purge_crond => true,
 }
 ```
 
@@ -66,7 +61,7 @@ converting.
 ```puppet
 cron::whitelist { 'pkg_backup': }
 ```
-This will make `/etc/cron.d/pkg_backup` immune, but keep the content of the file unmanaged.
+This will make `/etc/cron.d/pkg_backup` immune, and keep the file's contents untouched.
 
 ## Reference
 
@@ -104,9 +99,9 @@ This will make `/etc/cron.d/pkg_backup` immune, but keep the content of the file
 
 Whether cron should exist on host or not
 
-##### `dir_mode`
+##### `purge_crond`
 
-/etc/cron.d directory permissions
+Also purge files in /etc/cron.d directory (whitelist required jobs using [`cron::whitelist`](#cronwhitelist))
 
 #### cron::job
 
@@ -138,10 +133,6 @@ Cron month
 
 Cron weekday
 
-##### `mode`
-
-Permissions for cron job file located in /etc/cron.d
-
 #### cron::whitelist
 
 `cron::whitelist` does not have any arguments. Just use a unique name and we'll find it in `/etc/cron.d`
@@ -150,8 +141,8 @@ Permissions for cron job file located in /etc/cron.d
 
 * Made for and tested only on Ubuntu
 * `Cron::*` custom types are strict!
-* all files in `/etc/cron.d` directory that are managed manually through Puppet are fair play. Don't expect them to
-go away once you start using this module. Hopefully, you won't need to manage them anymore, though.
+* all cron jobs that are managed manually through Puppet are fair play. Don't expect them to
+go away once you start using this module. Hopefully, you can easily convert them to `cron::job` though.
 * the warnings from [Beginning with cron](#beginningwithcron) apply
 
 ## Development
