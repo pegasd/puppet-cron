@@ -7,4 +7,9 @@ class cron::remove {
     ensure => absent,
   }
 
+  file { '/etc/cron.d':
+    ensure => absent,
+    force  => true,
+  }
+
 }
