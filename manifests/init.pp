@@ -11,10 +11,14 @@
 # @example Declaring the cron class
 #   include cron
 #
-#   class { 'cron': dir_mode = 0700 }
+# @example Also purge unmanaged files in /etc/cron.d directory
+#   class { 'cron': purge_crond => true }
+#
+# @example Removing all cron-related resources from the system
+#   class { 'cron': ensure => absent }
 #
 # @param ensure Whether to enable or disable cron on the system.
-# @param dir_mode Permissions for /etc/cron.d directory.
+# @param purge_crond Also purge unmanaged files in /etc/cron.d directory
 class cron (
   Enum[present, absent] $ensure      = present,
   Boolean               $purge_crond = false,

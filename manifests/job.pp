@@ -19,7 +19,6 @@
 # @param monthday Cron monthday
 # @param month Cron month
 # @param weekday Cron weekday
-# @param mode Cron job file permissions, which is located at /etc/cron.d/JOB_NAME
 define cron::job (
   String                 $command,
   String                 $user     = 'root',
