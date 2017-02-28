@@ -20,23 +20,32 @@ describe 'cron' do
         end
 
         describe 'cron::config' do
-          it { is_expected.to contain_resources('cron').with(
-            purge: true,
-          )}
-          it { is_expected.not_to contain_file('/etc/cron.d').with(
-            ensure:  :directory,
-            owner:   'root',
-            group:   'root',
-            mode:    '0755',
-            recurse: true,
-            purge:   true,
-          ) }
+          it { is_expected.to contain_resources('cron').with_purge(true) }
+          it { is_expected.not_to contain_file('/etc/cron.d') }
         end
 
         describe 'cron::service' do
           it { is_expected.to contain_service('cron').with(
             ensure: :running,
             enable: true,
+          ) }
+        end
+      end
+
+      context 'with purge_crond => true' do
+        let(:params) { { purge_crond: true } }
+
+        it { is_expected.to compile.with_all_deps }
+
+        describe 'cron::config' do
+          it { is_expected.to contain_file('/etc/cron.d').with(
+            ensure:  :directory,
+            owner:   'root',
+            group:   'root',
+            mode:    '0755',
+            recurse: true,
+            purge:   true,
+            force:   true,
           ) }
         end
       end
