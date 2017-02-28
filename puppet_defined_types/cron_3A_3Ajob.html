@@ -228,10 +228,8 @@
         <span class='name'>mode</span>
       
       
-        <span class='type'>(<tt>Pattern[/^0[0-7]{3}$/]</tt>)</span>
+        <span class='type'></span>
       
-      
-        <em class="default">(defaults to: <tt>&#39;0644&#39;</tt>)</em>
       
       
         &mdash;
@@ -288,14 +286,7 @@
 41
 42
 43
-44
-45
-46
-47
-48
-49
-50
-51</pre>
+44</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/job.pp', line 23</span>
@@ -308,24 +299,17 @@ define cron::job (
   Cron::Monthday         $monthday = &#39;*&#39;,
   Cron::Month            $month    = &#39;*&#39;,
   Cron::Weekday          $weekday  = &#39;*&#39;,
-  Pattern[/^0[0-7]{3}$/] $mode     = &#39;0644&#39;,
 ) {
 
-  file { &quot;/etc/cron.d/${title}&quot;:
-    ensure  =&gt; file,
-    owner   =&gt; &#39;root&#39;,
-    group   =&gt; &#39;root&#39;,
-    mode    =&gt; $mode,
-    content =&gt; epp(&#39;cron/job.epp&#39;, {
-      name     =&gt; $title,
-      minute   =&gt; $minute,
-      hour     =&gt; $hour,
-      monthday =&gt; $monthday,
-      month    =&gt; $month,
-      weekday  =&gt; $weekday,
-      user     =&gt; $user,
-      command  =&gt; $command,
-    }),
+  cron { $title:
+    ensure   =&gt; present,
+    user     =&gt; $user,
+    command  =&gt; $command,
+    minute   =&gt; cron::prep4cron($minute),
+    hour     =&gt; cron::prep4cron($hour),
+    monthday =&gt; cron::prep4cron($monthday),
+    month    =&gt; cron::prep4cron($month),
+    weekday  =&gt; cron::prep4cron($weekday),
   }
 
 }</pre>
@@ -336,7 +320,7 @@ define cron::job (
 </div>
 
       <div id="footer">
-  Generated on Thu Feb 16 01:41:47 2017 by
+  Generated on Tue Feb 28 12:45:59 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.4.0).
 </div>

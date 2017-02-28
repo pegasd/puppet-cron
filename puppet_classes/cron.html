@@ -123,16 +123,27 @@ class { &#39;cron&#39;: dir_mode = 0700 }</code></pre>
         <span class='name'>dir_mode</span>
       
       
-        <span class='type'>(<tt>Pattern[/^07[057]{2}$/]</tt>)</span>
+        <span class='type'></span>
       
-      
-        <em class="default">(defaults to: <tt>&#39;0755&#39;</tt>)</em>
       
       
         &mdash;
         <div class='inline'>
 <p>Permissions for /etc/cron.d directory.</p>
 </div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>purge_crond</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
       
     </li>
   
@@ -190,17 +201,15 @@ class { &#39;cron&#39;: dir_mode = 0700 }</code></pre>
 36
 37
 38
-39
-40</pre>
+39</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/init.pp', line 18</span>
 
 class cron (
-  Enum[present, absent]   $ensure   = present,
-  Pattern[/^07[057]{2}$/] $dir_mode = &#39;0755&#39;,
+  Enum[present, absent] $ensure      = present,
+  Boolean               $purge_crond = false,
 ) {
-
 
   if $ensure == present {
 
@@ -226,7 +235,7 @@ class cron (
 </div>
 
       <div id="footer">
-  Generated on Thu Feb 16 01:41:47 2017 by
+  Generated on Tue Feb 28 12:45:59 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.4.0).
 </div>

@@ -68,13 +68,6 @@ src="https://travis-ci.org/pegasd/puppet-cron.svg?branch=master"></a></p>
 <p><a href="#description">Description</a></p>
 </li><li>
 <p><a href="#setup">Setup - The basics of getting started with cron</a></p>
-<ul><li>
-<p><a href="#what-cron-affects">What cron affects</a></p>
-</li><li>
-<p><a href="#setup-requirements">Setup requirements</a></p>
-</li><li>
-<p><a href="#beginning-with-cron">Beginning with cron</a></p>
-</li></ul>
 </li><li>
 <p><a href="#usage">Usage - Configuration options and additional
 functionality</a></p>
@@ -101,20 +94,44 @@ and waiting for changes to propagate.</p>
 <h3 id="label-Beginning+with+cron">Beginning with cron</h3>
 
 <p>To start out with cron: <code>puppet include cron </code> This will start
-managing <code>/etc/cron.d</code> directory.</p>
+purging all unmanaged cron resources and also make sure the &#39;cron&#39;
+package is installed and the service is running.</p>
 
-<p><strong>WARNING #1</strong>: Unless you manage files with Puppet in this
-directory, they WILL be removed! This is the major idea behind the tidiness
-of this module.</p>
-
-<p><strong>WARNING #2</strong>*: regular cron resources must be cleaned out
-using <code>ensure =&gt; absent</code> prior to using this module.
-Otherwise you&#39;ll get duplicates.</p>
+<p><strong>WARNING #1</strong>: All existing unmanaged cron jobs will be
+purged!</p>
 
 <h2 id="label-Usage">Usage</h2>
 
-<p>All interactions with cron jobs should be done using <code>cron::job</code>
-resource.</p>
+<h3 id="label-Also+manage+-2Fetc-2Fcron.d+directory">Also manage /etc/cron.d directory</h3>
+
+<pre class="code ruby"><code class="ruby">class { &#39;::cron&#39;:
+  purge_crond =&gt; true,
+}</code></pre>
+
+<h3 id="label-Wipe+it+all+out">Wipe it all out</h3>
+
+<pre class="code ruby"><code class="ruby">class { &#39;::cron&#39;: ensure =&gt; absent }</code></pre>
+
+<h3 id="label-cron-3A-3Ajob+example">cron::job example</h3>
+
+<pre class="code ruby"><code class="ruby">cron::job { &#39;backup&#39;:
+  user     =&gt; &#39;backup&#39;, # default: &#39;root&#39;
+  minute   =&gt; &#39;3-59/5&#39;,
+  hour     =&gt; &#39;9-17&#39;,
+  monthday =&gt; &#39;*/2&#39;,
+  month    =&gt; [ 4, 8, 12 ],
+  weekday  =&gt; &#39;0-4&#39;,
+}</code></pre>
+
+<p>NB: My custom types are a lot stricter than default cron types. Careful -
+this may break existing cron jobs you are converting.</p>
+
+<h3 id="label-cron-3A-3Awhitelist+example">cron::whitelist example</h3>
+
+<pre class="code ruby"><code class="ruby">cron::whitelist { &#39;pkg_backup&#39;: }</code></pre>
+
+<p>This will make <code>/etc/cron.d/pkg_backup</code> immune, and keep the
+file&#39;s contents untouched.</p>
 
 <h2 id="label-Reference">Reference</h2>
 
@@ -122,21 +139,53 @@ resource.</p>
 
 <h4 id="label-Public+classes">Public classes</h4>
 <ul><li>
-<p><a href="#cron">cron</a></p>
+<p><a href="#cron">cron</a>: Main entry point, must include to start managing
+cron jobs.</p>
 </li></ul>
 
-<h3 id="label-Resources">Resources</h3>
+<h4 id="label-Private+classes">Private classes</h4>
+<ul><li>
+<p><code>cron::install</code></p>
+</li><li>
+<p><code>cron::config</code></p>
+</li><li>
+<p><code>cron::service</code></p>
+</li><li>
+<p><code>cron::remove</code></p>
+</li></ul>
+
+<h3 id="label-Defined+Resource+Types">Defined Resource Types</h3>
 <ul><li>
 <p><a href="#cronjob">cron::job</a></p>
+</li><li>
+<p><a href="#cronwhitelist">cron::whitelist</a></p>
+</li></ul>
+
+<h3 id="label-Custom+Types">Custom Types</h3>
+<ul><li>
+<p><code>Cron::Minute</code></p>
+</li><li>
+<p><code>Cron::Hour</code></p>
+</li><li>
+<p><code>Cron::Monthday</code></p>
+</li><li>
+<p><code>Cron::Month</code></p>
+</li><li>
+<p><code>Cron::Weekday</code></p>
 </li></ul>
 
 <h3 id="label-Parameters">Parameters</h3>
 
 <h4 id="label-cron">cron</h4>
 
-<h5 id="label-dir_mode"><code>dir_mode</code></h5>
+<h5 id="label-ensure"><code>ensure</code></h5>
 
-<p>/etc/cron.d directory permissions</p>
+<p>Whether cron should exist on host or not</p>
+
+<h5 id="label-purge_crond"><code>purge_crond</code></h5>
+
+<p>Also purge files in /etc/cron.d directory (whitelist required jobs using <a
+href="#cronwhitelist">cron::whitelist</a>)</p>
 
 <h4 id="label-cron-3A-3Ajob">cron::job</h4>
 
@@ -168,35 +217,34 @@ resource.</p>
 
 <p>Cron weekday</p>
 
-<h5 id="label-mode"><code>mode</code></h5>
+<h4 id="label-cron-3A-3Awhitelist">cron::whitelist</h4>
 
-<p>Permissions for cron job file located in /etc/cron.d</p>
+<p><code>cron::whitelist</code> does not have any arguments. Just use a unique
+name and we&#39;ll find it in <code>/etc/cron.d</code></p>
 
 <h2 id="label-Limitations">Limitations</h2>
 <ul><li>
-<p>although the <code>cron::job</code> type checks for Integer boundaries,
-you&#39;re on your own if you are using strings for specifying time
-intervals. Those will be put into the template as-is.</p>
+<p>Made for and tested only on Ubuntu</p>
 </li><li>
-<p>all files in <code>/etc/cron.d</code> directory that are managed manually
-through Puppet are fair play. Don&#39;t expect them to go away once you
-start using this module. Hopefully, you won&#39;t need to manage them
-anymore, though.</p>
+<p><code>Cron::*</code> custom types are strict!</p>
 </li><li>
-<p>regular cron resources must be cleaned out using <code>ensure =&gt;
-absent</code> prior to using this module. Otherwise you&#39;ll get
-duplicates.</p>
+<p>all cron jobs that are managed manually through Puppet are fair play.
+Don&#39;t expect them to go away once you start using this module.
+Hopefully, you can easily convert them to <code>cron::job</code> though.</p>
+</li><li>
+<p>the warnings from <a href="#beginningwithcron">Beginning with cron</a>
+apply</p>
 </li></ul>
 
 <h2 id="label-Development">Development</h2>
 
-<p>I&#39;ll be happy to know you&#39;re using this for one reason or the
-other. And if you want to contribute - even better. Feel free to submit a
-pull request.</p>
+<p>I&#39;ll be happy to know you&#39;re using this for one reason or another.
+And if you want to contribute - even better! Feel free to submit a pull
+request.</p>
 </div></div>
 
       <div id="footer">
-  Generated on Thu Feb 16 01:41:47 2017 by
+  Generated on Tue Feb 28 12:45:58 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.4.0).
 </div>
