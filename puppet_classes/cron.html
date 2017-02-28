@@ -120,22 +120,6 @@ class { &#39;cron&#39;: dir_mode = 0700 }</code></pre>
   
     <li>
       
-        <span class='name'>dir_mode</span>
-      
-      
-        <span class='type'></span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Permissions for /etc/cron.d directory.</p>
-</div>
-      
-    </li>
-  
-    <li>
-      
         <span class='name'>purge_crond</span>
       
       
@@ -144,6 +128,11 @@ class { &#39;cron&#39;: dir_mode = 0700 }</code></pre>
       
         <em class="default">(defaults to: <tt>false</tt>)</em>
       
+      
+        &mdash;
+        <div class='inline'>
+<p>Also purge unmanaged files from /etc/cron.d directory</p>
+</div>
       
     </li>
   
@@ -235,7 +224,7 @@ class cron (
 </div>
 
       <div id="footer">
-  Generated on Tue Feb 28 12:45:59 2017 by
+  Generated on Tue Feb 28 12:47:20 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
   0.9.8 (ruby-2.4.0).
 </div>
