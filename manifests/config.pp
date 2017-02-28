@@ -1,16 +1,10 @@
 # @api private
-# This class handles cron configuration files.
-# Avoid modifying and using private classes directly.
+# This is where all the magic happens.
+# Purge unmanaged cron jobs and also, optionally, purge /etc/cron.d directory
 class cron::config {
 
-  file { '/etc/cron.d':
-    ensure  => directory,
-    recurse => true,
-    purge   => true,
-    force   => true,
-    owner   => 'root',
-    group   => 'root',
-    mode    => $::cron::dir_mode,
+  resources { 'cron':
+    purge => true,
   }
 
 }
