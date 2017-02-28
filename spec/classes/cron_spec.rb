@@ -61,7 +61,7 @@ describe 'cron' do
         it { is_expected.not_to contain_class('cron::config') }
         it { is_expected.not_to contain_class('cron::service') }
 
-        it { is_expected.not_to contain_file('/etc/cron.d').with(
+        it { is_expected.to contain_file('/etc/cron.d').with(
           ensure: :absent,
           force:  true,
         ) }
