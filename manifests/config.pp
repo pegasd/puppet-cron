@@ -7,4 +7,16 @@ class cron::config {
     purge => true,
   }
 
+  if $::cron::purge_crond {
+    file { '/etc/cron.d':
+      ensure  => directory,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      recurse => true,
+      purge   => true,
+      force   => true,
+    }
+  }
+
 }
