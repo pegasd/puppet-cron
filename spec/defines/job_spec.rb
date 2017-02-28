@@ -25,22 +25,22 @@ describe 'cron::job' do
   context 'with custom launch time' do
     let(:params) { {
       command: '/usr/bin/backup',
-      minute:  [50, 20], # This should be sorted to '20,50'
+      minute:  [50, 20, 50, 20], # This should be sorted to '20,50'
       hour:    [1, 5, 1], # This should be uniq'd to '1,5'
-      weekday: '*/2',
+      month:   '*/2',
+      weekday: '0-4',
     } }
 
     it { is_expected.to compile.with_all_deps }
-    it { is_expected.not_to contain_file('/etc/cron.d/backup') }
     it { is_expected.to contain_cron('backup').with(
       ensure:   :present,
       user:     'root',
       command:  '/usr/bin/backup',
-      minute:   [20,50],
-      hour:     [1,5],
-      month:    '*',
+      minute:   [20, 50],
+      hour:     [1, 5],
+      month:    '*/2',
       monthday: '*',
-      weekday:  '*/2',
+      weekday:  '0-4',
     ) }
   end
 
@@ -51,7 +51,6 @@ describe 'cron::job' do
     } }
 
     it { is_expected.to compile.with_all_deps }
-    it { is_expected.not_to contain_file('/etc/cron.d/backup') }
     it { is_expected.to contain_cron('backup').with(
       ensure:   :present,
       user:     'pegas',
