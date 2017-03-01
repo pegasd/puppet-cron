@@ -7,6 +7,10 @@ class cron::remove {
     ensure => absent,
   }
 
+  service { 'cron':
+    ensure => stopped,
+  }
+
   file { '/etc/cron.d':
     ensure => absent,
     force  => true,
