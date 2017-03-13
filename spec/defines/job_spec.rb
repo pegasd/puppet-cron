@@ -9,7 +9,6 @@ describe 'cron::job' do
     } }
 
     it { is_expected.to compile.with_all_deps }
-    it { is_expected.not_to contain_file('/etc/cron.d/backup') }
     it { is_expected.to contain_cron('backup').with(
       ensure:   :present,
       user:     'root',
