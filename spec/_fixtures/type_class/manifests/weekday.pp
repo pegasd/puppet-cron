@@ -3,5 +3,5 @@
 class type_class::weekday (
   Cron::Weekday $value,
 ) {
-  notice("Success")
+  notice('Success')
 }
