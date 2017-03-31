@@ -3,5 +3,5 @@
 class type_class::month (
   Cron::Month $value,
 ) {
-  notice("Success")
+  notice('Success')
 }

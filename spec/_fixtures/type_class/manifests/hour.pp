@@ -3,5 +3,5 @@
 class type_class::hour (
   Cron::Hour $value,
 ) {
-  notice("Success")
+  notice('Success')
 }
