@@ -30,9 +30,9 @@ class cron (
     contain cron::config
     contain cron::service
 
-    Class['::cron::install'] ->
-    Class['::cron::config'] ~>
-    Class['::cron::service']
+    Class['::cron::install']
+    -> Class['::cron::config']
+    ~> Class['::cron::service']
 
   } else {
 
