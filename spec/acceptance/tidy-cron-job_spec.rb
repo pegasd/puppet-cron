@@ -16,8 +16,11 @@ cron::job {
 
     EOS
 
-    it 'is idempotent' do
+    it 'does not fail' do
       apply_manifest(pp, catch_failures: true)
+    end
+
+    it 'is idempotent' do
       apply_manifest(pp, catch_changes: true)
     end
 
@@ -26,6 +29,13 @@ cron::job {
       it { is_expected.to have_entry '* * * * * /usr/bin/other-backup' }
     end
 
+    describe service('cron') do
+      it { is_expected.to be_running }
+    end
+
+    describe package('cron') do
+      it { is_expected.to be_installed }
+    end
   end
 
   describe 'second run with one of the resources removed' do
@@ -39,8 +49,11 @@ cron::job { 'backup':
 
     EOS
 
-    it 'is idempotent' do
+    it 'does not fail' do
       apply_manifest(pp, catch_failures: true)
+    end
+
+    it 'is idempotent' do
       apply_manifest(pp, catch_changes: true)
     end
 
@@ -62,8 +75,11 @@ cron::whitelist { 'cant_touch_this': }
 
     EOS
 
-    it 'is idempotent' do
+    it 'does not fail' do
       apply_manifest(pp, catch_failures: true)
+    end
+
+    it 'is idempotent' do
       apply_manifest(pp, catch_changes: true)
     end
 
@@ -86,8 +102,11 @@ cron::whitelist { 'cant_touch_this': }
 class { 'cron': ensure => absent }
     EOS
 
-    it 'is idempotent' do
+    it 'does not fail' do
       apply_manifest(pp, catch_failures: true)
+    end
+
+    it 'is idempotent' do
       apply_manifest(pp, catch_changes: true)
     end
 
