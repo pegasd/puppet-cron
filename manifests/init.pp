@@ -32,6 +32,8 @@ class cron (
 
     Class['::cron::install']
     -> Class['::cron::config']
+
+    Class['::cron::install']
     ~> Class['::cron::service']
 
   } else {

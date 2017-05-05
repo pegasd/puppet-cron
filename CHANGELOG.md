@@ -7,6 +7,7 @@
 ### Changed
 - A few more acceptance tests.
 - Idempotence tests refactored.
+- Adding/removing cron entries does not reload the cron service anymore.
 
 ## [0.2.0] - 2017-02-10
 ### Added
