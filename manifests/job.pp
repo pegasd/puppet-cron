@@ -29,6 +29,8 @@ define cron::job (
   Cron::Weekday  $weekday  = '*',
 ) {
 
+  require ::cron
+
   cron { $title:
     ensure   => present,
     user     => $user,

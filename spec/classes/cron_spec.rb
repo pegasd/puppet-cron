@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe 'cron' do
-  on_supported_os.each do |os, f|
+  on_supported_os.each do |os, os_facts|
     context "on #{os}" do
-      let(:facts) { f }
+      let(:facts) { os_facts }
 
       context 'with default values for all parameters' do
         it { is_expected.to compile.with_all_deps }
@@ -25,10 +25,12 @@ describe 'cron' do
         end
 
         describe 'cron::service' do
-          it { is_expected.to contain_service('cron').with(
-            ensure: :running,
-            enable: true,
-          ) }
+          it {
+            is_expected.to contain_service('cron')
+              .only_with(
+                ensure: :running,
+                enable: true,
+              ) }
         end
       end
 
@@ -38,15 +40,18 @@ describe 'cron' do
         it { is_expected.to compile.with_all_deps }
 
         describe 'cron::config' do
-          it { is_expected.to contain_file('/etc/cron.d').with(
-            ensure:  :directory,
-            owner:   'root',
-            group:   'root',
-            mode:    '0755',
-            recurse: true,
-            purge:   true,
-            force:   true,
-          ) }
+          it {
+            is_expected.to contain_file('/etc/cron.d')
+              .only_with(
+                ensure:  :directory,
+                owner:   'root',
+                group:   'root',
+                mode:    '0755',
+                recurse: true,
+                purge:   true,
+                force:   true,
+              )
+          }
         end
       end
 
@@ -61,10 +66,13 @@ describe 'cron' do
         it { is_expected.not_to contain_class('cron::config') }
         it { is_expected.not_to contain_class('cron::service') }
 
-        it { is_expected.to contain_file('/etc/cron.d').with(
-          ensure: :absent,
-          force:  true,
-        ) }
+        it {
+          is_expected.to contain_file('/etc/cron.d')
+            .only_with(
+              ensure: :absent,
+              force:  true,
+            )
+        }
         it { is_expected.to contain_package('cron').with_ensure(:absent) }
       end
 
