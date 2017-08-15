@@ -3,8 +3,10 @@ describe 'cron::prep4cron' do
     {
       [1, 2, 3, 4]     => [1, 2, 3, 4],
       [1, 5, 1]        => [1, 5],
-      [1, 3, 5, 17, 2] => [1, 2, 3, 5, 17],
-      [20, 40, 0]      => [0, 20, 40],
+      [1, 3, 5, 17, 2] => [1, 3, 5, 17, 2],
+      [20, 40, 0]      => [20, 40, 0],
+      ['0-5', 23]      => ['0-5', 23],
+      ['0-6', '0-6']   => ['0-6'],
     }.each do |cron_value, cron_result|
 
       it { is_expected.to run.with_params(cron_value).and_return(cron_result) }

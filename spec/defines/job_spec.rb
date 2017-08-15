@@ -35,7 +35,7 @@ describe 'cron::job' do
       ensure:   :present,
       user:     'root',
       command:  '/usr/bin/backup',
-      minute:   [20, 50],
+      minute:   [50, 20],
       hour:     [1, 5],
       month:    '*/2',
       monthday: '*',
