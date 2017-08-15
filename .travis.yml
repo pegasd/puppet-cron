@@ -2,9 +2,8 @@
 language: ruby
 install:
 - bundle install
-- bundle exec librarian-puppet install
-script: bundle exec rake validate spec beaker
-rvm: 2.3.1
+script: bundle exec rake test
+rvm: 2.4.1
 dist: trusty
 sudo: required
 services: docker
@@ -12,5 +11,7 @@ fast_finish: true
 env:
 - PUPPET=4.4.1 PUPPET_AGENT=1.4.1 BEAKER_set=ubuntu_1404
 - PUPPET=4.4.1 PUPPET_AGENT=1.4.2 BEAKER_set=ubuntu_1604
-- PUPPET=4.10.0 PUPPET_AGENT=1.10.0 BEAKER_set=ubuntu_1404
-- PUPPET=4.10.0 PUPPET_AGENT=1.10.0 BEAKER_set=ubuntu_1604
+- PUPPET=4.10.6 PUPPET_AGENT=1.10.6 BEAKER_set=ubuntu_1404
+- PUPPET=4.10.6 PUPPET_AGENT=1.10.6 BEAKER_set=ubuntu_1604
+- PUPPET=5.0.1 PUPPET_AGENT=5.0.1 BEAKER_set=ubuntu_1404
+- PUPPET=5.0.1 PUPPET_AGENT=5.0.1 BEAKER_set=ubuntu_1604

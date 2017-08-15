@@ -8,7 +8,7 @@ PuppetLint.configuration.ignore_paths = ['spec/**/*.pp', 'pkg/**/*.pp']
 
 desc 'Validate manifests, templates, and ruby files'
 task :validate do
-  Dir['manifests/**/*.pp'].each do |manifest|
+  Dir['manifests/**/*.pp', 'types/**/*.pp'].each do |manifest|
     sh "bundle exec puppet parser validate --noop #{manifest}"
   end
   Dir['templates/**/*.epp'].each do |epp_template|
@@ -25,7 +25,7 @@ end
 
 desc 'Run metadata_lint, lint, validate, and spec tests.'
 task :test do
-  [:metadata_lint, :lint, :validate, :spec].each do |test|
+  [:metadata_lint, :lint, :validate, :spec, :beaker].each do |test|
     Rake::Task[test].invoke
   end
 end

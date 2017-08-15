@@ -1,23 +1,24 @@
 source 'https://rubygems.org'
 
-puppet_version = ENV.key?('PUPPET') ? ENV['PUPPET'] : ['>= 4.4.1']
+puppet_version = ENV.key?('PUPPET') ? ENV['PUPPET'] : ['~> 4.0']
 
 group :validate do
-  gem 'metadata-json-lint', '>= 1.0.0'
-  gem 'puppet-lint', '>= 2.0.0'
+  gem 'metadata-json-lint'
+  gem 'puppet-lint'
 end
 
 group :documentation do
-  gem 'puppet-strings', '>= 1.0.0'
+  gem 'rgen'
+  gem 'puppet-strings'
 end
 
 group :acceptance do
-  gem 'beaker-rspec', '>= 6.0.0'
+  gem 'beaker-rspec'
 end
 
 group :unit do
+  gem 'semantic_puppet'
   gem 'puppetlabs_spec_helper'
   gem 'rspec-puppet-facts'
-  gem 'librarian-puppet'
   gem 'puppet', puppet_version
 end
