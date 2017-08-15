@@ -28,9 +28,6 @@ describe 'cron::prep4cron' do
   context 'fail with arrays of string or an empty string' do
     [
       '',
-      %w(),
-      %w(0),
-      %w(1),
       %w(1 2 3),
       %w(0 12 24 36 48),
     ].each do |cron_value|

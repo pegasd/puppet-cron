@@ -9,8 +9,6 @@ sudo: required
 services: docker
 fast_finish: true
 env:
-- PUPPET=4.4.1 PUPPET_AGENT=1.4.1 BEAKER_set=ubuntu_1404
-- PUPPET=4.4.1 PUPPET_AGENT=1.4.2 BEAKER_set=ubuntu_1604
 - PUPPET=4.10.6 PUPPET_AGENT=1.10.6 BEAKER_set=ubuntu_1404
 - PUPPET=4.10.6 PUPPET_AGENT=1.10.6 BEAKER_set=ubuntu_1604
 - PUPPET=5.0.1 PUPPET_AGENT=5.0.1 BEAKER_set=ubuntu_1404
