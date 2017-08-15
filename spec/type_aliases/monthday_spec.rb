@@ -1,12 +1,9 @@
 require 'spec_helper'
 
-describe 'type_class::monthday', type: :class do
+describe 'Cron::Monthday' do
   describe 'accept integer values' do
     [1, 02, 7, 9, 11, 15, 23, 28, 31].each do |value|
-      context "with #{value}" do
-        let(:params) { { value: value } }
-        it { is_expected.to compile }
-      end
+      it { is_expected.to allow_value(value) }
     end
   end
   describe 'accept integer arrays' do
@@ -15,18 +12,12 @@ describe 'type_class::monthday', type: :class do
       [14, 28], [15, 30],
       [7, 14, 21, 28],
     ].each do |value|
-      context "with #{value}" do
-        let(:params) { { value: value } }
-        it { is_expected.to compile }
-      end
+      it { is_expected.to allow_value(value) }
     end
   end
   describe 'accept only *' do
     %w(* */2 */30).each do |value|
-      context "with #{value}" do
-        let(:params) { { value: value } }
-        it { is_expected.to compile }
-      end
+      it { is_expected.to allow_value(value) }
     end
   end
   describe 'reject incorrect values' do
@@ -38,11 +29,7 @@ describe 'type_class::monthday', type: :class do
       -1, 32, 0,
       '2-23/24', '*/*',
     ].each do |value|
-      context "with #{value}" do
-        let(:params) { { value: value } }
-
-        it { is_expected.to compile.and_raise_error(/parameter 'value'.*expects/) }
-      end
+      it { is_expected.not_to allow_value(value) }
     end
   end
 end
