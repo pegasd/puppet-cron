@@ -6,7 +6,7 @@
 <title>
   Puppet Class: cron::remove
   
-    &mdash; Documentation by YARD 0.9.8
+    &mdash; Documentation by YARD 0.9.9
   
 </title>
 
@@ -70,6 +70,7 @@
     </dd>
   </dl>
 </div>
+
 <h2>Overview</h2>
 <div class="docstring">
   <div class="discussion">
@@ -100,7 +101,11 @@ and using private classes directly.</p>
 12
 13
 14
-15</pre>
+15
+16
+17
+18
+19</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/remove.pp', line 4</span>
@@ -109,6 +114,10 @@ class cron::remove {
 
   package { &#39;cron&#39;:
     ensure =&gt; absent,
+  }
+
+  service { &#39;cron&#39;:
+    ensure =&gt; stopped,
   }
 
   file { &#39;/etc/cron.d&#39;:
@@ -124,9 +133,9 @@ class cron::remove {
 </div>
 
       <div id="footer">
-  Generated on Tue Feb 28 12:50:36 2017 by
+  Generated on Wed Aug 16 11:01:19 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.8 (ruby-2.4.0).
+  0.9.9 (ruby-2.4.1).
 </div>
 
     </div>

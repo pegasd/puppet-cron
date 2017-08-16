@@ -6,7 +6,7 @@
 <title>
   Puppet Function: cron::prep4cron (Puppet Language)
   
-    &mdash; Documentation by YARD 0.9.8
+    &mdash; Documentation by YARD 0.9.9
   
 </title>
 
@@ -72,6 +72,7 @@
     <dd>Puppet Language</dd>
   </dl>
 </div>
+
 <h2>Overview</h2>
 <div class="method_details first">
   
@@ -137,7 +138,7 @@ monthday, month, weekday)</p>
     <li>
       
       
-        <span class='type'>(<tt>String</tt>, <tt>Integer</tt>, <tt>Array[Integer]</tt>)</span>
+        <span class='type'>(<tt>String</tt>, <tt>Integer</tt>, <tt>Array[Variant[Integer, String]]</tt>)</span>
       
       
       
@@ -195,7 +196,7 @@ function cron::prep4cron (
 
   if $cron_value.is_a(Array) {
 
-    sort(unique($cron_value))
+    unique($cron_value)
 
   } else {
 
@@ -213,9 +214,9 @@ function cron::prep4cron (
 </div>
 
       <div id="footer">
-  Generated on Tue Feb 28 12:50:36 2017 by
+  Generated on Wed Aug 16 11:01:19 2017 by
   <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
-  0.9.8 (ruby-2.4.0).
+  0.9.9 (ruby-2.4.1).
 </div>
 
     </div>
