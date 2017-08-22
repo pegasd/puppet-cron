@@ -1,15 +1,32 @@
 ---
+sudo: false
+services:
+- docker
+
+bundler_args: --without acceptance
 language: ruby
-install:
-- bundle install
-script: bundle exec rake test
-rvm: 2.4.1
-dist: trusty
-sudo: required
-services: docker
-fast_finish: true
-env:
-- PUPPET=4.10.6 PUPPET_AGENT=1.10.6 BEAKER_set=ubuntu_1404
-- PUPPET=4.10.6 PUPPET_AGENT=1.10.6 BEAKER_set=ubuntu_1604
-- PUPPET=5.0.1 PUPPET_AGENT=5.0.1 BEAKER_set=ubuntu_1404
-- PUPPET=5.0.1 PUPPET_AGENT=5.0.1 BEAKER_set=ubuntu_1604
+script: travis_retry bundle exec rake $RAKE_TASK
+
+jobs:
+  include:
+    - env:
+      - TASK=test
+      - PUPPET=4.4.1
+    - env:
+      - TASK=test
+      - PUPPET=4.10.4
+    - env:
+      - TASK=test
+      - PUPPET=4.10.6
+    - env:
+      - TASK=test
+      - PUPPET=5.1.0
+    - env:
+      - TASK=beaker
+      - BEAKER_debug=true
+      - PUPPET_INSTALL_VERSION=4.10.6
+    - env:
+      - TASK=beaker
+      - BEAKER_debug=true
+      - PUPPET_INSTALL_TYPE=gem
+      - PUPPET_VERSION=5.1.0
