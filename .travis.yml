@@ -5,7 +5,7 @@ services:
 
 bundler_args: --without acceptance
 language: ruby
-script: travis_retry bundle exec rake $RAKE_TASK
+script: bundle exec rake $RAKE_TASK
 
 jobs:
   include:
