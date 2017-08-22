@@ -3,30 +3,40 @@ sudo: false
 services:
 - docker
 
+before_install: rm Gemfile.lock || true
 bundler_args: --without acceptance
+cache:
+  bundler: true
+  directories:
+  - spec/fixtures/artifacts
+  - spec/fixtures/modules
+
 language: ruby
-script: bundle exec rake $RAKE_TASK
+
+script: travis_retry bundle exec rake $RAKE_TASK
 
 jobs:
   include:
-    - env:
-      - TASK=test
+    - stage: unit
+      env:
+      - RAKE_TASK=test
       - PUPPET=4.4.1
     - env:
-      - TASK=test
+      - RAKE_TASK=test
       - PUPPET=4.10.4
     - env:
-      - TASK=test
+      - RAKE_TASK=test
       - PUPPET=4.10.6
     - env:
-      - TASK=test
+      - RAKE_TASK=test
       - PUPPET=5.1.0
-    - env:
-      - TASK=beaker
+    - stage: acceptance
+      env:
+      - RAKE_TASK=beaker
       - BEAKER_debug=true
       - PUPPET_INSTALL_VERSION=4.10.6
     - env:
-      - TASK=beaker
+      - RAKE_TASK=beaker
       - BEAKER_debug=true
       - PUPPET_INSTALL_TYPE=gem
       - PUPPET_VERSION=5.1.0
