@@ -28,14 +28,12 @@ jobs:
       - T=test
       - PUPPET=5.1.0
     - stage: acceptance
-      bundler_args: --with acceptance
       env:
       - T=beaker
       - PUPPET_VERSION=4.10.6
       - BEAKER_debug=true
       sudo: required
     - env:
-      bundler_args: --with acceptance
       - T=beaker
       - PUPPET_VERSION=5.1.0
       - BEAKER_debug=true
