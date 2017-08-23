@@ -12,27 +12,38 @@ cache:
 
 language: ruby
 
-script: travis_retry bundle exec rake $T
+script: bundle exec rake $RAKE
 
 jobs:
   include:
     - stage: unit
       env:
-      - T=test
+      - RAKE=test
       - PUPPET=4.10.4
     - env:
-      - T=test
+      - RAKE=test
       - PUPPET=4.10.6
     - env:
-      - T=test
+      - RAKE=test
       - PUPPET=5.1.0
     - stage: acceptance
       env:
-      - T=beaker
-      - PUPPET_VERSION=4.10.6
+      - RAKE=beaker
+      - PUPPET_VERSION=1.10.6
       - BEAKER_debug=true
     - env:
-      - T=beaker
+      - RAKE=beaker
       - PUPPET_VERSION=5.1.0
+      - BEAKER_debug=true
+      - PUPPET_INSTALL_TYPE=gem
+    - env:
+      - RAKE=beaker
+      - PUPPET_VERSION=1.10.6
+      - BEAKER_set=ubuntu_1604
+      - BEAKER_debug=true
+    - env:
+      - RAKE=beaker
+      - PUPPET_VERSION=5.1.0
+      - BEAKER_set=ubuntu_1604
       - BEAKER_debug=true
       - PUPPET_INSTALL_TYPE=gem
