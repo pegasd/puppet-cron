@@ -3,8 +3,8 @@ require 'puppet-lint/tasks/puppet-lint'
 require 'metadata-json-lint/rake_task'
 require 'puppet-strings/tasks'
 
-PuppetLint.configuration.relative = true
-PuppetLint.configuration.ignore_paths = ['spec/**/*.pp', 'pkg/**/*.pp']
+PuppetLint.configuration.relative     = true
+PuppetLint.configuration.ignore_paths = %w[spec/**/*.pp pkg/**/*.pp vendor/**/*.pp]
 
 desc 'Validate manifests, templates, and ruby files'
 task :validate do
