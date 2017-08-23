@@ -32,11 +32,18 @@ jobs:
       - PUPPET_VERSION=1.10.6
     - env:
       - RAKE=beaker
+      - PUPPET_VERSION=1.10.4
+    - env:
+      - RAKE=beaker
       - PUPPET_VERSION=5.1.0
       - PUPPET_INSTALL_TYPE=gem
     - env:
       - RAKE=beaker
       - PUPPET_VERSION=1.10.6
+      - BEAKER_set=ubuntu_1604
+    - env:
+      - RAKE=beaker
+      - PUPPET_VERSION=1.10.4
       - BEAKER_set=ubuntu_1604
     - env:
       - RAKE=beaker
