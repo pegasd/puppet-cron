@@ -3,8 +3,8 @@ source 'https://rubygems.org'
 puppet_version = ENV.fetch('PUPPET', '~> 5')
 
 group :acceptance do
-  gem 'beaker-rspec'
   gem 'beaker-puppet_install_helper'
+  gem 'beaker-rspec'
 end
 
 group :documentation do
