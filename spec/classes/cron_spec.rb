@@ -9,7 +9,7 @@ describe 'cron' do
     it { is_expected.to contain_class('cron') }
 
     it { is_expected.to contain_class('cron::install') }
-    it { is_expected.not_to contain_class('cron::config') }
+    it { is_expected.to contain_class('cron::config') }
     it { is_expected.to contain_class('cron::purge') }
     it { is_expected.to contain_class('cron::service') }
 
