@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 describe 'cron::prep4cron' do
   context 'return sorted unique arrays' do
     {
@@ -10,39 +12,33 @@ describe 'cron::prep4cron' do
     }.each do |cron_value, cron_result|
 
       it { is_expected.to run.with_params(cron_value).and_return(cron_result) }
-
     end
   end
 
   context 'return integers and strings unchanged' do
     [
-      0, 00001, 25, 50,
-      '*', '*/2', '15-20/7', '10-40',
+      0, 0o0001, 25, 50,
+      '*', '*/2', '15-20/7', '10-40'
     ].each do |cron_value|
 
       it { is_expected.to run.with_params(cron_value).and_return(cron_value) }
-
     end
   end
 
   context 'fail with arrays of string or an empty string' do
     [
       '',
-      %w(1 2 3),
-      %w(0 12 24 36 48),
+      %w[1 2 3],
+      %w[0 12 24 36 48],
     ].each do |cron_value|
 
       it { is_expected.to run.with_params(cron_value).and_raise_error(ArgumentError) }
-
     end
   end
 
   context 'fail with negatives and large values' do
-    [-1, 61, 31337].each do |cron_value|
-
+    [-1, 61, 31_337].each do |cron_value|
       it { is_expected.to run.with_params(cron_value).and_raise_error(ArgumentError) }
-
     end
   end
-
 end

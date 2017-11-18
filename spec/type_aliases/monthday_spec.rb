@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'Cron::Monthday' do
   describe 'accept integer values' do
-    [1, 02, 7, 9, 11, 15, 23, 28, 31].each do |value|
+    [1, 2, 7, 9, 11, 15, 23, 28, 31].each do |value|
       it { is_expected.to allow_value(value) }
     end
   end
@@ -10,13 +12,13 @@ describe 'Cron::Monthday' do
     [
       [1, 3, 7, 9, 25, 28],
       [14, 28], [15, 30],
-      [7, 14, 21, 28],
+      [7, 14, 21, 28]
     ].each do |value|
       it { is_expected.to allow_value(value) }
     end
   end
   describe 'accept only *' do
-    %w(* */2 */30).each do |value|
+    %w[* */2 */30].each do |value|
       it { is_expected.to allow_value(value) }
     end
   end
@@ -27,7 +29,7 @@ describe 'Cron::Monthday' do
       '*/0', '*/1', '*/31',
       '1', '30', '34', '-1', '0',
       -1, 32, 0,
-      '2-23/24', '*/*',
+      '2-23/24', '*/*'
     ].each do |value|
       it { is_expected.not_to allow_value(value) }
     end

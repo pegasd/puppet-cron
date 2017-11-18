@@ -16,30 +16,34 @@ script: bundle exec rake $RAKE
 
 jobs:
   include:
+    - stage: validate
+      env:
+      - RAKE=validate
+      - PUPPET=5.3.3
     - stage: unit
       env:
-      - RAKE=test
+      - RAKE=spec
       - PUPPET=4.10.4
     - env:
-      - RAKE=test
-      - PUPPET=4.10.6
+      - RAKE=spec
+      - PUPPET=4.10.8
     - env:
-      - RAKE=test
-      - PUPPET=5.1.0
+      - RAKE=spec
+      - PUPPET=5.3.3
     - stage: acceptance
       env:
       - RAKE=beaker
-      - PUPPET_VERSION=1.10.6
+      - PUPPET_VERSION=1.10.8
     - env:
       - RAKE=beaker
       - PUPPET_VERSION=1.10.4
     - env:
       - RAKE=beaker
-      - PUPPET_VERSION=5.1.0
+      - PUPPET_VERSION=5.3.3
       - PUPPET_INSTALL_TYPE=gem
     - env:
       - RAKE=beaker
-      - PUPPET_VERSION=1.10.6
+      - PUPPET_VERSION=1.10.8
       - BEAKER_set=ubuntu_1604
     - env:
       - RAKE=beaker
@@ -47,6 +51,6 @@ jobs:
       - BEAKER_set=ubuntu_1604
     - env:
       - RAKE=beaker
-      - PUPPET_VERSION=5.1.0
+      - PUPPET_VERSION=5.3.3
       - BEAKER_set=ubuntu_1604
       - PUPPET_INSTALL_TYPE=gem

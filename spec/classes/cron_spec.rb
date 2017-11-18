@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'cron' do
@@ -26,7 +28,8 @@ describe 'cron' do
           .only_with(
             ensure: :running,
             enable: true,
-          ) }
+          )
+      }
     end
   end
 
@@ -81,5 +84,4 @@ describe 'cron' do
         .with_noop(true)
     }
   end
-
 end

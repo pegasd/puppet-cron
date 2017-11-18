@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'beaker-rspec'
 require 'beaker/puppet_install_helper'
 require 'sem_version'
@@ -5,7 +7,7 @@ require 'sem_version'
 ENV['PUPPET_INSTALL_TYPE'] = 'agent' if ENV['PUPPET_INSTALL_TYPE'].nil?
 
 if ENV['PUPPET_INSTALL_TYPE'] == 'gem'
-  puppet_version = ENV['PUPPET_VERSION'] || '~> 4.0'
+  puppet_version = ENV.fetch('PUPPET_VERSION', '~> 4.0')
   install_puppet_from_gem_on(hosts, version: puppet_version)
 else
   run_puppet_install_helper unless ENV['BEAKER_provision'] == 'no'

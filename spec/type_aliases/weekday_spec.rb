@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'Cron::Weekday' do
   describe 'accept integer values' do
-    [1, 02, 3, 6].each do |value|
+    [1, 2, 3, 6].each do |value|
       it { is_expected.to allow_value(value) }
     end
   end
@@ -15,7 +17,7 @@ describe 'Cron::Weekday' do
     end
   end
   describe 'accept expressions like *, */2, 0-4/2, 0-4' do
-    %w(* 0-4 5-6 */2 0-4/2).each do |value|
+    %w[* 0-4 5-6 */2 0-4/2].each do |value|
       it { is_expected.to allow_value(value) }
     end
   end
