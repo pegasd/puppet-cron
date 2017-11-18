@@ -9,7 +9,8 @@ describe 'cron' do
     it { is_expected.to contain_class('cron') }
 
     it { is_expected.to contain_class('cron::install') }
-    it { is_expected.to contain_class('cron::config') }
+    it { is_expected.not_to contain_class('cron::config') }
+    it { is_expected.to contain_class('cron::purge') }
     it { is_expected.to contain_class('cron::service') }
 
     describe 'cron::install' do
@@ -17,7 +18,7 @@ describe 'cron' do
       it { is_expected.to contain_package('cron').with_ensure(:present) }
     end
 
-    describe 'cron::config' do
+    describe 'cron::purge' do
       it { is_expected.to contain_resources('cron').only_with(purge: true) }
       it { is_expected.not_to contain_file('/etc/cron.d') }
     end
