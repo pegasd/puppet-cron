@@ -19,9 +19,11 @@
 #
 # @param ensure Whether to enable or disable cron on the system.
 # @param purge_crond Also purge unmanaged files in /etc/cron.d directory
+# @param purge_noop Run purging in `noop` mode.
 class cron (
   Enum[present, absent] $ensure      = present,
   Boolean               $purge_crond = false,
+  Boolean               $purge_noop  = false,
 ) {
 
   if $ensure == present {

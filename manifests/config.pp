@@ -3,8 +3,14 @@
 # Purge unmanaged cron jobs and also, optionally, purge /etc/cron.d directory
 class cron::config {
 
+  $noop = $::cron::purge_noop ? {
+    false => undef,
+    true  => true,
+  }
+
   resources { 'cron':
     purge => true,
+    noop  => $noop,
   }
 
   if $::cron::purge_crond {
@@ -16,6 +22,7 @@ class cron::config {
       recurse => true,
       purge   => true,
       force   => true,
+      noop    => $noop,
     }
   }
 
