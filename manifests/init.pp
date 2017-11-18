@@ -29,10 +29,10 @@ class cron (
   if $ensure == present {
 
     contain cron::install
-    contain cron::config
+    contain cron::purge
     contain cron::service
 
-    Class['::cron::install'] -> Class['::cron::config']
+    Class['::cron::install'] -> Class['::cron::service'] -> Class['::cron::purge']
     Class['::cron::install'] ~> Class['::cron::service']
 
   } else {

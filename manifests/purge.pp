@@ -1,7 +1,8 @@
 # @api private
+#
 # This is where all the magic happens.
 # Purge unmanaged cron jobs and also, optionally, purge /etc/cron.d directory
-class cron::config {
+class cron::purge {
 
   $noop = $::cron::purge_noop ? {
     false => undef,
