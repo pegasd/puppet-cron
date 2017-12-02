@@ -13,8 +13,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - A few more acceptance tests.
 - Idempotence tests refactored.
 - Adding/removing cron entries does not reload the cron service anymore.
-- `Cron::Minute` and `Cron::Hour` now accept ranges and patterns like `*/2`
-  inside an array.
+- `Cron::Minute` and `Cron::Hour` now accept ranges and patterns like `*/2` inside an array.
 - Because of the previous change, `cron::prep4cron` function doesn't sort the array
   anymore, it simply throws away repeated values.
 - All `Cron::` types accept a minimum of 2 array elements instead of 1.

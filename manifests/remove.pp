@@ -11,9 +11,14 @@ class cron::remove {
     ensure => stopped,
   }
 
-  file { '/etc/cron.d':
-    ensure => absent,
-    force  => true,
+  file {
+    [
+      '/etc/cron.d',
+      '/etc/cron.deny',
+      '/etc/cron.allow',
+    ]:
+      ensure => absent,
+      force  => true,
   }
 
 }

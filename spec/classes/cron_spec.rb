@@ -14,13 +14,25 @@ describe 'cron' do
     it { is_expected.to contain_class('cron::service') }
 
     describe 'cron::install' do
-      it { is_expected.to compile.with_all_deps }
       it { is_expected.to contain_package('cron').with_ensure(:present) }
     end
 
-    describe 'cron::purge' do
-      it { is_expected.to contain_resources('cron').only_with(purge: true) }
-      it { is_expected.not_to contain_file('/etc/cron.d') }
+    describe 'cron::config' do
+      it { is_expected.to contain_file('/etc/cron.deny')
+        .only_with(
+          ensure: :absent,
+          force:  true,
+        )
+      }
+      it { is_expected.to contain_file('/etc/cron.allow')
+        .only_with(
+          ensure:  :file,
+          content: '',
+          owner:   'root',
+          group:   'root',
+          mode:    '0644',
+        )
+      }
     end
 
     describe 'cron::service' do
@@ -31,6 +43,11 @@ describe 'cron' do
             enable: true,
           )
       }
+    end
+
+    describe 'cron::purge' do
+      it { is_expected.to contain_resources('cron').only_with(purge: true) }
+      it { is_expected.not_to contain_file('/etc/cron.d') }
     end
   end
 
@@ -64,15 +81,21 @@ describe 'cron' do
 
     it { is_expected.not_to contain_class('cron::install') }
     it { is_expected.not_to contain_class('cron::config') }
+    it { is_expected.not_to contain_class('cron::purge') }
     it { is_expected.not_to contain_class('cron::service') }
 
-    it {
-      is_expected.to contain_file('/etc/cron.d')
-        .only_with(
+    it { is_expected.not_to contain_class('cron::service') }
+
+    removed_files = %w[/etc/cron.d /etc/cron.deny /etc/cron.allow]
+
+    removed_files.each do |removed_file|
+      it {
+        is_expected.to contain_file(removed_file).only_with(
           ensure: :absent,
           force:  true,
         )
-    }
+      }
+    end
     it { is_expected.to contain_package('cron').with_ensure(:absent) }
   end
 
