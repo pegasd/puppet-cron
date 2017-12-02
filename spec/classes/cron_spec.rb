@@ -18,14 +18,14 @@ describe 'cron' do
     end
 
     describe 'cron::config' do
-      it { is_expected.to contain_file('/etc/cron.deny')
-        .only_with(
+      it {
+        is_expected.to contain_file('/etc/cron.deny').only_with(
           ensure: :absent,
           force:  true,
         )
       }
-      it { is_expected.to contain_file('/etc/cron.allow')
-        .only_with(
+      it {
+        is_expected.to contain_file('/etc/cron.allow').only_with(
           ensure:  :file,
           content: '',
           owner:   'root',
@@ -58,16 +58,15 @@ describe 'cron' do
 
     describe 'cron::config' do
       it {
-        is_expected.to contain_file('/etc/cron.d')
-          .only_with(
-            ensure:  :directory,
-            owner:   'root',
-            group:   'root',
-            mode:    '0755',
-            recurse: true,
-            purge:   true,
-            force:   true,
-          )
+        is_expected.to contain_file('/etc/cron.d').only_with(
+          ensure:  :directory,
+          owner:   'root',
+          group:   'root',
+          mode:    '0755',
+          recurse: true,
+          purge:   true,
+          force:   true,
+        )
       }
     end
   end
