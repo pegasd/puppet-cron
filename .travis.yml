@@ -18,7 +18,7 @@ jobs:
   include:
     - stage: validate
       env:
-      - RAKE=validate
+      - RAKE=validate_all
       - PUPPET=5.3.3
     - stage: unit
       env:

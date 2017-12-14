@@ -8,23 +8,9 @@ require 'yamllint/rake_task'
 PuppetLint.configuration.relative     = true
 PuppetLint.configuration.ignore_paths = %w[spec/fixtures/**/*.pp spec/_fixtures/**/*.pp]
 
-desc 'Validate manifests, templates, ruby, and yaml files'
-task :validate do
-  Dir['manifests/**/*.pp', 'types/**/*.pp'].each do |manifest|
-    sh "bundle exec puppet parser validate --noop #{manifest}"
-  end
-  Dir['templates/**/*.epp'].each do |epp_template|
-    sh "bundle exec puppet epp validate --noop #{epp_template}"
-  end
-
-  Dir['spec/**/*.rb', 'lib/**/*.rb'].each do |ruby_file|
-    sh "ruby -c #{ruby_file}" unless ruby_file.match?(%r{spec/fixtures})
-  end
-  Dir['templates/**/*.erb'].each do |template|
-    sh "erb -P -x -T '-' #{template} | ruby -c"
-  end
-
-  [:metadata_lint, :lint, :rubocop, :yamllint].each do |test|
+desc 'Validate and lint manifests, templates, ruby, and yaml files'
+task :validate_all do
+  [:validate, :metadata_lint, :lint, :rubocop, :yamllint].each do |test|
     Rake::Task[test].invoke
   end
 end
