@@ -21,9 +21,11 @@
 # @param purge_crond Also purge unmanaged files in /etc/cron.d directory
 # @param purge_noop Run purging in `noop` mode.
 class cron (
-  Enum[present, absent] $ensure      = present,
-  Boolean               $purge_crond = false,
-  Boolean               $purge_noop  = false,
+  Enum[present, absent] $ensure        = present,
+  Boolean               $purge_crond   = false,
+  Boolean               $purge_noop    = false,
+  Array[String[1]]      $allowed_users = [ ],
+  Array[String[1]]      $denied_users  = [ ],
 ) {
 
   if $ensure == present {
