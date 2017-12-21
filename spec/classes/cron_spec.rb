@@ -20,13 +20,18 @@ describe 'cron' do
     describe 'cron::config' do
       it {
         is_expected.to contain_file('/etc/cron.deny').only_with(
-          ensure: :absent,
-          force:  true,
+          ensure:  :absent,
+          force:   true,
+          content: '',
+          owner:   'root',
+          group:   'root',
+          mode:    '0644',
         )
       }
       it {
         is_expected.to contain_file('/etc/cron.allow').only_with(
           ensure:  :absent,
+          force:   true,
           content: '',
           owner:   'root',
           group:   'root',
