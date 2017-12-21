@@ -1,6 +1,6 @@
 {
   "name": "pegas-cron",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "author": "PegaS",
   "summary": "Manage cron jobs in a tidy way",
   "license": "Apache-2.0",
