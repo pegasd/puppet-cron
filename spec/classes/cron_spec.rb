@@ -107,4 +107,15 @@ describe 'cron' do
         .with_noop(true)
     }
   end
+
+  context 'fail when both allowed and denied users specified' do
+    let(:params) do
+      {
+        allowed_users: %w[good_dude good_chick],
+        denied_users:  %w[bad_dude bad_chick],
+      }
+    end
+
+    it { is_expected.to compile.and_raise_error(/Either allowed or denied cron users must be specified, not both./) }
+  end
 end
