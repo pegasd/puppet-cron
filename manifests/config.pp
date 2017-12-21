@@ -30,7 +30,7 @@ class cron::config {
   file { '/etc/cron.allow':
     ensure  => $ensure_allow,
     force   => true,
-    content => '',
+    content => join($::cron::allowed_users, "\n"),
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
