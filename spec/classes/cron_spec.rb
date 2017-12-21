@@ -131,6 +131,24 @@ describe 'cron' do
     it { is_expected.to contain_file('/etc/cron.deny').with_ensure(:absent) }
   end
 
+  context 'with denied users specified' do
+    let(:params) { { denied_users: %w[bad_dude bad_chick] } }
+
+    it { is_expected.to compile.with_all_deps }
+
+    it {
+      is_expected.to contain_file('/etc/cron.deny').with(
+        ensure:  :file,
+        content: <<~CRON_DENY.chomp,
+          bad_dude
+          bad_chick
+        CRON_DENY
+      )
+    }
+
+    it { is_expected.to contain_file('/etc/cron.allow').with_ensure(:absent) }
+  end
+
   context 'fail when both allowed and denied users specified' do
     let(:params) do
       {
