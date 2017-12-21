@@ -21,7 +21,7 @@ class cron::config {
   file { '/etc/cron.deny':
     ensure  => $ensure_deny,
     force   => true,
-    content => '',
+    content => join($::cron::denied_users, "\n"),
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
