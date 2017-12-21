@@ -9,6 +9,7 @@ end
 
 group :documentation do
   gem 'puppet-strings'
+  gem 'rgen'
 end
 
 group :unit do
