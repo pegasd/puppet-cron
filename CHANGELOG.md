@@ -7,7 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - The Changelog.
-- `$::cron::purge_noop` parameter.
+- `$::cron::purge_noop` parameter that disables crontab purging (but you'll still see noop notices).
+- `$::cron::allowed_users` and `$::cron::denied_users` parameters that manage users thru `cron.allow` and `cron.deny` files.
 
 ### Changed
 - A few more acceptance tests.
