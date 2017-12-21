@@ -26,7 +26,7 @@ describe 'cron' do
       }
       it {
         is_expected.to contain_file('/etc/cron.allow').only_with(
-          ensure:  :file,
+          ensure:  :absent,
           content: '',
           owner:   'root',
           group:   'root',
