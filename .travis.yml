@@ -19,20 +19,20 @@ jobs:
     - stage: validate
       env:
       - RAKE=validate_all
-      - PUPPET=4.10.9
+      - PUPPET='~> 4'
     - env:
       - RAKE=validate_all
-      - PUPPET=5.3.3
+      - PUPPET='~> 5'
     - stage: unit
       env:
       - RAKE=spec
-      - PUPPET=4.10.4
-    - env:
-      - RAKE=spec
       - PUPPET=4.10.9
     - env:
       - RAKE=spec
-      - PUPPET=5.3.3
+      - PUPPET='~> 4'
+    - env:
+      - RAKE=spec
+      - PUPPET='~> 5'
     - stage: acceptance
       env:
       - RAKE=beaker
