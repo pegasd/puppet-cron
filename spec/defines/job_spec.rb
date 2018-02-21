@@ -71,15 +71,4 @@ describe 'cron::job' do
       )
     }
   end
-
-  context 'with minute => 66' do
-    let(:params) do
-      {
-        command: '/usr/bin/backup',
-        minute:  66,
-      }
-    end
-
-    it { is_expected.to compile.and_raise_error(/Error while evaluating.*, got Integer.* at/) }
-  end
 end
