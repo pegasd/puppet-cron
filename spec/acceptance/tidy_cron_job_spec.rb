@@ -8,11 +8,12 @@ describe 'tidy cron::job' do
 
       include cron
 
-      cron::job {
-        'backup':
-          command => '/usr/bin/backup';
-        'other-backup':
-          command => '/usr/bin/other-backup';
+      cron::job { 'backup':
+        command => '/usr/bin/backup';
+      }
+
+      cron::job { 'other-backup':
+        command => '/usr/bin/other-backup';
       }
 
     PUPPET
@@ -117,8 +118,16 @@ describe 'tidy cron::job' do
       it { is_expected.not_to be_installed }
     end
 
-    describe file('/etc/cron.d') do
-      it { is_expected.not_to exist }
+    absent_files = %w[
+      /etc/cron.d
+      /etc/cron.deny
+      /etc/cron.allow
+    ]
+
+    absent_files.each do |absent_file|
+      describe file(absent_file) do
+        it { is_expected.not_to exist }
+      end
     end
   end
 end
