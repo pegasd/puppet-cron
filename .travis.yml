@@ -26,9 +26,6 @@ jobs:
     - stage: unit
       env:
       - RAKE=spec
-      - PUPPET=4.10.9
-    - env:
-      - RAKE=spec
       - PUPPET='~> 4'
     - env:
       - RAKE=spec
@@ -36,17 +33,21 @@ jobs:
     - stage: acceptance
       env:
       - RAKE=beaker
-      - PUPPET_VERSION=1.10.9
-    - env:
-      - RAKE=beaker
-      - PUPPET_VERSION=5.4.0
+      - PUPPET_VERSION='~> 4'
+      - BEAKER_set=ubuntu_1404
       - PUPPET_INSTALL_TYPE=gem
     - env:
       - RAKE=beaker
-      - PUPPET_VERSION=1.10.9
-      - BEAKER_set=ubuntu_1604
+      - PUPPET_VERSION='~> 5'
+      - BEAKER_set=ubuntu_1404
+      - PUPPET_INSTALL_TYPE=gem
     - env:
       - RAKE=beaker
-      - PUPPET_VERSION=5.4.0
+      - PUPPET_VERSION='~> 4'
+      - BEAKER_set=ubuntu_1604
+      - PUPPET_INSTALL_TYPE=gem
+    - env:
+      - RAKE=beaker
+      - PUPPET_VERSION='~> 5'
       - BEAKER_set=ubuntu_1604
       - PUPPET_INSTALL_TYPE=gem
