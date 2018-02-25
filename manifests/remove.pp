@@ -1,14 +1,15 @@
-# @api private
 # This class handles removal of all cron-related resources.
 # Avoid modifying and using private classes directly.
+#
+# @api private
 class cron::remove {
-
-  package { 'cron':
-    ensure => absent,
-  }
 
   service { 'cron':
     ensure => stopped,
+  }
+
+  package { 'cron':
+    ensure => absent,
   }
 
   file {
