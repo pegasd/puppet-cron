@@ -1,7 +1,5 @@
 # cron job resource
 #
-# @author Eugene Piven <epiven@gmail.com>
-#
 # @example Declaring cron jobs
 #   cron::job {
 #     'ping-host':

@@ -1,15 +1,15 @@
 # Reference
 
 ## Classes
-* [`cron`](#cron): cron class. . This is the main entry point into all cron-related resources on. the host. And because of its "tidiness", be very careful to manage evertyhing. that is needed through this class and related resources.
+* [`cron`](#cron): This is the main entry point into all cron-related resources on. the host. And because of its "tidiness", be very careful to manage evertyhing. that is needed through this class and related resources.
 * [`cron::config`](#cronconfig): Various cron configuration files
-* [`cron::install`](#croninstall): This class handles cron packages.. Avoid modifying and using private classes directly.
-* [`cron::purge`](#cronpurge): This is where all the magic happens.. Purge unmanaged cron jobs and also, optionally, purge /etc/cron.d directory
+* [`cron::install`](#croninstall): This class handles cron packages.
+* [`cron::purge`](#cronpurge): This is where all the purging magic happens.. Purge unmanaged cron jobs and also, optionally, purge /etc/cron.d directory
 * [`cron::remove`](#cronremove): This class handles removal of all cron-related resources.. Avoid modifying and using private classes directly.
 * [`cron::service`](#cronservice): This class handles cron service.. Avoid modifying and using private classes directly.
 ## Defined types
 * [`cron::job`](#cronjob): cron job resource
-* [`cron::whitelist`](#cronwhitelist): cron::whitelist resource. . Use it to whitelist any system cron jobs you don't want this module to touch.. This will make sure /etc/cron.d/JOB_NAME won't get deleted or modified.
+* [`cron::whitelist`](#cronwhitelist): Use this to whitelist any system cron jobs you don't want this module to touch.. This will make sure `/etc/cron.d/${title}` won't get deleted or modified.
 ## Functions
 * [`cron::prep4cron`](#cronprep4cron): cron::prep4cron function. . This functions prepares any cron::job custom timing value to be. used as Puppet internal cron's resource argument
 ## Classes
@@ -17,8 +17,6 @@
 ### cron
 
 * **See also**
-https://github.com/pegasd/puppet-cron
-
 manpages
 crontab(1), crontab(5), cron(8)
 

@@ -1,12 +1,7 @@
-# cron class
-#
 # This is the main entry point into all cron-related resources on
 # the host. And because of its "tidiness", be very careful to manage evertyhing
 # that is needed through this class and related resources.
 #
-# @author Eugene Piven <epiven@gmail.com>
-#
-# @see https://github.com/pegasd/puppet-cron
 # @see manpages crontab(1), crontab(5), cron(8)
 #
 # @example Declaring the cron class

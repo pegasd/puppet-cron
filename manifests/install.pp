@@ -1,6 +1,6 @@
-# @api private
 # This class handles cron packages.
-# Avoid modifying and using private classes directly.
+#
+# @api private
 class cron::install {
 
   package { 'cron':

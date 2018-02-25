@@ -1,6 +1,6 @@
-# @api private
-#
 # Various cron configuration files
+#
+# @api private
 class cron::config {
 
   if !empty($::cron::allowed_users) and !empty($::cron::denied_users) {
