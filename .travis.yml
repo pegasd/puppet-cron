@@ -24,20 +24,20 @@ jobs:
     - stage: acceptance
       script: bundle exec rake beaker
       env:
-      - PUPPET_VERSION='~> 4'
+      - PUPPET='~> 4'
       - BEAKER_set=ubuntu_1404
     - env:
-      - PUPPET_VERSION='~> 5'
+      - PUPPET='~> 5'
       - BEAKER_set=ubuntu_1404
     - env:
-      - PUPPET_VERSION='~> 4'
+      - PUPPET='~> 4'
       - BEAKER_set=ubuntu_1604
     - env:
-      - PUPPET_VERSION='~> 5'
+      - PUPPET='~> 5'
       - BEAKER_set=ubuntu_1604
     - env:
-      - PUPPET_VERSION='~> 4'
+      - PUPPET='~> 4'
       - BEAKER_set=ubuntu_1804
     - env:
-      - PUPPET_VERSION='~> 5'
+      - PUPPET='~> 5'
       - BEAKER_set=ubuntu_1804
