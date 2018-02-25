@@ -4,54 +4,40 @@ services:
 - docker
 
 before_install: rm Gemfile.lock || true
-cache:
-  bundler: true
-  directories:
-  - spec/fixtures/artifacts
-  - spec/fixtures/modules
 
 language: ruby
-
-script: bundle exec rake $RAKE
 
 jobs:
   include:
     - stage: validate
+      script: bundle exec rake validate_all
       env:
-      - RAKE=validate_all
       - PUPPET='~> 4'
     - env:
-      - RAKE=validate_all
       - PUPPET='~> 5'
     - stage: unit
+      script: bundle exec rake spec
       env:
-      - RAKE=spec
       - PUPPET='~> 4'
     - env:
-      - RAKE=spec
       - PUPPET='~> 5'
     - stage: acceptance
+      script: bundle exec rake beaker
       env:
-      - RAKE=beaker
       - PUPPET_VERSION='~> 4'
       - BEAKER_set=ubuntu_1404
     - env:
-      - RAKE=beaker
       - PUPPET_VERSION='~> 5'
       - BEAKER_set=ubuntu_1404
     - env:
-      - RAKE=beaker
       - PUPPET_VERSION='~> 4'
       - BEAKER_set=ubuntu_1604
     - env:
-      - RAKE=beaker
       - PUPPET_VERSION='~> 5'
       - BEAKER_set=ubuntu_1604
     - env:
-      - RAKE=beaker
       - PUPPET_VERSION='~> 4'
       - BEAKER_set=ubuntu_1804
     - env:
-      - RAKE=beaker
       - PUPPET_VERSION='~> 5'
       - BEAKER_set=ubuntu_1804
