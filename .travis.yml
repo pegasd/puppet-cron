@@ -35,19 +35,23 @@ jobs:
       - RAKE=beaker
       - PUPPET_VERSION='~> 4'
       - BEAKER_set=ubuntu_1404
-      - PUPPET_INSTALL_TYPE=gem
     - env:
       - RAKE=beaker
       - PUPPET_VERSION='~> 5'
       - BEAKER_set=ubuntu_1404
-      - PUPPET_INSTALL_TYPE=gem
     - env:
       - RAKE=beaker
       - PUPPET_VERSION='~> 4'
       - BEAKER_set=ubuntu_1604
-      - PUPPET_INSTALL_TYPE=gem
     - env:
       - RAKE=beaker
       - PUPPET_VERSION='~> 5'
       - BEAKER_set=ubuntu_1604
-      - PUPPET_INSTALL_TYPE=gem
+    - env:
+      - RAKE=beaker
+      - PUPPET_VERSION='~> 4'
+      - BEAKER_set=ubuntu_1804
+    - env:
+      - RAKE=beaker
+      - PUPPET_VERSION='~> 5'
+      - BEAKER_set=ubuntu_1804
