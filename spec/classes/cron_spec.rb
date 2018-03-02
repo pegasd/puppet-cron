@@ -121,7 +121,7 @@ describe 'cron' do
     it {
       is_expected.to contain_file('/etc/cron.allow').with(
         ensure:  :file,
-        content: <<~CRON_ALLOW.chomp,
+        content: <<~CRON_ALLOW,
           good_dude
           good_chick
         CRON_ALLOW
@@ -139,7 +139,7 @@ describe 'cron' do
     it {
       is_expected.to contain_file('/etc/cron.deny').with(
         ensure:  :file,
-        content: <<~CRON_DENY.chomp,
+        content: <<~CRON_DENY,
           bad_dude
           bad_chick
         CRON_DENY

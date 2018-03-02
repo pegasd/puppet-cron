@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 - Removal order that led to (through a chain of other events) a non-working `ensure => absent` on Ubuntu 18.04.
+- Proper trailing newline handling for `/etc/cron.allow` and `/etc/cron.deny`.
 
 ## [0.3.0] - 2017-12-21
 ### Added

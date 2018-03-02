@@ -21,7 +21,7 @@ class cron::config {
   file { '/etc/cron.deny':
     ensure  => $ensure_deny,
     force   => true,
-    content => join($::cron::denied_users, "\n"),
+    content => join(suffix($::cron::denied_users, "\n")),
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
@@ -30,7 +30,7 @@ class cron::config {
   file { '/etc/cron.allow':
     ensure  => $ensure_allow,
     force   => true,
-    content => join($::cron::allowed_users, "\n"),
+    content => join(suffix($::cron::allowed_users, "\n")),
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
