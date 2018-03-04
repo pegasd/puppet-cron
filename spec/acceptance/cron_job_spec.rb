@@ -9,12 +9,16 @@ describe 'cron::job' do
       include cron
 
       cron::job { 'ping_stuff':
-        command => 'echo hi >> /tmp/say_hi',
+        command => 'echo hi > /tmp/say_hi',
       }
 
     PUPPET
 
     apply_and_test_idempotence(pp)
+
+    describe cron do
+      it { is_expected.to have_entry '* * * * * echo hi > /tmp/say_hi' }
+    end
   end
 
   context 'cron job works' do
@@ -44,6 +48,10 @@ describe 'cron::job' do
 
     describe file('/tmp/say_hi') do
       it { is_expected.not_to exist }
+    end
+
+    describe cron do
+      it { is_expected.not_to have_entry '* * * * * echo hi > /tmp/say_hi' }
     end
   end
 end
