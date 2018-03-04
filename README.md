@@ -33,17 +33,20 @@ This will start purging all unmanaged cron resources and also make sure the 'cro
 
 ### Also manage /etc/cron.d directory
 ```puppet
-class { '::cron':
+class { 'cron':
   purge_crond => true,
 }
 ```
 
 ### Wipe it all out
 ```puppet
-class { '::cron': ensure => absent }
+class { 'cron':
+  ensure => absent,
+}
 ```
 
 ### cron::job example
+
 ```puppet
 cron::job { 'backup':
   user     => 'backup', # default: 'root'
@@ -54,10 +57,12 @@ cron::job { 'backup':
   weekday  => '0-4',
 }
 ```
-NB: My custom types are a lot stricter than default cron types. Careful - this may break existing cron jobs you are
-converting.
+
+> Custom `Cron::*` time types are a lot stricter than builtin `cron` ones. Careful - this may break existing cron jobs
+  you are converting.
 
 ### cron::whitelist example
+
 ```puppet
 cron::whitelist { 'pkg_backup': }
 ```
@@ -67,21 +72,26 @@ This will make `/etc/cron.d/pkg_backup` immune, and keep the file's contents unt
 
 ### Classes
 
-#### Public classes
+#### Public Classes
 
-* [`cron`](#cron): Main entry point, must include to start managing cron jobs.
+* [`cron`](#cron): Main entry point into all cron-related resources on the host. It purges by default. You've been warned!
 
-#### Private classes
+#### Private Classes
 
-* `cron::install`
-* `cron::config`
-* `cron::service`
-* `cron::remove`
+* `cron::config`: Various cron configuration files
+* `cron::install`: This class handles cron packages.
+* `cron::purge`: This is where all the purging magic happens. Purge unmanaged cron jobs and also, optionally, purge `/etc/cron.d` directory.
+* `cron::remove`: This class handles removal of all cron-related resources.
+* `cron::service`: This class handles cron service.
 
-### Defined Resource Types
+### Defined types
 
-* [`cron::job`](#cronjob)
-* [`cron::whitelist`](#cronwhitelist)
+* [`cron::job`](#cronjob): Cron job defined type with a bit of magic dust sprinkled all over.
+* [`cron::whitelist`](#cronwhitelist): Use this to whitelist any system cron jobs you don't want this module to touch. This will make sure `/etc/cron.d/${title}` won't get deleted 
+
+### Functions
+
+* [`cron::prep4cron`](#cronprep4cron): This functions prepares any cron::job custom timing value to be used as Puppet internal cron's resource argument
 
 ### Custom Types
 
@@ -91,61 +101,23 @@ This will make `/etc/cron.d/pkg_backup` immune, and keep the file's contents unt
 * `Cron::Month`
 * `Cron::Weekday`
 
-### Parameters
+### More information
 
-#### cron
-
-##### `ensure`
-
-Whether cron should exist on host or not
-
-##### `purge_crond`
-
-Also purge files in /etc/cron.d directory (whitelist required jobs using [`cron::whitelist`](#cronwhitelist))
-
-#### cron::job
-
-##### `command`
-
-Command path to be executed
-
-##### `user`
-
-The user who owns the cron job
-
-##### `minute`
-
-Cron minute
-
-##### `hour`
-
-Cron hour
-
-##### `monthday`
-
-Cron monthday
-
-##### `month`
-
-Cron month
-
-##### `weekday`
-
-Cron weekday
-
-#### cron::whitelist
-
-`cron::whitelist` does not have any arguments. Just use a unique name and we'll find it in `/etc/cron.d`
+Parameters, examples, and more: [REFERENCE](REFERENCE.md).
 
 ## Limitations
 
-* Made for and tested only on Ubuntu
+* Made for and tested only on the following Ubuntu distributions:
+  * 14.04
+  * 16.04
+  * 18.04 (currently tested in Docker containers)
 * `Cron::*` custom types are strict!
-* all cron jobs that are managed manually through Puppet are fair play. Don't expect them to
-go away once you start using this module. Hopefully, you can easily convert them to `cron::job` though.
-* the warnings from [Beginning with cron](#beginningwithcron) apply
+* All cron jobs managed by built-in `cron` type are fair play. They won't be purged as long
+  as they're in the catalog. But using this module's `cron::job` type does have its advantages.
 
 ## Development
 
-I'll be happy to know you're using this for one reason or another. And if you want to contribute - even better!
-Feel free to submit a pull request.
+I'll be happy to know you're using this for one reason or the other. And if you want to
+contribute - even better. Feel free to [submit an issue](https://github.com/pegasd/puppet-cron/issues) /
+[fire up a PR](https://github.com/pegasd/puppet-cron/pulls) / whatever.
+

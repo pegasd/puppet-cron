@@ -1,13 +1,27 @@
-# cron job resource
+# Cron job defined type with a bit of magic dust sprinkled all over.
 #
-# @example Declaring cron jobs
-#   cron::job {
-#     'ping-host':
-#       command => '/usr/local/bin/my-host-pinger';
-#     'my-backup':
-#       command => '/usr/local/bin/my-backup',
-#       hour    => [ 0, 12 ],
-#       minute  => '*/10';
+# @example Consider cron job declaration using built-in type
+#   cron { 'my_job':
+#     minute => 0,
+#     hour   => 3,
+#   }
+#
+# @example This differs in that it manages *all* time values by default
+#   cron::job { 'my_job':
+#     minute => 0,
+#     hour   => 3,
+#   }
+#
+# @example Simple cron job that runs every minute
+#   cron::job { 'ping-host':
+#     command => '/usr/local/bin/my-host-pinger',
+#   }
+#
+# @example More advanced declaration
+#   cron::job { 'my-backup':
+#     command => '/usr/local/bin/my-backup',
+#     hour    => [ 0, 12 ],
+#     minute  => '*/10';
 #   }
 #
 # @param command Command path to be executed
@@ -27,7 +41,7 @@ define cron::job (
   Cron::Weekday  $weekday  = '*',
 ) {
 
-  require ::cron
+  include cron
 
   cron { $title:
     ensure   => present,

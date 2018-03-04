@@ -5,7 +5,7 @@
 #   cron::whitelist { 'sample_name': }
 define cron::whitelist {
 
-  require ::cron
+  include cron
 
   file { "/etc/cron.d/${title}":
     ensure  => file,

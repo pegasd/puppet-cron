@@ -43,3 +43,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - Removed all incron references (this used to be cron + incron module).
+
+## [0.1.0] - 2017-02-08 [YANKED]
+### Added
+- This used to be cron + incron module. After reading lots of suggestions about single-purposeness of modules,
+  I decided to split this module into two and make this a pure cron-only one.
+- [This](https://github.com/pegasd/puppet-cron/tree/bfa2055056abe6dc056ca08d7cb6afa508d57dd5) is the last
+  point where you can check the previous approach.
+- Doesn't seem feasible to release this, hence the [YANKED] tag.

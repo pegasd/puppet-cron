@@ -1,6 +1,6 @@
-# This is the main entry point into all cron-related resources on
-# the host. And because of its "tidiness", be very careful to manage evertyhing
-# that is needed through this class and related resources.
+# Main entry point into all cron-related resources on
+# the host.
+# It purges by default. You've been warned!
 #
 # @see manpages crontab(1), crontab(5), cron(8)
 #
@@ -8,16 +8,24 @@
 #   include cron
 #
 # @example Also purge unmanaged files in /etc/cron.d directory
-#   class { 'cron': purge_crond => true }
+#   class { 'cron':
+#     purge_crond => true,
+#   }
 #
 # @example Removing all cron-related resources from the system
-#   class { 'cron': ensure => absent }
+#   class { 'cron':
+#     ensure => absent,
+#   }
 #
-# @example Deny crontab(1) usage to all users except root
-#   class { 'cron': allowed_users => [ 'root' ] }
+# @example Deny crontab usage to all except 'luke' (note: 'root' can always do that too)
+#   class { 'cron':
+#     allowed_users => [
+#       'luke',
+#     ],
+#   }
 #
 # @param ensure Whether to enable or disable cron on the system.
-# @param purge_crond Also purge unmanaged files in /etc/cron.d directory
+# @param purge_crond Also purge unmanaged files in `/etc/cron.d` directory.
 # @param purge_noop Run purging in `noop` mode.
 # @param allowed_users List of users that are specifically allowed to use `crontab(1)`.
 #   If none are specified, all users are allowed.

@@ -1,33 +1,35 @@
-## Reference
+# Reference
+
+## Classes
 
 ### Public Classes
 
-* [`cron`](#cron): This is the main entry point into all cron-related resources on the host. And because of its "tidiness", be very careful to manage evertyhing
+* [`cron`](#cron): Main entry point into all cron-related resources on the host. It purges by default. You've been warned!
 
 ### Private Classes
 
 * `cron::config`: Various cron configuration files
 * `cron::install`: This class handles cron packages.
-* `cron::purge`: This is where all the purging magic happens. Purge unmanaged cron jobs and also, optionally, purge /etc/cron.d directory
-* `cron::remove`: This class handles removal of all cron-related resources. Avoid modifying and using private classes directly.
-* `cron::service`: This class handles cron service. Avoid modifying and using private classes directly.
+* `cron::purge`: This is where all the purging magic happens. Purge unmanaged cron jobs and also, optionally, purge `/etc/cron.d` directory.
+* `cron::remove`: This class handles removal of all cron-related resources.
+* `cron::service`: This class handles cron service.
 
-### Defined types
+## Defined types
 
-* [`cron::job`](#cronjob): cron job resource
+* [`cron::job`](#cronjob): Cron job defined type with a bit of magic dust sprinkled all over.
 * [`cron::whitelist`](#cronwhitelist): Use this to whitelist any system cron jobs you don't want this module to touch. This will make sure `/etc/cron.d/${title}` won't get deleted 
 
-### Functions
+## Functions
 
-* [`cron::prep4cron`](#cronprep4cron): cron::prep4cron function  This functions prepares any cron::job custom timing value to be used as Puppet internal cron's resource argument
+* [`cron::prep4cron`](#cronprep4cron): This functions prepares any cron::job custom timing value to be used as Puppet internal cron's resource argument
 
-### Classes
+## Classes
 
 ### cron
 
-This is the main entry point into all cron-related resources on
-the host. And because of its "tidiness", be very careful to manage evertyhing
-that is needed through this class and related resources.
+Main entry point into all cron-related resources on
+the host.
+It purges by default. You've been warned!
 
 * **See also**
 manpages
@@ -41,7 +43,9 @@ include cron
 
 ##### Also purge unmanaged files in /etc/cron.d directory
 ```puppet
-class { 'cron': purge_crond => true }
+class { 'cron':
+  purge_crond => true,
+}
 ```
 
 ##### Removing all cron-related resources from the system
@@ -51,9 +55,13 @@ class { 'cron':
 }
 ```
 
-##### Deny crontab(1) usage to all users except root
+##### Deny crontab usage to all except 'luke' (note: 'root' can always do that too)
 ```puppet
-class { 'cron': allowed_users => [ 'root' ] }
+class { 'cron':
+  allowed_users => [
+    'luke',
+  ],
+}
 ```
 
 
@@ -73,7 +81,7 @@ Default value: present
 
 Data type: `Boolean`
 
-Also purge unmanaged files in /etc/cron.d directory
+Also purge unmanaged files in `/etc/cron.d` directory.
 
 Default value: `false`
 
@@ -107,18 +115,38 @@ Default value: [ ]
 
 ### cron::job
 
-cron job resource
+Cron job defined type with a bit of magic dust sprinkled all over.
 
 #### Examples
-##### Declaring cron jobs
+##### Consider cron job declaration using built-in type
 ```puppet
-cron::job {
-  'ping-host':
-    command => '/usr/local/bin/my-host-pinger';
-  'my-backup':
-    command => '/usr/local/bin/my-backup',
-    hour    => [ 0, 12 ],
-    minute  => '*/10';
+cron { 'my_job':
+  minute => 0,
+  hour   => 3,
+}
+```
+
+##### This differs in that it manages *all* time values by default
+```puppet
+cron::job { 'my_job':
+  minute => 0,
+  hour   => 3,
+}
+```
+
+##### Simple cron job that runs every minute
+```puppet
+cron::job { 'ping-host':
+  command => '/usr/local/bin/my-host-pinger',
+}
+```
+
+##### More advanced declaration
+```puppet
+cron::job { 'my-backup':
+  command => '/usr/local/bin/my-backup',
+  hour    => [ 0, 12 ],
+  minute  => '*/10';
 }
 ```
 
@@ -199,8 +227,6 @@ cron::whitelist { 'sample_name': }
 ### cron::prep4cron
 Type: Puppet Language
 
-cron::prep4cron function
-
 This functions prepares any cron::job custom timing value to be
 used as Puppet internal cron's resource argument
 
@@ -211,8 +237,6 @@ used as Puppet internal cron's resource argument
     Cron::Month,
     Cron::Weekday
   ] $cron_value = '*')`
-
-cron::prep4cron function
 
 This functions prepares any cron::job custom timing value to be
 used as Puppet internal cron's resource argument

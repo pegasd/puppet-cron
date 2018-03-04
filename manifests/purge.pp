@@ -1,5 +1,5 @@
 # This is where all the purging magic happens.
-# Purge unmanaged cron jobs and also, optionally, purge /etc/cron.d directory
+# Purge unmanaged cron jobs and also, optionally, purge `/etc/cron.d` directory.
 #
 # @api private
 class cron::purge {

@@ -1,5 +1,4 @@
 # This class handles removal of all cron-related resources.
-# Avoid modifying and using private classes directly.
 #
 # @api private
 class cron::remove {

@@ -1,5 +1,3 @@
-# cron::prep4cron function
-#
 # This functions prepares any cron::job custom timing value to be
 # used as Puppet internal cron's resource argument
 #
