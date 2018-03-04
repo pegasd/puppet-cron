@@ -6,11 +6,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- `REFERENCE.md` generated using puppet-strings.
 - Acceptance testing on Ubuntu 18.04.
+- Acceptance tests for `cron::job`.
+- `REFERENCE.md` generated using puppet-strings.
 
 ### Changed
 - Travis configuration prettified.
+- Documentation cleanups.
+- Acceptance tests split up into multiple spec files.
 
 ### Fixed
 - Removal order that led to (through a chain of other events) a non-working `ensure => absent` on Ubuntu 18.04.
