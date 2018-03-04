@@ -2,7 +2,8 @@
 
 [![Build Status](https://travis-ci.org/pegasd/puppet-cron.svg?branch=master)](https://travis-ci.org/pegasd/puppet-cron)
 [![Puppet Forge](https://img.shields.io/puppetforge/v/pegas/cron.svg)](https://forge.puppetlabs.com/pegas/cron)
-[![Puppet Forge - downloads](https://img.shields.io/puppetforge/dt/pegas/cron.svg)](https://forge.puppetlabs.com/pegas/cron)
+[![Puppet Forge - Downloads](https://img.shields.io/puppetforge/dt/pegas/cron.svg)](https://forge.puppetlabs.com/pegas/cron)
+[![Puppet Forge - Score](https://img.shields.io/puppetforge/f/pegas/cron.svg)](https://forge.puppetlabs.com/pegas/cron)
 
 ## Table of Contents
 
