@@ -1,20 +1,33 @@
-# Reference
+## Reference
 
-## Classes
-* [`cron`](#cron): This is the main entry point into all cron-related resources on. the host. And because of its "tidiness", be very careful to manage evertyhing. that is needed through this class and related resources.
-* [`cron::config`](#cronconfig): Various cron configuration files
-* [`cron::install`](#croninstall): This class handles cron packages.
-* [`cron::purge`](#cronpurge): This is where all the purging magic happens.. Purge unmanaged cron jobs and also, optionally, purge /etc/cron.d directory
-* [`cron::remove`](#cronremove): This class handles removal of all cron-related resources.. Avoid modifying and using private classes directly.
-* [`cron::service`](#cronservice): This class handles cron service.. Avoid modifying and using private classes directly.
-## Defined types
+### Public Classes
+
+* [`cron`](#cron): This is the main entry point into all cron-related resources on the host. And because of its "tidiness", be very careful to manage evertyhing
+
+### Private Classes
+
+* `cron::config`: Various cron configuration files
+* `cron::install`: This class handles cron packages.
+* `cron::purge`: This is where all the purging magic happens. Purge unmanaged cron jobs and also, optionally, purge /etc/cron.d directory
+* `cron::remove`: This class handles removal of all cron-related resources. Avoid modifying and using private classes directly.
+* `cron::service`: This class handles cron service. Avoid modifying and using private classes directly.
+
+### Defined types
+
 * [`cron::job`](#cronjob): cron job resource
-* [`cron::whitelist`](#cronwhitelist): Use this to whitelist any system cron jobs you don't want this module to touch.. This will make sure `/etc/cron.d/${title}` won't get deleted or modified.
-## Functions
-* [`cron::prep4cron`](#cronprep4cron): cron::prep4cron function. . This functions prepares any cron::job custom timing value to be. used as Puppet internal cron's resource argument
-## Classes
+* [`cron::whitelist`](#cronwhitelist): Use this to whitelist any system cron jobs you don't want this module to touch. This will make sure `/etc/cron.d/${title}` won't get deleted 
+
+### Functions
+
+* [`cron::prep4cron`](#cronprep4cron): cron::prep4cron function  This functions prepares any cron::job custom timing value to be used as Puppet internal cron's resource argument
+
+### Classes
 
 ### cron
+
+This is the main entry point into all cron-related resources on
+the host. And because of its "tidiness", be very careful to manage evertyhing
+that is needed through this class and related resources.
 
 * **See also**
 manpages
@@ -33,7 +46,9 @@ class { 'cron': purge_crond => true }
 
 ##### Removing all cron-related resources from the system
 ```puppet
-class { 'cron': ensure => absent }
+class { 'cron':
+  ensure => absent,
+}
 ```
 
 ##### Deny crontab(1) usage to all users except root
@@ -88,24 +103,11 @@ List of users that are specifically denied to use `crontab(1)`.
 Default value: [ ]
 
 
-### cron::config
-
-
-### cron::install
-
-
-### cron::purge
-
-
-### cron::remove
-
-
-### cron::service
-
-
 ## Defined types
 
 ### cron::job
+
+cron job resource
 
 #### Examples
 ##### Declaring cron jobs
@@ -182,6 +184,9 @@ Default value: '*'
 
 ### cron::whitelist
 
+Use this to whitelist any system cron jobs you don't want this module to touch.
+This will make sure `/etc/cron.d/${title}` won't get deleted or modified.
+
 #### Examples
 ##### Using cron::whitelist resource
 ```puppet
@@ -193,6 +198,11 @@ cron::whitelist { 'sample_name': }
 
 ### cron::prep4cron
 Type: Puppet Language
+
+cron::prep4cron function
+
+This functions prepares any cron::job custom timing value to be
+used as Puppet internal cron's resource argument
 
 #### `cron::prep4cron(Variant[
     Cron::Minute,
