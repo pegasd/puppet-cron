@@ -1,4 +1,4 @@
-# Puppet module to manage cron jobs in a tidy way
+# Configure and manage cron jobs with focus on tidiness
 
 [![Build Status](https://travis-ci.org/pegasd/puppet-cron.svg?branch=master)](https://travis-ci.org/pegasd/puppet-cron)
 [![Puppet Forge](https://img.shields.io/puppetforge/v/pegas/cron.svg)](https://forge.puppetlabs.com/pegas/cron)
