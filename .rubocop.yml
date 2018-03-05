@@ -3,6 +3,7 @@ AllCops:
   Exclude:
     - spec/fixtures/**/*
     - spec/_fixtures/**/*
+    - vendor/**/*
   TargetRubyVersion: 2.4
   DisplayCopNames: true
 
