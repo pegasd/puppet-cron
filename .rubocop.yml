@@ -1,27 +1,30 @@
 ---
 AllCops:
-  TargetRubyVersion: 2.4
   Exclude:
     - spec/fixtures/**/*
     - spec/_fixtures/**/*
-    - vendor/**/*
+  TargetRubyVersion: 2.4
   DisplayCopNames: true
 
 # Style
-Style/TrailingCommaInArguments:
-  Description: Prefer always trailing comma on multiline argument lists. This makes
-    diffs, and re-ordering nicer.
-  EnforcedStyleForMultiline: comma
-Style/TrailingCommaInLiteral:
-  Description: Prefer always trailing comma on multiline literals. This makes diffs,
-    and re-ordering nicer.
-  EnforcedStyleForMultiline: comma
-Style/SymbolArray:
-  Description: Using percent style obscures symbolic intent of array's contents.
-  EnforcedStyle: brackets
 Style/NumericLiterals:
   Description: Counter-intuitive for port numbers.
   Enabled: false
+Style/TrailingCommaInArguments:
+  Description: We like it Puppet-way.
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInArrayLiteral:
+  Description: We like it Puppet-way.
+  EnforcedStyleForMultiline: comma
+Style/TrailingCommaInHashLiteral:
+  Description: We like it Puppet-way.
+  EnforcedStyleForMultiline: comma
+Style/SpecialGlobalVars:
+  Description: These look kinda scary.
+  Enabled: false
+Style/SymbolArray:
+  Description: Using percent style obscures symbolic intent of array's contents.
+  EnforcedStyle: brackets
 
 # Layout
 Layout/ClosingParenthesisIndentation:

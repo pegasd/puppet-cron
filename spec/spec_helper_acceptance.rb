@@ -25,14 +25,14 @@ end
 # Second time checking for changes.
 #
 # Idempotent and clean. Just the way I like it.
-def apply_and_test_idempotence(pp)
+def apply_and_test_idempotence(manifest)
   context 'applying manifest and testing for idempotence' do
     it 'does not fail the first time around' do
-      apply_manifest(pp, catch_failures: true)
+      apply_manifest(manifest, catch_failures: true)
     end
 
     it 'does not change anything on the second run' do
-      apply_manifest(pp, catch_changes: true)
+      apply_manifest(manifest, catch_changes: true)
     end
   end
 end
