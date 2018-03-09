@@ -55,12 +55,10 @@ class { 'cron':
 }
 ```
 
-##### Deny crontab usage to all except 'luke' (note: 'root' can always do that too)
+##### Deny `crontab(1)` usage to all users except 'luke' (and 'root' - he can always do that).
 ```puppet
 class { 'cron':
-  allowed_users => [
-    'luke',
-  ],
+  allowed_users => [ 'luke' ],
 }
 ```
 
