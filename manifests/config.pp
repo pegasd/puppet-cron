@@ -7,16 +7,8 @@ class cron::config {
     fail('Either allowed or denied cron users must be specified, not both.')
   }
 
-  if !empty($::cron::denied_users) {
-    $ensure_allow = absent
-    $ensure_deny = file
-  } else {
-    $ensure_allow = file
-    $ensure_deny = absent
-  }
-
   file { '/etc/cron.deny':
-    ensure  => $ensure_deny,
+    ensure  => unless empty($::cron::denied_users) { file } else { absent },
     force   => true,
     content => join(suffix($::cron::denied_users, "\n")),
     owner   => 'root',
@@ -25,7 +17,7 @@ class cron::config {
   }
 
   file { '/etc/cron.allow':
-    ensure  => $ensure_allow,
+    ensure  => if empty($::cron::denied_users) { file } else { absent },
     force   => true,
     content => join(suffix($::cron::allowed_users, "\n")),
     owner   => 'root',
