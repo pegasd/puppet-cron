@@ -16,7 +16,7 @@ describe 'crontab(1)' do
 
     describe command('sudo -u luke env EDITOR=cat crontab -e') do
       its(:exit_status) { is_expected.to eq 1 }
-      its(:stderr) { is_expected.to match(/luke.*not allowed to use.*crontab/) }
+      its(:stderr) { is_expected.to match(/^You \(luke\) are not allowed to use this program \(crontab\)$/) }
     end
   end
 
@@ -40,8 +40,11 @@ describe 'crontab(1)' do
 
   context 'clean up' do
     pp = <<~PUPPET
+
       include cron
+
       user { 'luke': ensure => absent }
+
     PUPPET
 
     apply_and_test_idempotence pp
