@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 - Create an empty `/etc/cron.allow` by default.
+- `cron::job` input is stricter:
+  - `command` does not accept newlines
+  - `user` accepts strings of at least 1 character
+  - all time values have been updated (`\A`, `\z` instead of `^` and `$`)
 
 ## [0.4.0] - 2018-03-05
 ### Added
