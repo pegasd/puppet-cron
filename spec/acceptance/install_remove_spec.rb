@@ -27,10 +27,12 @@ describe 'cron' do
 
     describe file('/etc/cron.allow') do
       it { is_expected.to exist }
-      its(:content) { is_expected.to match('') }
+      its(:content) { is_expected.to eq('') }
     end
 
-    describe file('/etc/cron.deny') { it { is_expected.not_to exist } }
+    describe file('/etc/cron.deny') do
+      it { is_expected.not_to exist }
+    end
   end
 
   context 'removes?' do
