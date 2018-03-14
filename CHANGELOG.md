@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - Acceptance tests for `/etc/cron.allow`.
 - Manage package version through `$cron::package_version` parameter.
+- The following parameters are now available to manage cron service:
+  - `$cron::service_manage`
+  - `$cron::service_ensure`
+  - `$cron::service_enable`
 
 ### Changed
 - Create an empty `/etc/cron.allow` by default.
