@@ -58,12 +58,18 @@
       </div>
 
       <div id="content"><div id='filecontents'>
-<h1 id="label-cron">cron</h1>
+<h1 id="label-Configure+and+manage+cron+jobs+with+focus+on+tidiness">Configure and manage cron jobs with focus on tidiness</h1>
 
 <p><a href="https://travis-ci.org/pegasd/puppet-cron"><img
-src="https://travis-ci.org/pegasd/puppet-cron.svg?branch=master"></a></p>
+src="https://travis-ci.org/pegasd/puppet-cron.svg?branch=master"></a> <a
+href="https://forge.puppetlabs.com/pegas/cron"><img
+src="https://img.shields.io/puppetforge/v/pegas/cron.svg"></a> <a
+href="https://forge.puppetlabs.com/pegas/cron"><img
+src="https://img.shields.io/puppetforge/dt/pegas/cron.svg"></a> <a
+href="https://forge.puppetlabs.com/pegas/cron"><img
+src="https://img.shields.io/puppetforge/f/pegas/cron.svg"></a></p>
 
-<h4 id="label-Table+of+Contents">Table of Contents</h4>
+<h2 id="label-Table+of+Contents">Table of Contents</h2>
 <ol><li>
 <p><a href="#description">Description</a></p>
 </li><li>
@@ -104,13 +110,15 @@ purged!</p>
 
 <h3 id="label-Also+manage+-2Fetc-2Fcron.d+directory">Also manage /etc/cron.d directory</h3>
 
-<pre class="code ruby"><code class="ruby">class { &#39;::cron&#39;:
+<pre class="code ruby"><code class="ruby">class { &#39;cron&#39;:
   purge_crond =&gt; true,
 }</code></pre>
 
 <h3 id="label-Wipe+it+all+out">Wipe it all out</h3>
 
-<pre class="code ruby"><code class="ruby">class { &#39;::cron&#39;: ensure =&gt; absent }</code></pre>
+<pre class="code ruby"><code class="ruby">class { &#39;cron&#39;:
+  ensure =&gt; absent,
+}</code></pre>
 
 <h3 id="label-cron-3A-3Ajob+example">cron::job example</h3>
 
@@ -123,8 +131,11 @@ purged!</p>
   weekday  =&gt; &#39;0-4&#39;,
 }</code></pre>
 
-<p>NB: My custom types are a lot stricter than default cron types. Careful -
-this may break existing cron jobs you are converting.</p>
+<blockquote>
+<p>Custom <code>Cron::*</code> time types are a lot stricter than builtin
+<code>cron</code> ones. Careful - this may break existing cron jobs  you
+are converting.</p>
+</blockquote>
 
 <h3 id="label-cron-3A-3Awhitelist+example">cron::whitelist example</h3>
 
@@ -137,28 +148,43 @@ file&#39;s contents untouched.</p>
 
 <h3 id="label-Classes">Classes</h3>
 
-<h4 id="label-Public+classes">Public classes</h4>
+<h4 id="label-Public+Classes">Public Classes</h4>
 <ul><li>
-<p><a href="#cron">cron</a>: Main entry point, must include to start managing
-cron jobs.</p>
+<p><a href="#cron">cron</a>: Main entry point into all cron-related resources
+on the host. It purges by default. You&#39;ve been warned!</p>
 </li></ul>
 
-<h4 id="label-Private+classes">Private classes</h4>
+<h4 id="label-Private+Classes">Private Classes</h4>
 <ul><li>
-<p><code>cron::install</code></p>
+<p><code>cron::config</code>: Various cron configuration files</p>
 </li><li>
-<p><code>cron::config</code></p>
+<p><code>cron::install</code>: This class handles cron packages.</p>
 </li><li>
-<p><code>cron::service</code></p>
+<p><code>cron::purge</code>: This is where all the purging magic happens.
+Purge unmanaged cron jobs and also, optionally, purge
+<code>/etc/cron.d</code> directory.</p>
 </li><li>
-<p><code>cron::remove</code></p>
+<p><code>cron::remove</code>: This class handles removal of all cron-related
+resources.</p>
+</li><li>
+<p><code>cron::service</code>: This class handles cron service.</p>
 </li></ul>
 
-<h3 id="label-Defined+Resource+Types">Defined Resource Types</h3>
+<h3 id="label-Defined+types">Defined types</h3>
 <ul><li>
-<p><a href="#cronjob">cron::job</a></p>
+<p><a href="#cronjob">cron::job</a>: Cron job defined type with a bit of magic
+dust sprinkled all over.</p>
 </li><li>
-<p><a href="#cronwhitelist">cron::whitelist</a></p>
+<p><a href="#cronwhitelist">cron::whitelist</a>: Use this to whitelist any
+system cron jobs you don&#39;t want this module to touch. This will make
+sure <code>/etc/cron.d/${title}</code> won&#39;t get deleted</p>
+</li></ul>
+
+<h3 id="label-Functions">Functions</h3>
+<ul><li>
+<p><a href="#cronprep4cron">cron::prep4cron</a>: This functions prepares any
+cron::job custom timing value to be used as Puppet internal cron&#39;s
+resource argument</p>
 </li></ul>
 
 <h3 id="label-Custom+Types">Custom Types</h3>
@@ -174,73 +200,34 @@ cron jobs.</p>
 <p><code>Cron::Weekday</code></p>
 </li></ul>
 
-<h3 id="label-Parameters">Parameters</h3>
+<h3 id="label-More+information">More information</h3>
 
-<h4 id="label-cron">cron</h4>
-
-<h5 id="label-ensure"><code>ensure</code></h5>
-
-<p>Whether cron should exist on host or not</p>
-
-<h5 id="label-purge_crond"><code>purge_crond</code></h5>
-
-<p>Also purge files in /etc/cron.d directory (whitelist required jobs using <a
-href="#cronwhitelist">cron::whitelist</a>)</p>
-
-<h4 id="label-cron-3A-3Ajob">cron::job</h4>
-
-<h5 id="label-command"><code>command</code></h5>
-
-<p>Command path to be executed</p>
-
-<h5 id="label-user"><code>user</code></h5>
-
-<p>The user who owns the cron job</p>
-
-<h5 id="label-minute"><code>minute</code></h5>
-
-<p>Cron minute</p>
-
-<h5 id="label-hour"><code>hour</code></h5>
-
-<p>Cron hour</p>
-
-<h5 id="label-monthday"><code>monthday</code></h5>
-
-<p>Cron monthday</p>
-
-<h5 id="label-month"><code>month</code></h5>
-
-<p>Cron month</p>
-
-<h5 id="label-weekday"><code>weekday</code></h5>
-
-<p>Cron weekday</p>
-
-<h4 id="label-cron-3A-3Awhitelist">cron::whitelist</h4>
-
-<p><code>cron::whitelist</code> does not have any arguments. Just use a unique
-name and we&#39;ll find it in <code>/etc/cron.d</code></p>
+<p>Parameters, examples, and more: <a href="REFERENCE.md">REFERENCE</a>.</p>
 
 <h2 id="label-Limitations">Limitations</h2>
 <ul><li>
-<p>Made for and tested only on Ubuntu</p>
+<p>Made for and tested only on the following Ubuntu distributions:</p>
+</li><li>
+<p>14.04</p>
+</li><li>
+<p>16.04</p>
+</li><li>
+<p>18.04 (currently tested in Docker containers)</p>
 </li><li>
 <p><code>Cron::*</code> custom types are strict!</p>
 </li><li>
-<p>all cron jobs that are managed manually through Puppet are fair play.
-Don&#39;t expect them to go away once you start using this module.
-Hopefully, you can easily convert them to <code>cron::job</code> though.</p>
-</li><li>
-<p>the warnings from <a href="#beginningwithcron">Beginning with cron</a>
-apply</p>
+<p>All cron jobs managed by built-in <code>cron</code> type are fair play.
+They won&#39;t be purged as long  as they&#39;re in the catalog. But using
+this module&#39;s <code>cron::job</code> type does have its advantages.</p>
 </li></ul>
 
 <h2 id="label-Development">Development</h2>
 
-<p>I&#39;ll be happy to know you&#39;re using this for one reason or another.
-And if you want to contribute - even better! Feel free to submit a pull
-request.</p>
+<p>I&#39;ll be happy to know you&#39;re using this for one reason or the
+other. And if you want to contribute - even better. Feel free to <a
+href="https://github.com/pegasd/puppet-cron/issues">submit an issue</a> /
+<a href="https://github.com/pegasd/puppet-cron/pulls">fire up a PR</a> /
+whatever.</p>
 </div></div>
 
       <div id="footer">

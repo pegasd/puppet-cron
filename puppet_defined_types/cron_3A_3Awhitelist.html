@@ -117,7 +117,7 @@ get deleted or modified.</p>
 
 define cron::whitelist {
 
-  require ::cron
+  include cron
 
   file { &quot;/etc/cron.d/${title}&quot;:
     ensure  =&gt; file,

@@ -73,7 +73,7 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>cron job resource</p>
+<p>Cron job defined type with a bit of magic dust sprinkled all over.</p>
 
   </div>
 </div>
@@ -84,16 +84,42 @@
     
       
         <p class="example_title"><div class='inline'>
-<p>Declaring cron jobs</p>
+<p>Consider cron job declaration using built-in type</p>
 </div></p>
       
-      <pre class="example code"><code>cron::job {
-  &#39;ping-host&#39;:
-    command =&gt; &#39;/usr/local/bin/my-host-pinger&#39;;
-  &#39;my-backup&#39;:
-    command =&gt; &#39;/usr/local/bin/my-backup&#39;,
-    hour    =&gt; [ 0, 12 ],
-    minute  =&gt; &#39;*/10&#39;;
+      <pre class="example code"><code>cron { &#39;my_job&#39;:
+  minute =&gt; 0,
+  hour   =&gt; 3,
+}</code></pre>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>This differs in that it manages <em>all</em> time values by default</p>
+</div></p>
+      
+      <pre class="example code"><code>cron::job { &#39;my_job&#39;:
+  minute =&gt; 0,
+  hour   =&gt; 3,
+}</code></pre>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Simple cron job that runs every minute</p>
+</div></p>
+      
+      <pre class="example code"><code>cron::job { &#39;ping-host&#39;:
+  command =&gt; &#39;/usr/local/bin/my-host-pinger&#39;,
+}</code></pre>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>More advanced declaration</p>
+</div></p>
+      
+      <pre class="example code"><code>cron::job { &#39;my-backup&#39;:
+  command =&gt; &#39;/usr/local/bin/my-backup&#39;,
+  hour    =&gt; [ 0, 12 ],
+  minute  =&gt; &#39;*/10&#39;;
 }</code></pre>
     
   </div>
@@ -105,7 +131,7 @@
         <span class='name'>command</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>Cron::Command</tt>)</span>
       
       
       
@@ -121,7 +147,7 @@
         <span class='name'>user</span>
       
       
-        <span class='type'>(<tt>String</tt>)</span>
+        <span class='type'>(<tt>String[1]</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>&#39;root&#39;</tt>)</em>
@@ -234,20 +260,6 @@
         <pre class="lines">
 
 
-20
-21
-22
-23
-24
-25
-26
-27
-28
-29
-30
-31
-32
-33
 34
 35
 36
@@ -257,14 +269,28 @@
 40
 41
 42
-43</pre>
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/job.pp', line 20</span>
+        <pre class="code"><span class="info file"># File 'manifests/job.pp', line 34</span>
 
 define cron::job (
-  String         $command,
-  String         $user     = &#39;root&#39;,
+  Cron::Command  $command,
+  String[1]      $user     = &#39;root&#39;,
   Cron::Minute   $minute   = &#39;*&#39;,
   Cron::Hour     $hour     = &#39;*&#39;,
   Cron::Monthday $monthday = &#39;*&#39;,
@@ -272,7 +298,7 @@ define cron::job (
   Cron::Weekday  $weekday  = &#39;*&#39;,
 ) {
 
-  require ::cron
+  include cron
 
   cron { $title:
     ensure   =&gt; present,

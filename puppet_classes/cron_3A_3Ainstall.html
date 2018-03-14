@@ -103,7 +103,7 @@
 class cron::install {
 
   package { &#39;cron&#39;:
-    ensure =&gt; present,
+    ensure =&gt; $::cron::package_version,
   }
 
 }</pre>
