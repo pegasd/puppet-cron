@@ -14,7 +14,7 @@ describe 'cron' do
     it { is_expected.to contain_class('cron::service') }
 
     describe 'cron::install' do
-      it { is_expected.to contain_package('cron').with_ensure(:present) }
+      it { is_expected.to contain_package('cron').with_ensure(:installed) }
     end
 
     describe 'cron::config' do
@@ -158,5 +158,12 @@ describe 'cron' do
     end
 
     it { is_expected.to compile.and_raise_error(/Either allowed or denied cron users must be specified, not both./) }
+  end
+
+  context 'with custom package version' do
+    let(:params) { { package_version: '3.0pl1-124ubuntu2' } }
+
+    it { is_expected.to compile.with_all_deps }
+    it { is_expected.to contain_package('cron').with_ensure('3.0pl1-124ubuntu2') }
   end
 end

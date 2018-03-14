@@ -4,7 +4,7 @@
 class cron::install {
 
   package { 'cron':
-    ensure => present,
+    ensure => $::cron::package_version,
   }
 
 }

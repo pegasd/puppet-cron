@@ -29,11 +29,12 @@
 #   If none are specified, all users are allowed.
 # @param denied_users List of users that are specifically denied to use `crontab(1)`.
 class cron (
-  Enum[present, absent] $ensure        = present,
-  Boolean               $purge_crond   = false,
-  Boolean               $purge_noop    = false,
-  Array[String[1]]      $allowed_users = [ ],
-  Array[String[1]]      $denied_users  = [ ],
+  Enum[present, absent] $ensure          = present,
+  Boolean               $purge_crond     = false,
+  Boolean               $purge_noop      = false,
+  Array[String[1]]      $allowed_users   = [ ],
+  Array[String[1]]      $denied_users    = [ ],
+  String[1]             $package_version = installed,
 ) {
 
   if $ensure == present {
