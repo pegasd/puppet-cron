@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Acceptance tests for `/etc/cron.allow`.
+- Manage package version through `$cron::package_version` parameter.
 
 ### Changed
 - Create an empty `/etc/cron.allow` by default.
