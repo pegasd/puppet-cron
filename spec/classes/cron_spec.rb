@@ -41,18 +41,44 @@ describe 'cron' do
     end
 
     describe 'cron::service' do
-      it {
-        is_expected.to contain_service('cron')
-          .only_with(
-            ensure: :running,
-            enable: true,
-          )
-      }
+      it { is_expected.to contain_service('cron') }
     end
 
     describe 'cron::purge' do
       it { is_expected.to contain_resources('cron').only_with(purge: true) }
       it { is_expected.not_to contain_file('/etc/cron.d') }
+    end
+  end
+
+  context 'service management' do
+    context 'default behavior' do
+      it { is_expected.to compile.with_all_deps }
+      it {
+        is_expected.to contain_service('cron').only_with(
+          ensure:     :running,
+          enable:     true,
+          hasrestart: true,
+          hasstatus:  true,
+        )
+      }
+    end
+
+    context 'do not manage the service' do
+      let(:params) { { service_manage: false } }
+      it { is_expected.to compile.with_all_deps }
+      it { is_expected.not_to contain_service('cron') }
+    end
+
+    context 'ensure => stopped' do
+      let(:params) { { service_ensure: :stopped } }
+      it { is_expected.to compile.with_all_deps }
+      it { is_expected.to contain_service('cron').with_ensure(:stopped) }
+    end
+
+    context 'enable => false' do
+      let(:params) { { service_enable: false } }
+      it { is_expected.to compile.with_all_deps }
+      it { is_expected.to contain_service('cron').with_enable(false) }
     end
   end
 

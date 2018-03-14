@@ -23,18 +23,33 @@
 #   }
 #
 # @param ensure Whether to enable or disable cron on the system.
+# @param package_version Custom `cron` package version.
+# @param allowed_users List of users allowed to use `crontab(1)`. By default, only root can.
+# @param denied_users List of users specifically denied to use `crontab(1)`.
+#   Note: When this is not empty, all users except ones specified here will be able to use `crontab`.
+# @param service_manage Whether to manage cron service at all.
+# @param service_ensure Cron service's `ensure` parameter.
+# @param service_enable Cron service's `enable` parameter.
 # @param purge_crond Also purge unmanaged files in `/etc/cron.d` directory.
 # @param purge_noop Run purging in `noop` mode.
-# @param allowed_users List of users that are specifically allowed to use `crontab(1)`.
-#   If none are specified, all users are allowed.
-# @param denied_users List of users that are specifically denied to use `crontab(1)`.
 class cron (
-  Enum[present, absent] $ensure          = present,
-  Boolean               $purge_crond     = false,
-  Boolean               $purge_noop      = false,
-  Array[String[1]]      $allowed_users   = [ ],
-  Array[String[1]]      $denied_users    = [ ],
-  String[1]             $package_version = installed,
+  Enum[present, absent]  $ensure          = present,
+
+  # cron::install
+  String[1]              $package_version = installed,
+
+  # cron::config
+  Array[String[1]]       $allowed_users   = [ ],
+  Array[String[1]]       $denied_users    = [ ],
+
+  # cron::service
+  Boolean                $service_manage  = true,
+  Enum[running, stopped] $service_ensure  = running,
+  Boolean                $service_enable  = true,
+
+  # cron::purge
+  Boolean                $purge_crond     = false,
+  Boolean                $purge_noop      = false,
 ) {
 
   if $ensure == present {

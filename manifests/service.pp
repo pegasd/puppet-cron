@@ -3,9 +3,13 @@
 # @api private
 class cron::service {
 
-  service { 'cron':
-    ensure => running,
-    enable => true,
+  if $::cron::service_manage {
+    service { 'cron':
+      ensure     => $::cron::service_ensure,
+      enable     => $::cron::service_enable,
+      hasrestart => true,
+      hasstatus  => true,
+    }
   }
 
 }
