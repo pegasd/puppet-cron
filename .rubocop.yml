@@ -4,6 +4,7 @@ AllCops:
     - spec/fixtures/**/*
     - spec/_fixtures/**/*
     - vendor/**/*
+    - pkg/**/*
   TargetRubyVersion: 2.4
   DisplayCopNames: true
 
