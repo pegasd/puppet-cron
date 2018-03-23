@@ -75,6 +75,55 @@ Whether to enable or disable cron on the system.
 
 Default value: present
 
+##### `package_version`
+
+Data type: `String[1]`
+
+Custom `cron` package version.
+
+Default value: installed
+
+##### `allowed_users`
+
+Data type: `Array[String[1]]`
+
+List of users allowed to use `crontab(1)`. By default, only root can.
+
+Default value: [ ]
+
+##### `denied_users`
+
+Data type: `Array[String[1]]`
+
+List of users specifically denied to use `crontab(1)`.
+Note: When this is not empty, all users except ones specified here will be able to use `crontab`.
+
+Default value: [ ]
+
+##### `service_manage`
+
+Data type: `Boolean`
+
+Whether to manage cron service at all.
+
+Default value: `true`
+
+##### `service_ensure`
+
+Data type: `Enum[running, stopped]`
+
+Cron service's `ensure` parameter.
+
+Default value: running
+
+##### `service_enable`
+
+Data type: `Boolean`
+
+Cron service's `enable` parameter.
+
+Default value: `true`
+
 ##### `purge_crond`
 
 Data type: `Boolean`
@@ -90,23 +139,6 @@ Data type: `Boolean`
 Run purging in `noop` mode.
 
 Default value: `false`
-
-##### `allowed_users`
-
-Data type: `Array[String[1]]`
-
-List of users that are specifically allowed to use `crontab(1)`.
-If none are specified, all users are allowed.
-
-Default value: [ ]
-
-##### `denied_users`
-
-Data type: `Array[String[1]]`
-
-List of users that are specifically denied to use `crontab(1)`.
-
-Default value: [ ]
 
 
 ## Defined types
@@ -155,13 +187,13 @@ The following parameters are available in the `cron::job` defined type.
 
 ##### `command`
 
-Data type: `String`
+Data type: `Cron::Command`
 
 Command path to be executed
 
 ##### `user`
 
-Data type: `String`
+Data type: `String[1]`
 
 The user who owns the cron job
 
