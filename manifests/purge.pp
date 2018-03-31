@@ -4,9 +4,10 @@
 # @api private
 class cron::purge {
 
-  $noop = $::cron::purge_noop ? {
-    false => undef,
-    true  => true,
+  $noop = if $::cron::purge_noop {
+    true
+  } else {
+    undef
   }
 
   resources { 'cron':
