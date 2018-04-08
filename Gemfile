@@ -10,7 +10,7 @@ group :acceptance do
 end
 
 group :documentation do
-  gem 'puppet-strings', '= 1.2.0'
+  gem 'puppet-strings'
   gem 'rgen'
 end
 
