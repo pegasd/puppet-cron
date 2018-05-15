@@ -113,7 +113,7 @@ Parameters, examples, and more: [REFERENCE](REFERENCE.md).
 * Made for and tested only on the following Ubuntu distributions:
   * 14.04
   * 16.04
-  * 18.04 (currently tested in Docker containers)
+  * 18.04
 * `Cron::*` custom types are strict!
 * All cron jobs managed by built-in `cron` type are fair play. They won't be purged as long
   as they're in the catalog. But using this module's `cron::job` type does have its advantages.
