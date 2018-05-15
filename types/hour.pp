@@ -1,5 +1,4 @@
-# Can and should be reused in higher-level classes
-# Stricter than puppet's cron::hour type
+# Stricter `cron::job::hour`.
 type Cron::Hour = Variant[
   Integer[0, 23],
   Array[Variant[

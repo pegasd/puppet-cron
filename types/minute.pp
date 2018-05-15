@@ -1,5 +1,4 @@
-# Can and should be reused in higher-level classes
-# Stricter than puppet's cron::minute type
+# Stricter `cron::job::minute`.
 type Cron::Minute = Variant[
   Integer[0, 59],
   Array[Variant[

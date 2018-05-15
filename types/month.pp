@@ -1,5 +1,4 @@
-# Can and should be reused in higher-level classes
-# Stricter than puppet's cron::month type
+# Stricter `cron::job::month`.
 type Cron::Month = Variant[
   Integer[1, 12],
   Array[Integer[1, 12], 2],

@@ -1,5 +1,4 @@
-# Can and should be reused in higher-level classes
-# Stricter than puppet's cron::weekday type
+# Stricter `cron::job::weekday`.
 type Cron::Weekday = Variant[
   Integer[0, 6],
   Array[Integer[0, 6], 2],
