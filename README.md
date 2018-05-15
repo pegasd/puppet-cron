@@ -73,40 +73,18 @@ This will make `/etc/cron.d/pkg_backup` immune, and keep the file's contents unt
 
 ## Reference
 
-### Classes
+### Type Aliases
 
-#### Public Classes
+* `Cron::Command` - Used for `cron::job::command` parameter. Does not allow newline characters (which breaks crontab).
+* `Cron::Minute` - Stricter `cron::job::minute`.
+* `Cron::Hour` - Stricter `cron::job::hour`.
+* `Cron::Monthday` - Stricter `cron::job::monthday`.
+* `Cron::Month` - Stricter `cron::job::month`.
+* `Cron::Weekday` - Stricter `cron::job::weekday`.
 
-* [`cron`](#cron): Main entry point into all cron-related resources on the host. It purges by default. You've been warned!
+### Full reference
 
-#### Private Classes
-
-* `cron::config`: Various cron configuration files
-* `cron::install`: This class handles cron packages.
-* `cron::purge`: This is where all the purging magic happens. Purge unmanaged cron jobs and also, optionally, purge `/etc/cron.d` directory.
-* `cron::remove`: This class handles removal of all cron-related resources.
-* `cron::service`: This class handles cron service.
-
-### Defined types
-
-* [`cron::job`](#cronjob): Cron job defined type with a bit of magic dust sprinkled all over.
-* [`cron::whitelist`](#cronwhitelist): Use this to whitelist any system cron jobs you don't want this module to touch. This will make sure `/etc/cron.d/${title}` won't get deleted 
-
-### Functions
-
-* [`cron::prep4cron`](#cronprep4cron): This functions prepares any cron::job custom timing value to be used as Puppet internal cron's resource argument
-
-### Custom Types
-
-* `Cron::Minute`
-* `Cron::Hour`
-* `Cron::Monthday`
-* `Cron::Month`
-* `Cron::Weekday`
-
-### More information
-
-Parameters, examples, and more: [REFERENCE](REFERENCE.md).
+Check out [REFERENCE](REFERENCE.md) for up-to-date details.
 
 ## Limitations
 
