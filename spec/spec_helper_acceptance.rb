@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 require 'beaker-rspec'
-require 'beaker/puppet_install_helper'
-require 'sem_version'
 
 puppet_version = ENV.fetch('PUPPET', '~> 5.0')
 install_puppet_from_gem_on(hosts, version: puppet_version)
