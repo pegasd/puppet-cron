@@ -89,9 +89,9 @@ Check out [REFERENCE](REFERENCE.md) for up-to-date details.
 ## Limitations
 
 * Made for and tested only on the following Ubuntu distributions:
-  * 14.04
-  * 16.04
-  * 18.04
+    * 14.04
+    * 16.04
+    * 18.04
 * `Cron::*` custom types are strict!
 * All cron jobs managed by built-in `cron` type are fair play. They won't be purged as long
   as they're in the catalog. But using this module's `cron::job` type does have its advantages.
