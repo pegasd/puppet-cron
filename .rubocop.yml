@@ -5,6 +5,7 @@ AllCops:
     - spec/_fixtures/**/*
     - vendor/**/*
     - pkg/**/*
+    - bin/**/*
   TargetRubyVersion: 2.4
   DisplayCopNames: true
 
@@ -27,6 +28,12 @@ Style/SpecialGlobalVars:
 Style/SymbolArray:
   Description: Using percent style obscures symbolic intent of array's contents.
   EnforcedStyle: brackets
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/MixinUsage:
+  Enabled: false
+Style/IfUnlessModifier:
+  Enabled: false
 
 # Layout
 Layout/ClosingParenthesisIndentation:
@@ -34,9 +41,9 @@ Layout/ClosingParenthesisIndentation:
 
 # Metrics
 Metrics/MethodLength:
-  Max: 50
+  Enabled: false
 Metrics/BlockLength:
-  Max: 300
+  Enabled: false
 Metrics/LineLength:
   Description: People have wide screens, use them.
   Max: 140

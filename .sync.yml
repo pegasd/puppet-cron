@@ -1,0 +1,18 @@
+---
+spec/spec_helper.rb:
+  mock_with: ':rspec'
+
+appveyor.yml:
+  delete: true
+.gitlab-ci.yml:
+  delete: true
+
+.rubocop.yml:
+  unmanaged: true
+.travis.yml:
+  unmanaged: true
+Gemfile:
+  unmanaged: true
+Rakefile:
+  unmanaged: true
+...

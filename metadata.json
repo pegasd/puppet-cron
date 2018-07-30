@@ -7,6 +7,12 @@
   "source": "https://github.com/pegasd/puppet-cron",
   "project_page": "https://github.com/pegasd/puppet-cron",
   "issues_url": "https://github.com/pegasd/puppet-cron/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 4.13.0 < 5.0.0"
+    }
+  ],
   "operatingsystem_support": [
     {
       "operatingsystem": "Ubuntu",
@@ -23,10 +29,7 @@
       "version_requirement": ">= 4.4.0 < 6.0.0"
     }
   ],
-  "dependencies": [
-    {
-      "name": "puppetlabs/stdlib",
-      "version_requirement": ">= 4.13.0 < 5.0.0"
-    }
-  ]
+  "pdk-version": "1.6.0",
+  "template-url": "https://github.com/puppetlabs/pdk-templates",
+  "template-ref": "heads/master-0-g0657063"
 }
