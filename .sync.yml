@@ -1,6 +1,10 @@
 ---
 spec/spec_helper.rb:
   mock_with: ':rspec'
+  spec_overrides:
+    - 'RSpec.configure do |c|'
+    - '  c.after(:suite) { RSpec::Puppet::Coverage.report!(100) }'
+    - 'end'
 
 appveyor.yml:
   delete: true
