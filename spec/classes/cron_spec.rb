@@ -192,4 +192,10 @@ describe 'cron' do
     it { is_expected.to compile.with_all_deps }
     it { is_expected.to contain_package('cron').with_ensure('3.0pl1-124ubuntu2') }
   end
+
+  context 'with purge_cron => false' do
+    let(:params) { { purge_cron: false } }
+
+    it { is_expected.to compile.with_all_deps }
+  end
 end
