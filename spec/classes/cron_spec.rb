@@ -197,5 +197,6 @@ describe 'cron' do
     let(:params) { { purge_cron: false } }
 
     it { is_expected.to compile.with_all_deps }
+    it { is_expected.not_to contain_resources('cron') }
   end
 end
