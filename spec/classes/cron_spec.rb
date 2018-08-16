@@ -199,5 +199,6 @@ describe 'cron' do
     let(:params) { { allow_all_users: true } }
 
     it { is_expected.to compile.with_all_deps }
+    it { is_expected.to contain_file('/etc/cron.allow').with_ensure(:absent).with_force(true) }
   end
 end
