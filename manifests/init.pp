@@ -24,6 +24,7 @@
 #
 # @param ensure Whether to enable or disable cron on the system.
 # @param package_version Custom `cron` package version.
+# @param allow_all_users Allow all users to manage crontab.
 # @param allowed_users List of users allowed to use `crontab(1)`. By default, only root can.
 # @param denied_users List of users specifically denied to use `crontab(1)`.
 #   Note: When this is not empty, all users except ones specified here will be able to use `crontab`.
