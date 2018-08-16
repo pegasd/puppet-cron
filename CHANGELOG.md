@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - `$cron::purge_cron` parameter to manage crontab purging.
+- `$cron::allow_all_users` parameter to allow all users to manage their crontabs.
 
 ### Fixed
 - `puppetlabs_spec_helper`'s `mock_with` deprecation warning.
