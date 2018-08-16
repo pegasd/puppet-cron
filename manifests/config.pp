@@ -14,7 +14,7 @@ class cron::config {
       group => 'root',
       mode  => '0644';
     '/etc/cron.allow':
-      ensure  => if empty($::cron::denied_users) { file } else { absent },
+      ensure  => if (!$::cron::allow_all_users and empty($::cron::denied_users)) { file } else { absent },
       content => join(suffix($::cron::allowed_users, "\n"));
     '/etc/cron.deny':
       ensure  => unless empty($::cron::denied_users) { file } else { absent },
