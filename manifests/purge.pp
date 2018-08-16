@@ -10,9 +10,11 @@ class cron::purge {
     undef
   }
 
-  resources { 'cron':
-    purge => true,
-    noop  => $noop,
+  if $::cron::purge_cron {
+    resources { 'cron':
+      purge => true,
+      noop  => $noop,
+    }
   }
 
   if $::cron::purge_crond {
