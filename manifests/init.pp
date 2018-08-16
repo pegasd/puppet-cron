@@ -48,6 +48,7 @@ class cron (
   Boolean                $service_enable  = true,
 
   # cron::purge
+  Boolean                $purge_cron      = true,
   Boolean                $purge_crond     = false,
   Boolean                $purge_noop      = false,
 ) {
