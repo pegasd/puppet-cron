@@ -17,7 +17,7 @@ describe 'Cron::Weekday' do
     end
   end
   describe 'accept expressions like *, */2, 0-4/2, 0-4' do
-    %w[* 0-4 5-6 */2 0-4/2].each do |value|
+    ['*', '0-4', '5-6', '*/2', '0-4/2'].each do |value|
       it { is_expected.to allow_value(value) }
     end
   end

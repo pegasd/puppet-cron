@@ -8,7 +8,7 @@ require 'rubocop/rake_task'
 require 'yamllint/rake_task'
 
 PuppetLint.configuration.relative     = true
-PuppetLint.configuration.ignore_paths = %w[spec/fixtures/**/*.pp spec/_fixtures/**/*.pp]
+PuppetLint.configuration.ignore_paths = ['spec/fixtures/**/*.pp', 'spec/_fixtures/**/*.pp']
 
 desc 'Validate and lint manifests, templates, ruby, and yaml files'
 task :validate_all do
@@ -18,10 +18,5 @@ task :validate_all do
 end
 
 YamlLint::RakeTask.new do |t|
-  t.paths = %w[
-    spec/**/*.yaml
-    data/**/*.yaml
-    data/*.yaml
-    *.yaml
-  ]
+  t.paths = ['spec/**/*.yaml', 'data/**/*.yaml', 'data/*.yaml', '*.yaml']
 end

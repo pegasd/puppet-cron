@@ -54,11 +54,7 @@ describe 'cron' do
       it { is_expected.not_to be_running }
     end
 
-    managed_files = %w[
-      /etc/cron.allow
-      /etc/cron.deny
-      /etc/cron.d
-    ]
+    managed_files = ['/etc/cron.allow', '/etc/cron.deny', '/etc/cron.d']
 
     managed_files.each do |absent_file|
       describe file(absent_file) do

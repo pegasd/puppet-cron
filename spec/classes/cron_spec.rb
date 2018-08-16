@@ -116,7 +116,7 @@ describe 'cron' do
 
     it { is_expected.not_to contain_class('cron::service') }
 
-    removed_files = %w[/etc/cron.d /etc/cron.deny /etc/cron.allow]
+    removed_files = ['/etc/cron.d', '/etc/cron.deny', '/etc/cron.allow']
 
     removed_files.each do |removed_file|
       it {
@@ -140,7 +140,7 @@ describe 'cron' do
   end
 
   context 'with allowed users specified' do
-    let(:params) { { allowed_users: %w[good_dude good_chick] } }
+    let(:params) { { allowed_users: ['good_dude', 'good_chick'] } }
 
     it { is_expected.to compile.with_all_deps }
 
@@ -158,7 +158,7 @@ describe 'cron' do
   end
 
   context 'with denied users specified' do
-    let(:params) { { denied_users: %w[bad_dude bad_chick] } }
+    let(:params) { { denied_users: ['bad_dude', 'bad_chick'] } }
 
     it { is_expected.to compile.with_all_deps }
 
@@ -178,8 +178,8 @@ describe 'cron' do
   context 'fail when both allowed and denied users specified' do
     let(:params) do
       {
-        allowed_users: %w[good_dude good_chick],
-        denied_users:  %w[bad_dude bad_chick],
+        allowed_users: ['good_dude', 'good_chick'],
+        denied_users:  ['bad_dude', 'bad_chick'],
       }
     end
 

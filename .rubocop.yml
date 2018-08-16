@@ -3,13 +3,22 @@ AllCops:
   Exclude:
     - spec/fixtures/**/*
     - spec/_fixtures/**/*
-    - vendor/**/*
-    - pkg/**/*
     - bin/**/*
   TargetRubyVersion: 2.4
   DisplayCopNames: true
 
 # Style
+Style/ConditionalAssignment:
+  Description: This looks way more readable.
+  EnforcedStyle: assign_inside_condition
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/MixinUsage:
+  Description: spec_helper in PDK template is not behaving well.
+  Enabled: false
+Style/IfUnlessModifier:
+  Description: spec_helper in PDK template is not behaving well.
+  Enabled: false
 Style/NumericLiterals:
   Description: Counter-intuitive for port numbers.
   Enabled: false
@@ -28,11 +37,11 @@ Style/SpecialGlobalVars:
 Style/SymbolArray:
   Description: Using percent style obscures symbolic intent of array's contents.
   EnforcedStyle: brackets
-Style/FrozenStringLiteralComment:
-  Enabled: false
-Style/MixinUsage:
-  Enabled: false
-Style/IfUnlessModifier:
+Style/WordArray:
+  Description: Be consistent with Puppet arrays.
+  EnforcedStyle: brackets
+Style/FormatStringToken:
+  Description: Hiera doesn't like this restriction.
   Enabled: false
 
 # Layout
@@ -40,11 +49,22 @@ Layout/ClosingParenthesisIndentation:
   Enabled: false
 
 # Metrics
-Metrics/MethodLength:
+Metrics/LineLength:
+  Description: People have wide screens, use them.
+  Max: 200
+Metrics/AbcSize:
   Enabled: false
 Metrics/BlockLength:
   Enabled: false
-Metrics/LineLength:
-  Description: People have wide screens, use them.
-  Max: 140
-...
+Metrics/ClassLength:
+  Enabled: false
+Metrics/CyclomaticComplexity:
+  Enabled: false
+Metrics/MethodLength:
+  Enabled: false
+Metrics/ModuleLength:
+  Enabled: false
+Metrics/ParameterLists:
+  Enabled: false
+Metrics/PerceivedComplexity:
+  Enabled: false

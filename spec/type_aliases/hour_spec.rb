@@ -19,7 +19,7 @@ describe 'Cron::Hour' do
     end
   end
   describe 'accept expressions like *, */2, 1-23/2, 11-23' do
-    %w[* 0-5 11-23 5-11 1-23 19-22 */2 */23 */11 1-23/2 12-23/3 2-20/4].each do |value|
+    ['*', '0-5', '11-23', '5-11', '1-23', '19-22', '*/2', '*/23', '*/11', '1-23/2', '12-23/3', '2-20/4'].each do |value|
       it { is_expected.to allow_value(value) }
     end
   end

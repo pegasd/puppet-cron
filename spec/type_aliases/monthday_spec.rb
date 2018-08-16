@@ -18,7 +18,7 @@ describe 'Cron::Monthday' do
     end
   end
   describe 'accept only *' do
-    %w[* */2 */30].each do |value|
+    ['*', '*/2', '*/30'].each do |value|
       it { is_expected.to allow_value(value) }
     end
   end

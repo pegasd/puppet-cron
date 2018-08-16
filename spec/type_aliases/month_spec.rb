@@ -19,7 +19,7 @@ describe 'Cron::Month' do
     end
   end
   describe 'accept expressions like * and */2' do
-    %w[* */2 */3].each do |value|
+    ['*', '*/2', '*/3'].each do |value|
       it { is_expected.to allow_value(value) }
     end
   end
