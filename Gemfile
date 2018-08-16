@@ -7,9 +7,7 @@ puppet_version = ENV.fetch('PUPPET', '~> 5')
 group :acceptance do
   gem 'beaker'
   gem 'beaker-docker'
-  gem 'beaker-module_install_helper'
   gem 'beaker-puppet'
-  gem 'beaker-puppet_install_helper'
   gem 'beaker-rspec'
 end
 
