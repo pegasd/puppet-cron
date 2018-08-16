@@ -30,6 +30,7 @@
 # @param service_manage Whether to manage cron service at all.
 # @param service_ensure Cron service's `ensure` parameter.
 # @param service_enable Cron service's `enable` parameter.
+# @param purge_cron Whether to purge crontab entries.
 # @param purge_crond Also purge unmanaged files in `/etc/cron.d` directory.
 # @param purge_noop Run purging in `noop` mode.
 class cron (
