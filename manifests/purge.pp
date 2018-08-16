@@ -10,6 +10,12 @@ class cron::purge {
     undef
   }
 
+  if $::cron::purge_cron and $::cron::allow_all_users {
+    notify { 'purge_users_crontabs':
+      message => "WARNING! Users' crontabs will be purged. Disable purge_cron or allow_all_users."
+    }
+  }
+
   if $::cron::purge_cron {
     resources { 'cron':
       purge => true,
