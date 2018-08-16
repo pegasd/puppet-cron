@@ -18,16 +18,7 @@ describe 'cron' do
     end
 
     describe 'cron::config' do
-      it {
-        is_expected.to contain_file('/etc/cron.deny').only_with(
-          ensure:  :absent,
-          force:   true,
-          content: '',
-          owner:   'root',
-          group:   'root',
-          mode:    '0644',
-        )
-      }
+      it { is_expected.to contain_file('/etc/cron.deny').with_ensure(:absent).with_force(true) }
       it {
         is_expected.to contain_file('/etc/cron.allow').only_with(
           ensure:  :file,
@@ -163,8 +154,12 @@ describe 'cron' do
     it { is_expected.to compile.with_all_deps }
 
     it {
-      is_expected.to contain_file('/etc/cron.deny').with(
+      is_expected.to contain_file('/etc/cron.deny').only_with(
         ensure:  :file,
+        force:   true,
+        owner:   'root',
+        group:   'root',
+        mode:    '0644',
         content: <<~CRON_DENY,
           bad_dude
           bad_chick
@@ -198,5 +193,11 @@ describe 'cron' do
 
     it { is_expected.to compile.with_all_deps }
     it { is_expected.not_to contain_resources('cron') }
+  end
+
+  context 'with allow_all_users => true' do
+    let(:params) { { allow_all_users: true } }
+
+    it { is_expected.to compile.with_all_deps }
   end
 end
