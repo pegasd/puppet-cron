@@ -5,8 +5,6 @@ require 'beaker-rspec'
 require 'beaker/puppet_install_helper'
 require 'beaker/module_install_helper'
 
-ENV['BEAKER_PUPPET_AGENT_VERSION'] = ENV.fetch('PUPPET', '~> 5.0')
-
 run_puppet_install_helper
 install_module_on(hosts)
 install_module_dependencies_on(hosts)
