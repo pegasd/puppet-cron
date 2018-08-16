@@ -200,5 +200,9 @@ describe 'cron' do
 
     it { is_expected.to compile.with_all_deps }
     it { is_expected.to contain_file('/etc/cron.allow').with_ensure(:absent).with_force(true) }
+    it {
+      is_expected.to contain_notify('purge_users_crontabs')
+        .with_message("WARNING! Users' crontabs will be purged. Disable purge_cron or allow_all_users.")
+    }
   end
 end
