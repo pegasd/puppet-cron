@@ -5,13 +5,7 @@
 # @return [String, Integer, Array[Variant[Integer, String]]] Representation of the cron time value in a proper format suited for
 #   internal Puppet's cron resource.
 function cron::prep4cron (
-  Variant[
-    Cron::Minute,
-    Cron::Hour,
-    Cron::Monthday,
-    Cron::Month,
-    Cron::Weekday
-  ] $cron_value = '*',
+  Variant[Cron::Minute, Cron::Hour, Cron::Monthday, Cron::Month, Cron::Weekday] $cron_value = '*',
 ) {
 
   if $cron_value.is_a(Array) {

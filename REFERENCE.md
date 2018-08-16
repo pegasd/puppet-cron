@@ -287,13 +287,7 @@ Type: Puppet Language
 This functions prepares any cron::job custom timing value to be
 used as Puppet internal cron's resource argument
 
-#### `cron::prep4cron(Variant[
-    Cron::Minute,
-    Cron::Hour,
-    Cron::Monthday,
-    Cron::Month,
-    Cron::Weekday
-  ] $cron_value = '*')`
+#### `cron::prep4cron(Variant[Cron::Minute, Cron::Hour, Cron::Monthday, Cron::Month, Cron::Weekday] $cron_value = '*')`
 
 This functions prepares any cron::job custom timing value to be
 used as Puppet internal cron's resource argument
@@ -303,13 +297,7 @@ internal Puppet's cron resource.
 
 ##### `cron_value`
 
-Data type: `Variant[
-    Cron::Minute,
-    Cron::Hour,
-    Cron::Monthday,
-    Cron::Month,
-    Cron::Weekday
-  ]`
+Data type: `Variant[Cron::Minute, Cron::Hour, Cron::Monthday, Cron::Month, Cron::Weekday]`
 
 A variant of any of cron's internal timing structures (minute, hour, monthday, month, weekday)
 
