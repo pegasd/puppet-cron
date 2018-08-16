@@ -6,7 +6,7 @@
 <title>
   Puppet Class: cron
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.16
   
 </title>
 
@@ -80,6 +80,8 @@ default. You&#39;ve been warned!</p>
 
   </div>
 </div>
+
+
 <div class="tags">
   
   <div class="examples">
@@ -156,6 +158,24 @@ default. You&#39;ve been warned!</p>
         &mdash;
         <div class='inline'>
 <p>Custom <code>cron</code> package version.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>allow_all_users</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Allow all users to manage crontab.</p>
 </div>
       
     </li>
@@ -255,6 +275,24 @@ to use <code>crontab</code>.</p>
   
     <li>
       
+        <span class='name'>purge_cron</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Whether to purge crontab entries.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>purge_crond</span>
       
       
@@ -306,8 +344,6 @@ to use <code>crontab</code>.</p>
         <pre class="lines">
 
 
-35
-36
 37
 38
 39
@@ -343,10 +379,14 @@ to use <code>crontab</code>.</p>
 69
 70
 71
-72</pre>
+72
+73
+74
+75
+76</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 35</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 37</span>
 
 class cron (
   Enum[present, absent]  $ensure          = present,
@@ -355,6 +395,7 @@ class cron (
   String[1]              $package_version = installed,
 
   # cron::config
+  Boolean                $allow_all_users = false,
   Array[String[1]]       $allowed_users   = [ ],
   Array[String[1]]       $denied_users    = [ ],
 
@@ -364,6 +405,7 @@ class cron (
   Boolean                $service_enable  = true,
 
   # cron::purge
+  Boolean                $purge_cron      = true,
   Boolean                $purge_crond     = false,
   Boolean                $purge_noop      = false,
 ) {

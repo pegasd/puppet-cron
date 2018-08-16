@@ -6,7 +6,7 @@
 <title>
   Puppet Class: cron::config
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.16
   
 </title>
 
@@ -79,6 +79,8 @@
 
   </div>
 </div>
+
+
 <div class="tags">
   
 
@@ -127,7 +129,7 @@ class cron::config {
       group =&gt; &#39;root&#39;,
       mode  =&gt; &#39;0644&#39;;
     &#39;/etc/cron.allow&#39;:
-      ensure  =&gt; if empty($::cron::denied_users) { file } else { absent },
+      ensure  =&gt; if (!$::cron::allow_all_users and empty($::cron::denied_users)) { file } else { absent },
       content =&gt; join(suffix($::cron::allowed_users, &quot;\n&quot;));
     &#39;/etc/cron.deny&#39;:
       ensure  =&gt; unless empty($::cron::denied_users) { file } else { absent },

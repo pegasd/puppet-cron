@@ -6,7 +6,7 @@
 <title>
   Puppet Class: cron::purge
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.16
   
 </title>
 
@@ -80,6 +80,8 @@ also, optionally, purge <code>/etc/cron.d</code> directory.</p>
 
   </div>
 </div>
+
+
 <div class="tags">
   
 
@@ -115,21 +117,39 @@ also, optionally, purge <code>/etc/cron.d</code> directory.</p>
 27
 28
 29
-30</pre>
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/purge.pp', line 5</span>
 
 class cron::purge {
 
-  $noop = $::cron::purge_noop ? {
-    false =&gt; undef,
-    true  =&gt; true,
+  $noop = if $::cron::purge_noop {
+    true
+  } else {
+    undef
   }
 
-  resources { &#39;cron&#39;:
-    purge =&gt; true,
-    noop  =&gt; $noop,
+  if $::cron::purge_cron and $::cron::allow_all_users {
+    notify { &#39;purge_users_crontabs&#39;:
+      message =&gt; &quot;WARNING! Users&#39; crontabs will be purged. Disable purge_cron or allow_all_users.&quot;
+    }
+  }
+
+  if $::cron::purge_cron {
+    resources { &#39;cron&#39;:
+      purge =&gt; true,
+      noop  =&gt; $noop,
+    }
   }
 
   if $::cron::purge_crond {

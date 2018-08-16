@@ -6,7 +6,7 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.16
   
 </title>
 
@@ -71,19 +71,19 @@ src="https://img.shields.io/puppetforge/f/pegas/cron.svg"></a></p>
 
 <h2 id="label-Table+of+Contents">Table of Contents</h2>
 <ol><li>
-<p><a href="#description">Description</a></p>
+<p><a href="#label-Description">Description</a></p>
 </li><li>
-<p><a href="#setup">Setup - The basics of getting started with cron</a></p>
+<p><a href="#label-Setup">Setup - The basics of getting started with cron</a></p>
 </li><li>
-<p><a href="#usage">Usage - Configuration options and additional
+<p><a href="#label-Usage">Usage - Configuration options and additional
 functionality</a></p>
 </li><li>
-<p><a href="#reference">Reference - An under-the-hood peek at what the module
+<p><a href="#label-Reference">Reference - An under-the-hood peek at what the module
 is doing and how</a></p>
 </li><li>
-<p><a href="#limitations">Limitations - OS compatibility, etc.</a></p>
+<p><a href="#label-Limitations">Limitations - OS compatibility, etc.</a></p>
 </li><li>
-<p><a href="#development">Development - Guide for contributing to the
+<p><a href="#label-Development">Development - Guide for contributing to the
 module</a></p>
 </li></ol>
 
@@ -146,73 +146,36 @@ file&#39;s contents untouched.</p>
 
 <h2 id="label-Reference">Reference</h2>
 
-<h3 id="label-Classes">Classes</h3>
-
-<h4 id="label-Public+Classes">Public Classes</h4>
+<h3 id="label-Type+Aliases">Type Aliases</h3>
 <ul><li>
-<p><a href="#cron">cron</a>: Main entry point into all cron-related resources
-on the host. It purges by default. You&#39;ve been warned!</p>
+<p><code>Cron::Command</code> - Used for <code>cron::job::command</code>
+parameter. Does not allow newline characters (which breaks crontab).</p>
+</li><li>
+<p><code>Cron::Minute</code> - Stricter <code>cron::job::minute</code>.</p>
+</li><li>
+<p><code>Cron::Hour</code> - Stricter <code>cron::job::hour</code>.</p>
+</li><li>
+<p><code>Cron::Monthday</code> - Stricter <code>cron::job::monthday</code>.</p>
+</li><li>
+<p><code>Cron::Month</code> - Stricter <code>cron::job::month</code>.</p>
+</li><li>
+<p><code>Cron::Weekday</code> - Stricter <code>cron::job::weekday</code>.</p>
 </li></ul>
 
-<h4 id="label-Private+Classes">Private Classes</h4>
-<ul><li>
-<p><code>cron::config</code>: Various cron configuration files</p>
-</li><li>
-<p><code>cron::install</code>: This class handles cron packages.</p>
-</li><li>
-<p><code>cron::purge</code>: This is where all the purging magic happens.
-Purge unmanaged cron jobs and also, optionally, purge
-<code>/etc/cron.d</code> directory.</p>
-</li><li>
-<p><code>cron::remove</code>: This class handles removal of all cron-related
-resources.</p>
-</li><li>
-<p><code>cron::service</code>: This class handles cron service.</p>
-</li></ul>
+<h3 id="label-Full+reference">Full reference</h3>
 
-<h3 id="label-Defined+types">Defined types</h3>
-<ul><li>
-<p><a href="#cronjob">cron::job</a>: Cron job defined type with a bit of magic
-dust sprinkled all over.</p>
-</li><li>
-<p><a href="#cronwhitelist">cron::whitelist</a>: Use this to whitelist any
-system cron jobs you don&#39;t want this module to touch. This will make
-sure <code>/etc/cron.d/${title}</code> won&#39;t get deleted</p>
-</li></ul>
-
-<h3 id="label-Functions">Functions</h3>
-<ul><li>
-<p><a href="#cronprep4cron">cron::prep4cron</a>: This functions prepares any
-cron::job custom timing value to be used as Puppet internal cron&#39;s
-resource argument</p>
-</li></ul>
-
-<h3 id="label-Custom+Types">Custom Types</h3>
-<ul><li>
-<p><code>Cron::Minute</code></p>
-</li><li>
-<p><code>Cron::Hour</code></p>
-</li><li>
-<p><code>Cron::Monthday</code></p>
-</li><li>
-<p><code>Cron::Month</code></p>
-</li><li>
-<p><code>Cron::Weekday</code></p>
-</li></ul>
-
-<h3 id="label-More+information">More information</h3>
-
-<p>Parameters, examples, and more: <a href="REFERENCE.md">REFERENCE</a>.</p>
+<p>Check out <a href="REFERENCE.md">REFERENCE</a> for up-to-date details.</p>
 
 <h2 id="label-Limitations">Limitations</h2>
 <ul><li>
 <p>Made for and tested only on the following Ubuntu distributions:</p>
-</li><li>
+<ul><li>
 <p>14.04</p>
 </li><li>
 <p>16.04</p>
 </li><li>
-<p>18.04 (currently tested in Docker containers)</p>
+<p>18.04</p>
+</li></ul>
 </li><li>
 <p><code>Cron::*</code> custom types are strict!</p>
 </li><li>

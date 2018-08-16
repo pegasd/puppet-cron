@@ -6,7 +6,7 @@
 <title>
   Puppet Function: cron::prep4cron (Puppet Language)
   
-    &mdash; Documentation by YARD 0.9.12
+    &mdash; Documentation by YARD 0.9.16
   
 </title>
 
@@ -98,117 +98,10 @@ Puppet internal cron&#39;s resource argument</p>
 
     </div>
   </div>
-  <div class="tags">
   
-<p class="tag_title">Parameters:</p>
-<ul class="param">
-  
-    <li>
-      
-        <span class='name'>cron_value</span>
-      
-      
-        <span class='type'>(<tt>Variant[
-    Cron::Minute,
-    Cron::Hour,
-    Cron::Monthday,
-    Cron::Month,
-    Cron::Weekday
-  ]</tt>)</span>
-      
-      
-        <em class="default">(defaults to: <tt>&#39;*&#39;</tt>)</em>
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>A variant of any of cron&#39;s internal timing structures (minute, hour,
-monthday, month, weekday)</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-<p class="tag_title">Returns:</p>
-<ul class="return">
-  
-    <li>
-      
-      
-        <span class='type'>(<tt>String</tt>, <tt>Integer</tt>, <tt>Array[Variant[Integer, String]]</tt>)</span>
-      
-      
-      
-        &mdash;
-        <div class='inline'>
-<p>Representation of the cron time value in a proper format suited for
-internal Puppet&#39;s cron resource.</p>
-</div>
-      
-    </li>
-  
-</ul>
-
-</div><div class="method_details_list">
-  <table class="source_code">
-    <tr>
-      <td>
-        <pre class="lines">
-
-
-7
-8
-9
-10
-11
-12
-13
-14
-15
-16
-17
-18
-19
-20
-21
-22
-23
-24
-25
-26
-27</pre>
-      </td>
-      <td>
-        <pre class="code"><span class="info file"># File 'functions/prep4cron.pp', line 7</span>
-
-function cron::prep4cron (
-  Variant[
-    Cron::Minute,
-    Cron::Hour,
-    Cron::Monthday,
-    Cron::Month,
-    Cron::Weekday
-  ] $cron_value = &#39;*&#39;,
-) {
-
-  if $cron_value.is_a(Array) {
-
-    unique($cron_value)
-
-  } else {
-
-    $cron_value
-
-  }
-
-}</pre>
-      </td>
-    </tr>
-  </table>
 </div>
 
-</div>
+
 </div>
 
       <div id="footer">
