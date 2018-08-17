@@ -17,10 +17,10 @@ Style/FrozenStringLiteralComment:
   Enabled: false
 Style/MixinUsage:
   Description: spec_helper in PDK template is not behaving well.
-  Enabled: false
+  Exclude: [ spec/spec_helper.rb ]
 Style/IfUnlessModifier:
   Description: spec_helper in PDK template is not behaving well.
-  Enabled: false
+  Exclude: [ spec/spec_helper.rb ]
 Style/NumericLiterals:
   Description: Counter-intuitive for port numbers.
   Enabled: false
