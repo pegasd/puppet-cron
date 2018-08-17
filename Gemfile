@@ -2,10 +2,13 @@
 
 source 'https://rubygems.org'
 
-puppet_version = ENV.fetch('PUPPET', '~> 5')
+group :ed25519 do
+  gem 'bcrypt_pbkdf', '< 2.0'
+  gem 'rbnacl', '< 5.0'
+  gem 'rbnacl-libsodium'
+end
 
 group :acceptance do
-  gem 'beaker'
   gem 'beaker-docker'
   gem 'beaker-puppet'
   gem 'beaker-rspec'
@@ -17,7 +20,7 @@ group :documentation do
 end
 
 group :unit do
-  gem 'puppet', puppet_version
+  gem 'puppet', ENV.fetch('PUPPET', '~> 5')
   gem 'puppetlabs_spec_helper'
   gem 'rspec-puppet-facts'
 end
