@@ -8,8 +8,6 @@ spec/spec_helper.rb:
 
 appveyor.yml:
   delete: true
-.gitlab-ci.yml:
-  delete: true
 
 .rubocop.yml:
   unmanaged: true
