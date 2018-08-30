@@ -41,11 +41,23 @@ class { 'cron':
 }
 ```
 
+Same result through Hiera:
+
+```yaml
+cron::purge_crond: true
+```
+
 ### Wipe it all out
 ```puppet
 class { 'cron':
   ensure => absent,
 }
+```
+
+Same result through Hiera:
+
+```yaml
+cron::ensure: absent
 ```
 
 ### cron::job example
@@ -61,8 +73,6 @@ cron::job { 'backup':
 }
 ```
 
-> Custom `Cron::*` time types are a lot stricter than builtin `cron` ones. Careful - this may break existing cron jobs
-  you are converting.
 
 ### cron::whitelist example
 
@@ -92,13 +102,13 @@ Check out [REFERENCE](REFERENCE.md) for up-to-date details.
     * 14.04
     * 16.04
     * 18.04
-* `Cron::*` custom types are strict!
-* All cron jobs managed by built-in `cron` type are fair play. They won't be purged as long
-  as they're in the catalog. But using this module's `cron::job` type does have its advantages.
+* Custom `Cron::*` time types are a lot stricter than builtin `cron` ones. Careful - this may break existing cron jobs
+  you are converting.
+* All cron jobs managed by built-in `cron` type are fair play. They won't be purged as long as they're in the catalog.
+  But using this module's `cron::job` type does have its advantages.
 
 ## Development
 
 I'll be happy to know you're using this for one reason or the other. And if you want to
 contribute - even better. Feel free to [submit an issue](https://github.com/pegasd/puppet-cron/issues) /
 [fire up a PR](https://github.com/pegasd/puppet-cron/pulls) / whatever.
-
