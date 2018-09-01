@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Removed
+- `cron::prep4cron()` function. This was an internal function that `uniq`'d arrays passed
+  to the `cron::job` resource. Things like `[ 20, 50, 20, 50 ]` are now fair play - both according
+  to the crontab definition and this module.
 
 ## [0.6.2] - 2018-09-01
 ### Changed
