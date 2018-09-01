@@ -47,11 +47,11 @@ define cron::job (
     ensure   => present,
     user     => $user,
     command  => $command,
-    minute   => cron::prep4cron($minute),
-    hour     => cron::prep4cron($hour),
-    monthday => cron::prep4cron($monthday),
-    month    => cron::prep4cron($month),
-    weekday  => cron::prep4cron($weekday),
+    minute   => $minute,
+    hour     => $hour,
+    monthday => $monthday,
+    month    => $month,
+    weekday  => $weekday,
   }
 
 }
