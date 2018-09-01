@@ -39,6 +39,10 @@ jobs:
       - DO=beaker
       - PUPPET='~> 5'
       - BEAKER_set=ubuntu_1804
+    - stage: deploy
+      script: true
+      env:
+      - DEPLOY_TO_FORGE=yes
 
 deploy:
   provider: puppetforge
@@ -48,3 +52,4 @@ deploy:
   on:
     tags: true
     all_branches: false
+    condition: "$DEPLOY_TO_FORGE = yes"
