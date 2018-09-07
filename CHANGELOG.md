@@ -8,6 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - `Cron::User` type alias.
 
+### Changed
+- Improve `$::cron::package_version` validation.
+
 ## [0.6.2] - 2018-09-01
 ### Changed
 - Minor change to `README.md` purely to test how Travis deployment works.

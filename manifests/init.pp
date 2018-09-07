@@ -38,7 +38,7 @@ class cron (
   Enum[present, absent]  $ensure          = present,
 
   # cron::install
-  String[1]              $package_version = installed,
+  Pattern[/\A[^\n]+\z/]  $package_version = installed,
 
   # cron::config
   Boolean                $allow_all_users = false,
