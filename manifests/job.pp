@@ -33,7 +33,7 @@
 # @param weekday Cron weekday
 define cron::job (
   Cron::Command  $command,
-  String[1]      $user     = 'root',
+  Cron::User     $user     = 'root',
   Cron::Minute   $minute   = '*',
   Cron::Hour     $hour     = '*',
   Cron::Monthday $monthday = '*',
