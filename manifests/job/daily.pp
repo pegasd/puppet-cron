@@ -2,6 +2,7 @@ define cron::job::daily (
   Cron::Command $command,
   Cron::Minute  $minute = 0,
   Cron::Hour    $hour   = 0,
+  Cron::User    $user   = 'root',
 ) {
 
   cron::job { $title:
@@ -11,6 +12,7 @@ define cron::job::daily (
     monthday => '*',
     month    => '*',
     weekday  => '*',
+    user     => $user,
   }
 
 }

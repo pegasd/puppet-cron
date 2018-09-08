@@ -3,6 +3,7 @@ define cron::job::monthly (
   Cron::Minute   $minute   = 0,
   Cron::Hour     $hour     = 0,
   Cron::Monthday $monthday = 1,
+  Cron::User     $user   = 'root',
 ) {
 
   cron::job { $title:
@@ -12,6 +13,7 @@ define cron::job::monthly (
     monthday => $monthday,
     month    => '*',
     weekday  => '*',
+    user     => $user,
   }
 
 }

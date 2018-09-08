@@ -3,6 +3,7 @@ define cron::job::weekly (
   Cron::Minute  $minute  = 0,
   Cron::Hour    $hour    = 0,
   Cron::Weekday $weekday = 0,
+  Cron::User    $user    = 'root',
 ) {
 
   cron::job { $title:
@@ -12,6 +13,7 @@ define cron::job::weekly (
     monthday => '*',
     month    => '*',
     weekday  => $weekday,
+    user     => $user,
   }
 
 }

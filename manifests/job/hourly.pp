@@ -1,6 +1,7 @@
 define cron::job::hourly (
   Cron::Command $command,
   Cron::Minute  $minute = 0,
+  Cron::User    $user   = 'root',
 ) {
 
   cron::job { $title:
@@ -10,6 +11,7 @@ define cron::job::hourly (
     monthday => '*',
     month    => '*',
     weekday  => '*',
+    user     => $user,
   }
 
 }
