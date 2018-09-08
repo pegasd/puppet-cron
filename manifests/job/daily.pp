@@ -1,3 +1,9 @@
+# Manage daily cron jobs.
+#
+# @param command Command path to be executed
+# @param minute Cron minute
+# @param hour Cron hour
+# @param user The user who owns the cron job
 define cron::job::daily (
   Cron::Command $command,
   Cron::Minute  $minute = 0,

@@ -1,3 +1,10 @@
+# Manage weekly cron jobs.
+#
+# @param command Command path to be executed
+# @param minute Cron minute
+# @param hour Cron hour
+# @param monthday Cron monthday
+# @param user The user who owns the cron job
 define cron::job::monthly (
   Cron::Command  $command,
   Cron::Minute   $minute   = 0,
