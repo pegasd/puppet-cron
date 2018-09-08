@@ -149,7 +149,7 @@ default. You&#39;ve been warned!</p>
         <span class='name'>package_version</span>
       
       
-        <span class='type'>(<tt>String[1]</tt>)</span>
+        <span class='type'>(<tt>Pattern[/\A[^\n]+\z/]</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>installed</tt>)</em>
@@ -185,7 +185,7 @@ default. You&#39;ve been warned!</p>
         <span class='name'>allowed_users</span>
       
       
-        <span class='type'>(<tt>Array[String[1]]</tt>)</span>
+        <span class='type'>(<tt>Array[Cron::User]</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>[ ]</tt>)</em>
@@ -204,7 +204,7 @@ can.</p>
         <span class='name'>denied_users</span>
       
       
-        <span class='type'>(<tt>Array[String[1]]</tt>)</span>
+        <span class='type'>(<tt>Array[Cron::User]</tt>)</span>
       
       
         <em class="default">(defaults to: <tt>[ ]</tt>)</em>
@@ -392,12 +392,12 @@ class cron (
   Enum[present, absent]  $ensure          = present,
 
   # cron::install
-  String[1]              $package_version = installed,
+  Pattern[/\A[^\n]+\z/]  $package_version = installed,
 
   # cron::config
   Boolean                $allow_all_users = false,
-  Array[String[1]]       $allowed_users   = [ ],
-  Array[String[1]]       $denied_users    = [ ],
+  Array[Cron::User]      $allowed_users   = [ ],
+  Array[Cron::User]      $denied_users    = [ ],
 
   # cron::service
   Boolean                $service_manage  = true,

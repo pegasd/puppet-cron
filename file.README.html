@@ -114,11 +114,19 @@ purged!</p>
   purge_crond =&gt; true,
 }</code></pre>
 
+<p>Same result through Hiera:</p>
+
+<pre class="code ruby"><code class="ruby">cron::purge_crond: true</code></pre>
+
 <h3 id="label-Wipe+it+all+out">Wipe it all out</h3>
 
 <pre class="code ruby"><code class="ruby">class { &#39;cron&#39;:
   ensure =&gt; absent,
 }</code></pre>
+
+<p>Same result through Hiera:</p>
+
+<pre class="code ruby"><code class="ruby">cron::ensure: absent</code></pre>
 
 <h3 id="label-cron-3A-3Ajob+example">cron::job example</h3>
 
@@ -130,12 +138,6 @@ purged!</p>
   month    =&gt; [ 4, 8, 12 ],
   weekday  =&gt; &#39;0-4&#39;,
 }</code></pre>
-
-<blockquote>
-<p>Custom <code>Cron::*</code> time types are a lot stricter than builtin
-<code>cron</code> ones. Careful - this may break existing cron jobs  you
-are converting.</p>
-</blockquote>
 
 <h3 id="label-cron-3A-3Awhitelist+example">cron::whitelist example</h3>
 
@@ -150,6 +152,9 @@ file&#39;s contents untouched.</p>
 <ul><li>
 <p><code>Cron::Command</code> - Used for <code>cron::job::command</code>
 parameter. Does not allow newline characters (which breaks crontab).</p>
+</li><li>
+<p><code>Cron::User</code> - Match username to fail early if invalid username
+is provided.</p>
 </li><li>
 <p><code>Cron::Minute</code> - Stricter <code>cron::job::minute</code>.</p>
 </li><li>
@@ -177,10 +182,12 @@ parameter. Does not allow newline characters (which breaks crontab).</p>
 <p>18.04</p>
 </li></ul>
 </li><li>
-<p><code>Cron::*</code> custom types are strict!</p>
+<p>Custom <code>Cron::*</code> time types are a lot stricter than builtin
+<code>cron</code> ones. Careful - this may break existing cron jobs  you
+are converting.</p>
 </li><li>
 <p>All cron jobs managed by built-in <code>cron</code> type are fair play.
-They won&#39;t be purged as long  as they&#39;re in the catalog. But using
+They won&#39;t be purged as long as they&#39;re in the catalog.  But using
 this module&#39;s <code>cron::job</code> type does have its advantages.</p>
 </li></ul>
 
