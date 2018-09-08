@@ -38,12 +38,12 @@ class cron (
   Enum[present, absent]  $ensure          = present,
 
   # cron::install
-  String[1]              $package_version = installed,
+  Pattern[/\A[^\n]+\z/]  $package_version = installed,
 
   # cron::config
   Boolean                $allow_all_users = false,
-  Array[String[1]]       $allowed_users   = [ ],
-  Array[String[1]]       $denied_users    = [ ],
+  Array[Cron::User]      $allowed_users   = [ ],
+  Array[Cron::User]      $denied_users    = [ ],
 
   # cron::service
   Boolean                $service_manage  = true,

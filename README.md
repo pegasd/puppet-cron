@@ -86,6 +86,7 @@ This will make `/etc/cron.d/pkg_backup` immune, and keep the file's contents unt
 ### Type Aliases
 
 * `Cron::Command` - Used for `cron::job::command` parameter. Does not allow newline characters (which breaks crontab).
+* `Cron::User` - Match username to fail early if invalid username is provided.
 * `Cron::Minute` - Stricter `cron::job::minute`.
 * `Cron::Hour` - Stricter `cron::job::hour`.
 * `Cron::Monthday` - Stricter `cron::job::monthday`.

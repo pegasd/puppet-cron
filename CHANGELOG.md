@@ -11,52 +11,15 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
     - `cron::job::daily`.
     - `cron::job::weekly`.
     - `cron::job::monthly`.
+- `Cron::User` type alias.
+
+### Changed
+- Improve `$::cron::package_version` validation.
 
 ### Removed
 - `cron::prep4cron()` function. This was an internal function that `uniq`'d arrays passed
   to the `cron::job` resource. Things like `[ 20, 50, 20, 50 ]` are now fair play - both according
   to the crontab definition and this module.
-
-## [0.6.2] - 2018-09-01
-### Changed
-- Minor change to `README.md` purely to test how Travis deployment works.
-
-## [0.6.1] - 2018-08-16
-### Fixed
-- `REFERENCE.md`.
-
-## [0.6.0] - 2018-08-16
-### Added
-- `$cron::purge_cron` parameter to manage crontab purging.
-- `$cron::allow_all_users` parameter to allow all users to manage their crontabs.
-
-### Fixed
-- `puppetlabs_spec_helper`'s `mock_with` deprecation warning.
-- Acceptance tests with latest beaker.
-- RuboCop update.
-
-## [0.5.0] - 2018-03-14
-### Added
-- Acceptance tests for `/etc/cron.allow`.
-- Manage package version through `$cron::package_version` parameter.
-- The following parameters are now available to manage cron service:
-  - `$cron::service_manage`
-  - `$cron::service_ensure`
-  - `$cron::service_enable`
-
-### Changed
-- Create an empty `/etc/cron.allow` by default.
-- `cron::job` input is stricter:
-  - `command` does not accept newlines
-  - `user` accepts strings of at least 1 character
-  - all time values have been updated (`\A`, `\z` instead of `^` and `$`)
-
-## [0.4.0] - 2018-03-05
-### Added
-- Acceptance testing on Ubuntu 18.04.
-- Acceptance tests for `cron::job`.
-- `REFERENCE.md` generated using puppet-strings.
-
 
 ## [0.6.2] - 2018-09-01
 ### Changed
