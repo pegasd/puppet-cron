@@ -20,6 +20,10 @@ _Private Classes_
 **Defined types**
 
 * [`cron::job`](#cronjob): Cron job defined type with a bit of magic dust sprinkled all over.
+* [`cron::job::daily`](#cronjobdaily): Manage daily cron jobs.
+* [`cron::job::hourly`](#cronjobhourly): Manage hourly cron jobs.
+* [`cron::job::monthly`](#cronjobmonthly): Manage weekly cron jobs.
+* [`cron::job::weekly`](#cronjobweekly): Manage weekly cron jobs.
 * [`cron::whitelist`](#cronwhitelist): Use this to whitelist any system cron jobs you don't want this module to touch. This will make sure `/etc/cron.d/${title}` won't get deleted 
 
 ## Classes
@@ -80,7 +84,7 @@ Default value: present
 
 ##### `package_version`
 
-Data type: `String[1]`
+Data type: `Pattern[/\A[^\n]+\z/]`
 
 Custom `cron` package version.
 
@@ -96,7 +100,7 @@ Default value: `false`
 
 ##### `allowed_users`
 
-Data type: `Array[String[1]]`
+Data type: `Array[Cron::User]`
 
 List of users allowed to use `crontab(1)`. By default, only root can.
 
@@ -104,7 +108,7 @@ Default value: [ ]
 
 ##### `denied_users`
 
-Data type: `Array[String[1]]`
+Data type: `Array[Cron::User]`
 
 List of users specifically denied to use `crontab(1)`.
 Note: When this is not empty, all users except ones specified here will be able to use `crontab`.
@@ -215,7 +219,7 @@ Command path to be executed
 
 ##### `user`
 
-Data type: `String[1]`
+Data type: `Cron::User`
 
 The user who owns the cron job
 
@@ -260,6 +264,166 @@ Data type: `Cron::Weekday`
 Cron weekday
 
 Default value: '*'
+
+### cron::job::daily
+
+Manage daily cron jobs.
+
+#### Parameters
+
+The following parameters are available in the `cron::job::daily` defined type.
+
+##### `command`
+
+Data type: `Cron::Command`
+
+Command path to be executed
+
+##### `minute`
+
+Data type: `Cron::Minute`
+
+Cron minute
+
+Default value: 0
+
+##### `hour`
+
+Data type: `Cron::Hour`
+
+Cron hour
+
+Default value: 0
+
+##### `user`
+
+Data type: `Cron::User`
+
+The user who owns the cron job
+
+Default value: 'root'
+
+### cron::job::hourly
+
+Manage hourly cron jobs.
+
+#### Parameters
+
+The following parameters are available in the `cron::job::hourly` defined type.
+
+##### `command`
+
+Data type: `Cron::Command`
+
+Command path to be executed
+
+##### `minute`
+
+Data type: `Cron::Minute`
+
+Cron minute
+
+Default value: 0
+
+##### `user`
+
+Data type: `Cron::User`
+
+The user who owns the cron job
+
+Default value: 'root'
+
+### cron::job::monthly
+
+Manage weekly cron jobs.
+
+#### Parameters
+
+The following parameters are available in the `cron::job::monthly` defined type.
+
+##### `command`
+
+Data type: `Cron::Command`
+
+Command path to be executed
+
+##### `minute`
+
+Data type: `Cron::Minute`
+
+Cron minute
+
+Default value: 0
+
+##### `hour`
+
+Data type: `Cron::Hour`
+
+Cron hour
+
+Default value: 0
+
+##### `monthday`
+
+Data type: `Cron::Monthday`
+
+Cron monthday
+
+Default value: 1
+
+##### `user`
+
+Data type: `Cron::User`
+
+The user who owns the cron job
+
+Default value: 'root'
+
+### cron::job::weekly
+
+Manage weekly cron jobs.
+
+#### Parameters
+
+The following parameters are available in the `cron::job::weekly` defined type.
+
+##### `command`
+
+Data type: `Cron::Command`
+
+Command path to be executed
+
+##### `minute`
+
+Data type: `Cron::Minute`
+
+Cron minute
+
+Default value: 0
+
+##### `hour`
+
+Data type: `Cron::Hour`
+
+Cron hour
+
+Default value: 0
+
+##### `weekday`
+
+Data type: `Cron::Weekday`
+
+Cron weekday
+
+Default value: 0
+
+##### `user`
+
+Data type: `Cron::User`
+
+The user who owns the cron job
+
+Default value: 'root'
 
 ### cron::whitelist
 
