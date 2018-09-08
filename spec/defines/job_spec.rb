@@ -27,8 +27,8 @@ describe 'cron::job' do
     let(:params) do
       {
         command: '/usr/bin/backup',
-        minute:  [50, 20, 50, 20],
-        hour:    [1, 5, 1],
+        minute:  [50, 20],
+        hour:    [1, 5],
         month:   '*/2',
         weekday: '0-4',
       }
