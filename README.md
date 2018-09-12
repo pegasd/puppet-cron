@@ -30,7 +30,7 @@ include cron
 ```
 This will start purging all unmanaged cron resources and also make sure the 'cron' package is installed and the service is running.
 
-**WARNING #1**: All existing unmanaged cron jobs will be purged!
+**WARNING**: All existing unmanaged cron jobs will be purged!
 
 ## Usage
 
