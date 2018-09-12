@@ -10,7 +10,7 @@ end
 
 group :acceptance do
   gem 'beaker-docker'
-  gem 'beaker-puppet'
+  gem 'beaker-puppet', '= 1.1.0'
   gem 'beaker-rspec'
 end
 
