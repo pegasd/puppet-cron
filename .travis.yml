@@ -35,15 +35,23 @@ jobs:
     - stage: acceptance
       env:
       - DO=beaker
-      - PUPPET='~> 4'
+      - BEAKER_PUPPET_COLLECTION=puppet5
       - BEAKER_set=ubuntu_1404
     - env:
       - DO=beaker
-      - PUPPET='~> 5'
+      - BEAKER_PUPPET_COLLECTION=puppet5
       - BEAKER_set=ubuntu_1604
     - env:
       - DO=beaker
-      - PUPPET='~> 5'
+      - BEAKER_PUPPET_COLLECTION=puppet6
+      - BEAKER_set=ubuntu_1604
+    - env:
+      - DO=beaker
+      - BEAKER_PUPPET_COLLECTION=puppet5
+      - BEAKER_set=ubuntu_1804
+    - env:
+      - DO=beaker
+      - BEAKER_PUPPET_COLLECTION=puppet6
       - BEAKER_set=ubuntu_1804
     - stage: deploy
       script: true
