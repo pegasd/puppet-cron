@@ -43,7 +43,7 @@ jobs:
       - BEAKER_set=ubuntu_1604
     - env:
       - DO=beaker
-      - PUPPET='~> 5'
+      - PUPPET='~> 6'
       - BEAKER_set=ubuntu_1804
     - stage: deploy
       script: true
