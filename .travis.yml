@@ -19,6 +19,9 @@ jobs:
     - env:
       - DO=validate_all
       - PUPPET='~> 5'
+    - env:
+        - DO=validate_all
+        - PUPPET='~> 6'
     - stage: unit
       env:
       - DO=spec
@@ -26,6 +29,9 @@ jobs:
     - env:
       - DO=spec
       - PUPPET='~> 5'
+    - env:
+        - DO=spec
+        - PUPPET='~> 6'
     - stage: acceptance
       env:
       - DO=beaker
