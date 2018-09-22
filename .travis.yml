@@ -37,27 +37,22 @@ jobs:
       - DO=beaker
       - BEAKER_set=ubuntu_1404
       - BEAKER_PUPPET_COLLECTION=puppet5
-      - BEAKER_debug=true
     - env:
       - DO=beaker
       - BEAKER_set=ubuntu_1604
       - BEAKER_PUPPET_COLLECTION=puppet5
-      - BEAKER_debug=true
     - env:
       - DO=beaker
       - BEAKER_set=ubuntu_1604
       - BEAKER_PUPPET_COLLECTION=puppet6
-      - BEAKER_debug=true
     - env:
       - DO=beaker
       - BEAKER_set=ubuntu_1804
       - BEAKER_PUPPET_COLLECTION=puppet5
-      - BEAKER_debug=true
     - env:
       - DO=beaker
       - BEAKER_set=ubuntu_1804
       - BEAKER_PUPPET_COLLECTION=puppet6
-      - BEAKER_debug=true
     - stage: deploy
       script: true
       env:
