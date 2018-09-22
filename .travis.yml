@@ -19,6 +19,9 @@ jobs:
     - env:
       - DO=validate_all
       - PUPPET='~> 5'
+    - env:
+        - DO=validate_all
+        - PUPPET='~> 6'
     - stage: unit
       env:
       - DO=spec
@@ -26,19 +29,30 @@ jobs:
     - env:
       - DO=spec
       - PUPPET='~> 5'
+    - env:
+        - DO=spec
+        - PUPPET='~> 6'
     - stage: acceptance
       env:
       - DO=beaker
-      - PUPPET='~> 4'
       - BEAKER_set=ubuntu_1404
+      - BEAKER_PUPPET_COLLECTION=puppet5
     - env:
       - DO=beaker
-      - PUPPET='~> 5'
       - BEAKER_set=ubuntu_1604
+      - BEAKER_PUPPET_COLLECTION=puppet5
     - env:
       - DO=beaker
-      - PUPPET='~> 5'
+      - BEAKER_set=ubuntu_1604
+      - BEAKER_PUPPET_COLLECTION=puppet6
+    - env:
+      - DO=beaker
       - BEAKER_set=ubuntu_1804
+      - BEAKER_PUPPET_COLLECTION=puppet5
+    - env:
+      - DO=beaker
+      - BEAKER_set=ubuntu_1804
+      - BEAKER_PUPPET_COLLECTION=puppet6
     - stage: deploy
       script: true
       env:
