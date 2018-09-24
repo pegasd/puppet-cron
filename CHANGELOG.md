@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 ### Added
 - Puppet 6 support.
+- Puppet 6 support (no production code changes).
 
 ### Changed
 - Validation, Unit, and Acceptance stages now all include Puppet 6.
