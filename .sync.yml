@@ -3,12 +3,18 @@ spec/spec_helper.rb:
   mock_with: ':rspec'
   spec_overrides:
     - 'RSpec.configure do |c|'
+    - '  c.formatter = :documentation'
+    - '  c.color     = true'
     - '  c.after(:suite) { RSpec::Puppet::Coverage.report!(100) }'
     - 'end'
 
+# deleted
+.rspec:
+  unmanaged: true
 appveyor.yml:
-  delete: true
+  unmanaged: true
 
+# custom
 .rubocop.yml:
   unmanaged: true
 .travis.yml:
