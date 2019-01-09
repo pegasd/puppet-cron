@@ -49,6 +49,9 @@ Style/FormatStringToken:
 # Layout
 Layout/ClosingParenthesisIndentation:
   Enabled: false
+Layout/AlignHash:
+  EnforcedColonStyle: table
+  EnforcedHashRocketStyle: table
 
 # Metrics
 Metrics/LineLength:
@@ -70,3 +73,4 @@ Metrics/ParameterLists:
   Enabled: false
 Metrics/PerceivedComplexity:
   Enabled: false
+...
