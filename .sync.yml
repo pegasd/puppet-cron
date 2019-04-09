@@ -13,6 +13,8 @@ spec/spec_helper.rb:
   unmanaged: true
 appveyor.yml:
   unmanaged: true
+.gitlab-ci.yml:
+  unmanaged: true
 
 # custom
 .rubocop.yml:
