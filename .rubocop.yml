@@ -21,6 +21,9 @@ Style/MixinUsage:
 Style/IfUnlessModifier:
   Description: spec_helper in PDK template is not behaving well.
   Exclude: [ spec/spec_helper.rb ]
+Style/RescueStandardError:
+  Description: spec_helper in PDK template is not behaving well.
+  Exclude: [ spec/spec_helper.rb ]
 Style/NumericLiterals:
   Description: Counter-intuitive for port numbers.
   Enabled: false
