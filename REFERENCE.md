@@ -26,6 +26,16 @@ _Private Classes_
 * [`cron::job::weekly`](#cronjobweekly): Manage weekly cron jobs.
 * [`cron::whitelist`](#cronwhitelist): Use this to whitelist any system cron jobs you don't want this module to touch. This will make sure `/etc/cron.d/${title}` won't get deleted 
 
+**Data types**
+
+* [`Cron::Command`](#croncommand): Used for `cron::job::command` parameter. Does not allow newline characters (which breaks crontab).
+* [`Cron::Hour`](#cronhour): Stricter `cron::job::hour`.
+* [`Cron::Minute`](#cronminute): Stricter `cron::job::minute`.
+* [`Cron::Month`](#cronmonth): Stricter `cron::job::month`.
+* [`Cron::Monthday`](#cronmonthday): Sricter `cron::job::monthday`.
+* [`Cron::User`](#cronuser): Cron user.
+* [`Cron::Weekday`](#cronweekday): Stricter `cron::job::weekday`.
+
 ## Classes
 
 ### cron
@@ -437,4 +447,61 @@ This will make sure `/etc/cron.d/${title}` won't get deleted or modified.
 ```puppet
 cron::whitelist { 'sample_name': }
 ```
+
+## Data types
+
+### Cron::Command
+
+Used for `cron::job::command` parameter.
+Does not allow newline characters (which breaks crontab).
+
+Alias of `Pattern[/\A[^\n]+\z/]`
+
+### Cron::Hour
+
+Stricter `cron::job::hour`.
+
+Alias of `Variant[Integer[0, 23], Array[Variant[
+    Integer[0, 23],
+    # Ranges like '0-12', '5-8', etc.
+    Pattern[/\A(1?\d|2[0-3])-(1?\d|2[0-3])\z/],
+    # Constructs like '*/5', '*/2'
+    Pattern[/\A\*\/(1?\d|2[0-3])\z/],
+  ], 2], Pattern[/\A(\*|(1?[0-9]|2[0-3])-(1?[0-9]|2[0-3]))(\/([2-9]|1[0-9]|2[0-3]))?\z/]]`
+
+### Cron::Minute
+
+Stricter `cron::job::minute`.
+
+Alias of `Variant[Integer[0, 59], Array[Variant[
+    Integer[0, 59],
+    # Ranges like '0-37', '30-59', etc.
+    Pattern[/\A[0-5]?\d-[0-5]?\d\z/],
+    # Patterns like '*/2'
+    Pattern[/\A\*\/([2-9]|[1-5]\d)\z/],
+  ], 2], Pattern[/\A(\*|[0-5]?\d-[0-5]?\d)(\/([2-9]|[1-5]\d))?\z/]]`
+
+### Cron::Month
+
+Stricter `cron::job::month`.
+
+Alias of `Variant[Integer[1, 12], Array[Integer[1, 12], 2], Pattern[/\A\*(\/([2-9]|1[0-1]))?\z/]]`
+
+### Cron::Monthday
+
+Sricter `cron::job::monthday`.
+
+Alias of `Variant[Integer[1, 31], Array[Integer[1, 31], 2], Pattern[/\A\*(\/([2-9]|[1-2][0-9]|30))?\z/]]`
+
+### Cron::User
+
+Cron user.
+
+Alias of `Pattern[/\A\w[a-z0-9_-]{0,31}\z/]`
+
+### Cron::Weekday
+
+Stricter `cron::job::weekday`.
+
+Alias of `Variant[Integer[0, 6], Array[Integer[0, 6], 2], Pattern[/\A(\*|[0-6]-[0-6])(\/[2-6])?\z/]]`
 
