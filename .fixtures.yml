@@ -1,8 +1,11 @@
 ---
 fixtures:
+  symlinks:
+    cron: "#{source_dir}"
   repositories:
     stdlib: https://github.com/puppetlabs/puppetlabs-stdlib
   forge_modules:
-    cron_core: puppetlabs/cron_core
-  symlinks:
-    cron: "#{source_dir}"
+    cron_core:
+      repo: puppetlabs/cron_core
+      puppet_version: '>= 6.0.0'
+...
