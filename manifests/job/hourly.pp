@@ -5,11 +5,13 @@
 # @param user The user who owns the cron job
 define cron::job::hourly (
   Cron::Command $command,
+  Cron::Ensure  $ensure = present,
   Cron::Minute  $minute = 0,
   Cron::User    $user   = 'root',
 ) {
 
   cron::job { $title:
+    ensure   => $ensure,
     command  => $command,
     minute   => $minute,
     hour     => '*',

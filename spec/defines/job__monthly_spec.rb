@@ -11,6 +11,7 @@ describe 'cron::job::monthly' do
     it {
       is_expected.to contain_cron__job('backup')
         .only_with(
+          ensure:   :present,
           command:  'echo hi',
           minute:   0,
           hour:     0,
@@ -22,6 +23,12 @@ describe 'cron::job::monthly' do
     }
   end
 
+  context 'with ensure => absent' do
+    let(:params) { { ensure: :absent }.merge(super()) }
+    it { is_expected.to compile.with_all_deps }
+    it { is_expected.to contain_cron('backup').with_ensure(:absent) }
+  end
+
   context 'with custom minute, hour, and monthday' do
     let(:params) { { minute: 34, hour: 5, monthday: 7 }.merge(super()) }
 
@@ -29,6 +36,7 @@ describe 'cron::job::monthly' do
     it {
       is_expected.to contain_cron__job('backup')
         .only_with(
+          ensure:   :present,
           command:  'echo hi',
           minute:   34,
           hour:     5,
