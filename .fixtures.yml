@@ -4,6 +4,10 @@ fixtures:
     cron: "#{source_dir}"
   repositories:
     stdlib: https://github.com/puppetlabs/puppetlabs-stdlib
+    # Litmus
+    provision: git://github.com/puppetlabs/provision.git
+    puppet_agent: git://github.com/puppetlabs/puppetlabs-puppet_agent.git
+    facts: git://github.com/puppetlabs/puppetlabs-facts.git
   forge_modules:
     cron_core:
       repo: puppetlabs/cron_core

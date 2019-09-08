@@ -9,11 +9,7 @@ group :ed25519 do
 end
 
 group :acceptance do
-  gem 'beaker-docker'
-  gem 'beaker-module_install_helper'
-  gem 'beaker-puppet'
-  gem 'beaker-puppet_install_helper'
-  gem 'beaker-rspec'
+  gem 'puppet_litmus'
 end
 
 group :documentation do

@@ -32,26 +32,10 @@ jobs:
         - DO=spec
         - PUPPET='~> 6'
     - stage: acceptance
-      env:
-        - DO=beaker
-        - BEAKER_set=ubuntu_1404
-        - BEAKER_PUPPET_COLLECTION=puppet5
-    - env:
-        - DO=beaker
-        - BEAKER_set=ubuntu_1604
-        - BEAKER_PUPPET_COLLECTION=puppet5
-    - env:
-        - DO=beaker
-        - BEAKER_set=ubuntu_1604
-        - BEAKER_PUPPET_COLLECTION=puppet6
-    - env:
-        - DO=beaker
-        - BEAKER_set=ubuntu_1804
-        - BEAKER_PUPPET_COLLECTION=puppet5
-    - env:
-        - DO=beaker
-        - BEAKER_set=ubuntu_1804
-        - BEAKER_PUPPET_COLLECTION=puppet6
+      script:
+        - bundle exec rake 'litmus:provision[default]'
+        - bundle exec rake 'litmus:install_agent'
+        - bundle exec rake 'litmus:install_module'
     - stage: deploy
       script: true
       env:
