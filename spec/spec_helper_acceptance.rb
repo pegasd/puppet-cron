@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'serverspec'
 require 'puppet_litmus'
 include PuppetLitmus # rubocop:disable Style/MixinUsage
 
