@@ -1,6 +1,7 @@
 # Manage daily cron jobs.
 #
 # @param command Command path to be executed
+# @param ensure Cron job state
 # @param minute Cron minute
 # @param hour Cron hour
 # @param user The user who owns the cron job

@@ -25,6 +25,7 @@
 #   }
 #
 # @param command Command path to be executed
+# @param ensure Cron job state
 # @param user The user who owns the cron job
 # @param minute Cron minute
 # @param hour Cron hour

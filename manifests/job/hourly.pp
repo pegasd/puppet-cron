@@ -1,6 +1,7 @@
 # Manage hourly cron jobs.
 #
 # @param command Command path to be executed
+# @param ensure Cron job state
 # @param minute Cron minute
 # @param user The user who owns the cron job
 define cron::job::hourly (
