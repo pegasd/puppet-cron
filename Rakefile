@@ -6,7 +6,7 @@ require 'metadata-json-lint/rake_task'
 require 'puppet-strings/tasks'
 require 'rubocop/rake_task'
 require 'yamllint/rake_task'
-require 'puppet_litmus/rake_tasks'
+require 'puppet_litmus/rake_tasks' if Bundler.rubygems.find_name('puppet_litmus').any?
 
 PuppetLint.configuration.relative     = true
 PuppetLint.configuration.ignore_paths = ['spec/fixtures/**/*.pp', 'spec/_fixtures/**/*.pp']
