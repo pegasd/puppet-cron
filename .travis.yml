@@ -7,6 +7,7 @@ cache: bundler
 
 language: ruby
 
+before_script: bundle install --jobs=3 --retry=3 --path=${BUNDLE_PATH:-vendor/bundle} --without ed25519 --without acceptance
 script: bundle exec rake $DO
 
 jobs:
