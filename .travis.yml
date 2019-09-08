@@ -32,6 +32,7 @@ jobs:
         - DO=spec
         - PUPPET='~> 6'
     - stage: acceptance
+      before_script: bundle install --with acceptance
       script:
         - bundle exec rake 'litmus:provision[default]'
         - bundle exec rake 'litmus:install_agent'
