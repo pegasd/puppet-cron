@@ -22,7 +22,7 @@ jobs:
     - stage: acceptance
       before_script: bundle install --with acceptance
       script:
-        - bundle exec rake 'litmus:provision[default]'
+        - bundle exec rake 'litmus:provision_list[default]'
         - bundle exec rake 'litmus:install_agent'
         - bundle exec rake 'litmus:install_module'
     - stage: deploy
