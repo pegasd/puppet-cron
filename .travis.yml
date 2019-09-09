@@ -11,7 +11,7 @@ before_install:
   - gem --version
   - bundle --version
   - gem update bundler
-  - gem --version
+  - bundle --version
 bundler_args: --without acceptance
 script: bundle exec rake $DO
 
