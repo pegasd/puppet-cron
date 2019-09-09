@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 
 group :acceptance, optional: true do
   gem 'puppet_litmus' if ENV['PUPPET'] !~ /(4|5)$/
+  gem 'serverspec'
 end
 
 group :ed25519, optional: true do
