@@ -26,6 +26,12 @@ jobs:
     - stage: unit
       env:
         - DO=spec
+        - PUPPET='~> 4'
+    - env:
+        - DO=spec
+        - PUPPET='~> 5'
+    - env:
+        - DO=spec
         - PUPPET='~> 6'
     - stage: acceptance
       bundler_args: --with acceptance

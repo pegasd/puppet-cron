@@ -3,7 +3,13 @@
 source 'https://rubygems.org'
 
 group :acceptance, optional: true do
-  gem 'puppet_litmus', require: false
+  gem 'puppet_litmus' if ENV['PUPPET'] !~ /(4|5)$/
+end
+
+group :ed25519, optional: true do
+  gem 'bcrypt_pbkdf', '< 2.0'
+  gem 'rbnacl', '< 5.0'
+  gem 'rbnacl-libsodium'
 end
 
 group :documentation do
