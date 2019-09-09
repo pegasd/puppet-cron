@@ -12,7 +12,7 @@ before_install:
   - bundle --version
   - gem update bundler
   - gem --version
-bundler_args: --without=acceptance:ed25519
+bundler_args: --without acceptance
 script: bundle exec rake $DO
 
 jobs:

@@ -2,12 +2,6 @@
 
 source 'https://rubygems.org'
 
-group :ed25519 do
-  gem 'bcrypt_pbkdf', '< 2.0'
-  gem 'rbnacl', '< 5.0'
-  gem 'rbnacl-libsodium'
-end
-
 group :acceptance do
   gem 'puppet_litmus'
 end
