@@ -9,6 +9,8 @@ before_install:
   - rm -f Gemfile.lock
   - gem --version
   - bundle --version
+  - gem update bundler
+  - gem --version
 bundler_args: --without=acceptance:ed25519
 script: bundle exec rake $DO
 
