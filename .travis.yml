@@ -6,12 +6,10 @@ services: [ docker ]
 language: ruby
 cache: bundler
 before_install:
-  - bundle -v
   - rm -f Gemfile.lock
-  - gem update --system $RUBYGEMS_VERSION
   - gem --version
   - bundle --version
-bundler_args: --without ed25519 acceptance
+bundler_args: --without=acceptance:ed25519
 script: bundle exec rake $DO
 
 jobs:
