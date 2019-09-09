@@ -6,6 +6,7 @@ services: [ docker ]
 language: ruby
 cache: bundler
 before_install:
+  - rvm list
   - rm -f Gemfile.lock
   - gem --version
   - bundle --version
