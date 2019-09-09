@@ -2,8 +2,8 @@
 
 source 'https://rubygems.org'
 
-group :acceptance do
-  gem 'puppet_litmus'
+group :acceptance, optional: true do
+  gem 'puppet_litmus', require: false
 end
 
 group :documentation do

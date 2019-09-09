@@ -6,13 +6,9 @@ services: [ docker ]
 language: ruby
 cache: bundler
 before_install:
-  - rvm list
   - rm -f Gemfile.lock
   - gem --version
   - bundle --version
-  - gem update bundler
-  - bundle --version
-bundler_args: --without acceptance
 script: bundle exec rake $DO
 
 jobs:
@@ -32,7 +28,7 @@ jobs:
         - DO=spec
         - PUPPET='~> 6'
     - stage: acceptance
-      before_script: bundle install --with acceptance
+      bundler_args: --with acceptance
       script:
         - bundle exec rake 'litmus:provision_list[default]'
         - bundle exec rake 'litmus:install_agent'
