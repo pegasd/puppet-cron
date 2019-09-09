@@ -14,6 +14,12 @@ jobs:
     - stage: validate
       env:
         - DO=validate_all
+        - PUPPET='~> 4'
+    - env:
+        - DO=validate_all
+        - PUPPET='~> 5'
+    - env:
+        - DO=validate_all
         - PUPPET='~> 6'
     - stage: unit
       env:
