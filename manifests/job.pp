@@ -25,6 +25,7 @@
 #   }
 #
 # @param command Command path to be executed
+# @param ensure Cron job state
 # @param user The user who owns the cron job
 # @param minute Cron minute
 # @param hour Cron hour
@@ -33,6 +34,7 @@
 # @param weekday Cron weekday
 define cron::job (
   Cron::Command  $command,
+  Cron::Ensure   $ensure   = present,
   Cron::User     $user     = 'root',
   Cron::Minute   $minute   = '*',
   Cron::Hour     $hour     = '*',
@@ -44,7 +46,7 @@ define cron::job (
   include cron
 
   cron { $title:
-    ensure   => present,
+    ensure   => $ensure,
     user     => $user,
     command  => $command,
     minute   => $minute,

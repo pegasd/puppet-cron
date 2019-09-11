@@ -29,6 +29,7 @@ _Private Classes_
 **Data types**
 
 * [`Cron::Command`](#croncommand): Used for `cron::job::command` parameter. Does not allow newline characters (which breaks crontab).
+* [`Cron::Ensure`](#cronensure): A simple ensure enum
 * [`Cron::Hour`](#cronhour): Stricter `cron::job::hour`.
 * [`Cron::Minute`](#cronminute): Stricter `cron::job::minute`.
 * [`Cron::Month`](#cronmonth): Stricter `cron::job::month`.
@@ -227,6 +228,14 @@ Data type: `Cron::Command`
 
 Command path to be executed
 
+##### `ensure`
+
+Data type: `Cron::Ensure`
+
+Cron job state
+
+Default value: present
+
 ##### `user`
 
 Data type: `Cron::User`
@@ -289,6 +298,14 @@ Data type: `Cron::Command`
 
 Command path to be executed
 
+##### `ensure`
+
+Data type: `Cron::Ensure`
+
+Cron job state
+
+Default value: present
+
 ##### `minute`
 
 Data type: `Cron::Minute`
@@ -327,6 +344,14 @@ Data type: `Cron::Command`
 
 Command path to be executed
 
+##### `ensure`
+
+Data type: `Cron::Ensure`
+
+Cron job state
+
+Default value: present
+
 ##### `minute`
 
 Data type: `Cron::Minute`
@@ -356,6 +381,14 @@ The following parameters are available in the `cron::job::monthly` defined type.
 Data type: `Cron::Command`
 
 Command path to be executed
+
+##### `ensure`
+
+Data type: `Cron::Ensure`
+
+Cron job state
+
+Default value: present
 
 ##### `minute`
 
@@ -402,6 +435,14 @@ The following parameters are available in the `cron::job::weekly` defined type.
 Data type: `Cron::Command`
 
 Command path to be executed
+
+##### `ensure`
+
+Data type: `Cron::Ensure`
+
+Cron job state
+
+Default value: present
 
 ##### `minute`
 
@@ -456,6 +497,12 @@ Used for `cron::job::command` parameter.
 Does not allow newline characters (which breaks crontab).
 
 Alias of `Pattern[/\A[^\n]+\z/]`
+
+### Cron::Ensure
+
+A simple ensure enum
+
+Alias of `Enum[present, absent]`
 
 ### Cron::Hour
 
