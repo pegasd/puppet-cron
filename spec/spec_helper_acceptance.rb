@@ -9,20 +9,23 @@ RSpec.configure do |c|
   c.formatter = :documentation
 end
 
-# This runs the supplied manifest twice on the host.
-#
-# First time checking for failures.
-# Second time checking for changes.
-#
-# Idempotent and clean. Just the way I like it.
-def apply_and_test_idempotence(manifest)
-  context 'applying manifest and testing for idempotence' do
-    it 'does not fail the first time around' do
-      apply_manifest(manifest, catch_failures: true)
-    end
+if ENV['TARGET_HOST'].nil? || ENV['TARGET_HOST'] == 'localhost'
+  puts 'Running tests against this machine !'
+  set :backend, :exec
+else
+  inventory_hash = inventory_hash_from_inventory_file
+  node_config = config_from_node(inventory_hash, ENV['TARGET_HOST'])
 
-    it 'does not change anything on the second run' do
-      apply_manifest(manifest, catch_changes: true)
-    end
+  if target_in_group(inventory_hash, ENV['TARGET_HOST'], 'ssh_nodes')
+    set :backend, :ssh
+    options = Net::SSH::Config.for(host)
+    options[:user] = node_config.dig('ssh', 'user') unless node_config.dig('ssh', 'user').nil?
+    options[:port] = node_config.dig('ssh', 'port') unless node_config.dig('ssh', 'port').nil?
+    options[:password] = node_config.dig('ssh', 'password') unless node_config.dig('ssh', 'password').nil?
+    options[:verify_host_key] = Net::SSH::Verifiers::Always.new unless node_config.dig('ssh', 'host-key-check').nil?
+    host = ENV['TARGET_HOST'].split(':').first
+    set :host,        options[:host_name] || host
+    set :ssh_options, options
+    set :request_pty, true
   end
 end

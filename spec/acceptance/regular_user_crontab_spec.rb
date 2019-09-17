@@ -12,7 +12,7 @@ describe 'crontab(1)' do
 
     PUPPET
 
-    apply_and_test_idempotence pp
+    idempotent_apply pp
 
     describe command('sudo -u luke env EDITOR=cat crontab -e') do
       its(:exit_status) { is_expected.to eq 1 }
@@ -31,7 +31,7 @@ describe 'crontab(1)' do
 
     PUPPET
 
-    apply_and_test_idempotence pp
+    idempotent_apply pp
 
     describe command('sudo -u luke env EDITOR=cat crontab -e') do
       its(:exit_status) { is_expected.to eq 0 }
@@ -47,7 +47,7 @@ describe 'crontab(1)' do
 
     PUPPET
 
-    apply_and_test_idempotence pp
+    idempotent_apply pp
 
     describe user('luke') do
       it { is_expected.not_to exist }
