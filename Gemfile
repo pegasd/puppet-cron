@@ -2,18 +2,15 @@
 
 source 'https://rubygems.org'
 
-group :ed25519 do
+group :acceptance, optional: true do
+  gem 'puppet_litmus' if ENV['PUPPET'] !~ /(4|5)$/
+  gem 'serverspec'
+end
+
+group :ed25519, optional: true do
   gem 'bcrypt_pbkdf', '< 2.0'
   gem 'rbnacl', '< 5.0'
   gem 'rbnacl-libsodium'
-end
-
-group :acceptance do
-  gem 'beaker-docker'
-  gem 'beaker-module_install_helper'
-  gem 'beaker-puppet'
-  gem 'beaker-puppet_install_helper'
-  gem 'beaker-rspec'
 end
 
 group :documentation do

@@ -1,12 +1,14 @@
 ---
+# TODO This is for acceptance testing only
 sudo: required
 services: [ docker ]
 
-before_install: rm Gemfile.lock || true
-cache: bundler
-
 language: ruby
-
+cache: bundler
+before_install:
+  - rm -f Gemfile.lock
+  - gem --version
+  - bundle --version
 script: bundle exec rake $DO
 
 jobs:
@@ -32,26 +34,12 @@ jobs:
         - DO=spec
         - PUPPET='~> 6'
     - stage: acceptance
-      env:
-        - DO=beaker
-        - BEAKER_set=ubuntu_1404
-        - BEAKER_PUPPET_COLLECTION=puppet5
-    - env:
-        - DO=beaker
-        - BEAKER_set=ubuntu_1604
-        - BEAKER_PUPPET_COLLECTION=puppet5
-    - env:
-        - DO=beaker
-        - BEAKER_set=ubuntu_1604
-        - BEAKER_PUPPET_COLLECTION=puppet6
-    - env:
-        - DO=beaker
-        - BEAKER_set=ubuntu_1804
-        - BEAKER_PUPPET_COLLECTION=puppet5
-    - env:
-        - DO=beaker
-        - BEAKER_set=ubuntu_1804
-        - BEAKER_PUPPET_COLLECTION=puppet6
+      bundler_args: --with acceptance
+      script:
+        - bundle exec rake 'litmus:provision_list[default]'
+        - bundle exec rake 'litmus:install_agent'
+        - bundle exec rake 'litmus:install_module'
+        - bundle exec rake 'litmus:acceptance:parallel'
     - stage: deploy
       script: true
       env:

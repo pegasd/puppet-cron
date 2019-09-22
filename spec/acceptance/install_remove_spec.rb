@@ -10,7 +10,7 @@ describe 'cron' do
 
     PUPPET
 
-    apply_and_test_idempotence(pp)
+    idempotent_apply(pp)
 
     describe package('cron') do
       it { is_expected.to be_installed }
@@ -44,7 +44,7 @@ describe 'cron' do
 
     PUPPET
 
-    apply_and_test_idempotence(pp)
+    idempotent_apply(pp)
 
     describe package('cron') do
       it { is_expected.not_to be_installed }

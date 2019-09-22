@@ -10,13 +10,13 @@ spec/spec_helper.rb:
 
 # deleted
 .rspec:
-  unmanaged: true
+  delete: true
 appveyor.yml:
-  unmanaged: true
+  delete: true
 .gitlab-ci.yml:
-  unmanaged: true
+  delete: true
 .vscode/extensions.json:
-  unmanaged: true
+  delete: true
 
 # custom
 .rubocop.yml:

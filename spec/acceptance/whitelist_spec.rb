@@ -14,7 +14,7 @@ describe 'cron::whitelist' do
   PUPPET
 
   context 'whitelist a cron job in /etc/cron.d' do
-    apply_and_test_idempotence(pp)
+    idempotent_apply(pp)
   end
 
   context 'fake a cron job and see that it is not purged' do
