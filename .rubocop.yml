@@ -1,6 +1,7 @@
 ---
 AllCops:
   Exclude:
+    - spec/spec_helper_acceptance.rb # FIXME
     - spec/fixtures/**/*
     - spec/_fixtures/**/*
     - vendor/**/*
