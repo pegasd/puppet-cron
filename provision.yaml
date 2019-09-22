@@ -1,5 +1,5 @@
 ---
 default:
   provisioner: docker
-  images: [ 'ubuntu:18.04' ]
+  images: [ 'waffleimage/ubuntu18.04' ]
 ...
