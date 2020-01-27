@@ -52,14 +52,14 @@ Style/FormatStringToken:
 # Layout
 Layout/ClosingParenthesisIndentation:
   Enabled: false
-Layout/AlignHash:
+Layout/HashAlignment:
   EnforcedColonStyle: table
   EnforcedHashRocketStyle: table
-
-# Metrics
-Metrics/LineLength:
+Layout/LineLength:
   Description: People have wide screens, use them.
   Max: 200
+
+# Metrics
 Metrics/AbcSize:
   Enabled: false
 Metrics/BlockLength:
