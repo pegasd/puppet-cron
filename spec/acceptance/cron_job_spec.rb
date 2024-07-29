@@ -23,17 +23,17 @@ describe 'cron::job' do
     describe cron do
       it { is_expected.to have_entry '* * * * * echo hi > /tmp/say_hi' }
     end
-  end
 
-  context 'cron job works' do
-    describe command('sleep 60') do
-      its(:exit_status) { is_expected.to eq 0 }
-    end
+    context 'cron job works' do
+      describe command('sleep 60') do
+        its(:exit_status) { is_expected.to eq 0 }
+      end
 
-    describe file('/tmp/say_hi') do
-      it { is_expected.to exist }
-      it { is_expected.to be_file }
-      its(:content) { is_expected.to match(%r{^hi$}) }
+      describe file('/tmp/say_hi') do
+        it { is_expected.to exist }
+        it { is_expected.to be_file }
+        its(:content) { is_expected.to match(%r{^hi$}) }
+      end
     end
   end
 
