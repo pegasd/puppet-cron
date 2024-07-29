@@ -73,8 +73,3 @@ def ensure_module_defined(module_name)
 end
 
 # 'spec_overrides' from sync.yml will appear below this line
-RSpec.configure do |c|
-  c.formatter = :documentation
-  c.color     = true
-  c.after(:suite) { RSpec::Puppet::Coverage.report!(100) }
-end
