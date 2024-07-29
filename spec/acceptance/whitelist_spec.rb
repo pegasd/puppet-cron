@@ -3,19 +3,19 @@
 require 'spec_helper_acceptance'
 
 describe 'cron::whitelist' do
-  pp = <<~PUPPET
-
-    class { 'cron':
-      purge_crond => true,
-    }
-
-    cron::whitelist { 'cant_touch_this': }
-
-  PUPPET
-
-  apply_and_test_idempotence(pp)
-
   context 'fake a cron job and see that it is not purged' do
+    pp = <<~PUPPET
+
+      class { 'cron':
+        purge_crond => true,
+      }
+
+      cron::whitelist { 'cant_touch_this': }
+
+    PUPPET
+
+    apply_and_test_idempotence(pp)
+
     describe command('echo hello > /etc/cron.d/cant_touch_this') do
       its(:exit_status) { is_expected.to eq 0 }
     end
