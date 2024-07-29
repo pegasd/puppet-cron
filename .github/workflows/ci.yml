@@ -69,6 +69,12 @@ jobs:
       run: |
         bundle env
 
+    - name: Disable apparmor
+      if: ${{matrix.platforms.provider == 'docker'}}
+      run: |
+        sudo systemctl disable apparmor
+        sudo systemctl stop apparmor
+
     - name: Provision test environment
       run: |
         bundle exec rake 'litmus:provision[${{matrix.platforms.provider}},${{ matrix.platforms.image }}]'
