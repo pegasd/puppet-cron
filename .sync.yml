@@ -23,8 +23,4 @@ appveyor.yml:
   unmanaged: true
 .travis.yml:
   unmanaged: true
-Gemfile:
-  unmanaged: true
-Rakefile:
-  unmanaged: true
 ...
