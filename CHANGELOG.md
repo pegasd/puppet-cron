@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Update `stdlib` requirements in `metadata.json`.
+- Update Puppet version requirements in `metadata.json` (now only Puppet 7 and 8 are supported).
+- Update Ubuntu version support (now only 18.04, 20.04, 22.04, 24.04 are supported).
 
 ## [0.10.0] - 2020-01-27
 ### Added
