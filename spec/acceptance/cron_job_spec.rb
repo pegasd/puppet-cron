@@ -29,7 +29,7 @@ describe 'cron::job' do
     describe file('/tmp/say_hi') do
       it { is_expected.to exist }
       it { is_expected.to be_file }
-      its(:content) { is_expected.to match(/^hi$/) }
+      its(:content) { is_expected.to match(%r{^hi$}) }
     end
   end
 

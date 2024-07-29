@@ -1,7 +1,4 @@
 ---
 .vscode/extensions.json:
   delete: true
-
-.rspec:
-  delete: true
 ...

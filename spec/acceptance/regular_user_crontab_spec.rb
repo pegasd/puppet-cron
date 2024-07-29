@@ -16,7 +16,7 @@ describe 'crontab(1)' do
 
     describe command('sudo -u luke env EDITOR=cat crontab -e') do
       its(:exit_status) { is_expected.to eq 1 }
-      its(:stderr) { is_expected.to match(/^You \(luke\) are not allowed to use this program \(crontab\)$/) }
+      its(:stderr) { is_expected.to match(%r{^You \(luke\) are not allowed to use this program \(crontab\)$}) }
     end
   end
 
