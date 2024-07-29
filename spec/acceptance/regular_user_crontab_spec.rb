@@ -10,6 +10,8 @@ describe 'crontab(1)' do
 
       user { 'luke': ensure => present }
 
+      package { 'sudo': ensure => present }
+
     PUPPET
 
     idempotent_apply pp
