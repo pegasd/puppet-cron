@@ -18,7 +18,7 @@ describe 'cron::purge' do
 
     PUPPET
 
-    apply_and_test_idempotence(pp)
+    idempotent_apply(pp)
 
     describe cron do
       it { is_expected.to have_entry '* * * * * /usr/bin/backup' }
@@ -45,7 +45,7 @@ describe 'cron::purge' do
 
     PUPPET
 
-    apply_and_test_idempotence(pp)
+    idempotent_apply(pp)
 
     describe cron do
       it { is_expected.to have_entry '* * * * * /usr/bin/backup' }

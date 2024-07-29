@@ -14,7 +14,7 @@ describe 'cron::job' do
 
     PUPPET
 
-    apply_and_test_idempotence(pp)
+    idempotent_apply(pp)
 
     describe cron do
       it { is_expected.to have_entry '* * * * * echo hi > /tmp/say_hi' }
@@ -44,7 +44,7 @@ describe 'cron::job' do
 
     PUPPET
 
-    apply_and_test_idempotence(pp)
+    idempotent_apply(pp)
 
     describe file('/tmp/say_hi') do
       it { is_expected.not_to exist }

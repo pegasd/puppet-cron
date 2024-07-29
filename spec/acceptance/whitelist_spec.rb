@@ -14,7 +14,7 @@ describe 'cron::whitelist' do
 
     PUPPET
 
-    apply_and_test_idempotence(pp)
+    idempotent_apply(pp)
 
     describe command('echo hello > /etc/cron.d/cant_touch_this') do
       its(:exit_status) { is_expected.to eq 0 }
