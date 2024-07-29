@@ -42,8 +42,8 @@ class cron (
 
   # cron::config
   Boolean                $allow_all_users = false,
-  Array[Cron::User]      $allowed_users   = [ ],
-  Array[Cron::User]      $denied_users    = [ ],
+  Array[Cron::User]      $allowed_users   = [],
+  Array[Cron::User]      $denied_users    = [],
 
   # cron::service
   Boolean                $service_manage  = true,
@@ -55,22 +55,16 @@ class cron (
   Boolean                $purge_crond     = false,
   Boolean                $purge_noop      = false,
 ) {
-
   if $ensure == present {
-
     contain cron::install
     contain cron::config
     contain cron::service
 
     contain cron::purge
 
-    Class['::cron::install'] -> Class['::cron::service'] -> Class['::cron::purge']
-    Class['::cron::install'] ~> Class['::cron::service']
-
+    Class['cron::install'] -> Class['cron::service'] -> Class['cron::purge']
+    Class['cron::install'] ~> Class['cron::service']
   } else {
-
     contain cron::remove
-
   }
-
 }

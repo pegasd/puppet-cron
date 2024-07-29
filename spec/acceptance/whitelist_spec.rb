@@ -13,9 +13,9 @@ describe 'cron::whitelist' do
 
   PUPPET
 
-  context 'fake a cron job and see that it is not purged' do
-    apply_and_test_idempotence(pp)
+  apply_and_test_idempotence(pp)
 
+  context 'fake a cron job and see that it is not purged' do
     describe command('echo hello > /etc/cron.d/cant_touch_this') do
       its(:exit_status) { is_expected.to eq 0 }
     end

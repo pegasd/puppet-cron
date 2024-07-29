@@ -3,27 +3,22 @@
 #
 # @api private
 class cron::purge {
+  $noop = if $cron::purge_noop { true } else { undef }
 
-  $noop = if $::cron::purge_noop {
-    true
-  } else {
-    undef
-  }
-
-  if $::cron::purge_cron and $::cron::allow_all_users {
+  if $cron::purge_cron and $cron::allow_all_users {
     notify { 'purge_users_crontabs':
-      message => "WARNING! Users' crontabs will be purged. Disable purge_cron or allow_all_users."
+      message => "WARNING! Users' crontabs will be purged. Disable purge_cron or allow_all_users.",
     }
   }
 
-  if $::cron::purge_cron {
+  if $cron::purge_cron {
     resources { 'cron':
       purge => true,
       noop  => $noop,
     }
   }
 
-  if $::cron::purge_crond {
+  if $cron::purge_crond {
     file { '/etc/cron.d':
       ensure  => directory,
       owner   => 'root',
@@ -35,5 +30,4 @@ class cron::purge {
       noop    => $noop,
     }
   }
-
 }

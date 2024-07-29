@@ -14,7 +14,6 @@ define cron::job::monthly (
   Cron::Monthday $monthday = 1,
   Cron::User     $user     = 'root',
 ) {
-
   cron::job { $title:
     ensure   => $ensure,
     command  => $command,
@@ -25,5 +24,4 @@ define cron::job::monthly (
     weekday  => '*',
     user     => $user,
   }
-
 }
