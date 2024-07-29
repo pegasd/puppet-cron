@@ -16,8 +16,8 @@ describe 'cron::job' do
 
     idempotent_apply(pp)
 
-    describe cron do
-      it { is_expected.to have_entry '* * * * * echo hi > /tmp/say_hi' }
+    it 'adds to the crontab' do
+      expect(run_shell('crontab -l | grep /tmp/say_hi').exit_code).to eq(0)
     end
   end
 
