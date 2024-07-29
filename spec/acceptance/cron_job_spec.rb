@@ -4,6 +4,10 @@ require 'spec_helper_acceptance'
 
 describe 'cron::job' do
   context 'creates cron::job' do
+    before(:all) do
+      pre_run
+    end
+
     pp = <<~PUPPET
 
       include cron
@@ -16,8 +20,8 @@ describe 'cron::job' do
 
     idempotent_apply(pp)
 
-    it 'adds to the crontab' do
-      expect(run_shell('crontab -l | grep /tmp/say_hi').exit_code).to eq(0)
+    describe cron do
+      it { is_expected.to have_entry '* * * * * echo hi > /tmp/say_hi' }
     end
   end
 
@@ -34,6 +38,10 @@ describe 'cron::job' do
   end
 
   context 'clean up after myself' do
+    before(:all) do
+      pre_run
+    end
+
     pp = <<~PUPPET
 
       file { '/tmp/say_hi':
