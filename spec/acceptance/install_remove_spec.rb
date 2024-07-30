@@ -38,17 +38,15 @@ describe 'cron' do
   end
 
   describe 'removes?' do
-    let(:pp) do
-      <<~PUPPET
+    pp = <<~PUPPET
 
-        class { 'cron':
-          ensure => absent
-        }
+      class { 'cron':
+        ensure => absent
+      }
 
-      PUPPET
-    end
+    PUPPET
 
-    idempotent_apply(pp)
+    apply_manifest(pp, catch_failures: true)
 
     describe package('cron') do
       it { is_expected.not_to be_installed }

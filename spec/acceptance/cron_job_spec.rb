@@ -25,9 +25,7 @@ describe 'cron::job' do
     end
 
     context 'cron job works' do
-      describe command('sleep 60') do
-        its(:exit_status) { is_expected.to eq 0 }
-      end
+      run_shell('sleep 60')
 
       describe file('/tmp/say_hi') do
         it { is_expected.to exist }
