@@ -100,9 +100,9 @@ Check out [REFERENCE](REFERENCE.md) for up-to-date details.
 ## Limitations
 
 * Made for and tested only on the following Ubuntu distributions:
-    * 14.04
-    * 16.04
     * 18.04
+    * 20.04
+    * 22.04
 * Custom `Cron::*` time types are a lot stricter than builtin `cron` ones. Careful - this may break existing cron jobs
   you are converting.
 * All cron jobs managed by built-in `cron` type are fair play. They won't be purged as long as they're in the catalog.
