@@ -4,15 +4,17 @@ require 'spec_helper_acceptance'
 
 describe 'cron::whitelist' do
   context 'fake a cron job and see that it is not purged' do
-    pp = <<~PUPPET
+    let(:pp) do
+      <<~PUPPET
 
-      class { 'cron':
-        purge_crond => true,
-      }
+        class { 'cron':
+          purge_crond => true,
+        }
 
-      cron::whitelist { 'cant_touch_this': }
+        cron::whitelist { 'cant_touch_this': }
 
-    PUPPET
+      PUPPET
+    end
 
     idempotent_apply(pp)
 

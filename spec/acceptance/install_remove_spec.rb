@@ -4,11 +4,13 @@ require 'spec_helper_acceptance'
 
 describe 'cron' do
   context 'installs?' do
-    pp = <<~PUPPET
+    let(:pp) do
+      <<~PUPPET
 
-      include cron
+        include cron
 
-    PUPPET
+      PUPPET
+    end
 
     idempotent_apply(pp)
 
@@ -36,13 +38,15 @@ describe 'cron' do
   end
 
   context 'removes?' do
-    pp = <<~PUPPET
+    let(:pp) do
+      <<~PUPPET
 
-      class { 'cron':
-        ensure => absent
-      }
+        class { 'cron':
+          ensure => absent
+        }
 
-    PUPPET
+      PUPPET
+    end
 
     idempotent_apply(pp)
 

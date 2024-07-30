@@ -4,17 +4,19 @@ require 'spec_helper_acceptance'
 
 describe 'crontab(1)' do
   context 'luke is not ready yet' do
-    pp = <<~PUPPET
+    let(:pp) do
+      <<~PUPPET
 
-      include cron
+        include cron
 
-      user { 'luke': ensure => present }
+        user { 'luke': ensure => present }
 
-      package { 'sudo': ensure => present }
+        package { 'sudo': ensure => present }
 
-    PUPPET
+      PUPPET
+    end
 
-    idempotent_apply pp
+    idempotent_apply(pp)
 
     describe command('sudo -u luke env EDITOR=cat crontab -e') do
       its(:exit_status) { is_expected.to eq 1 }
@@ -23,17 +25,18 @@ describe 'crontab(1)' do
   end
 
   context 'luke has force' do
-    pp = <<~PUPPET
+    let(:pp) do
+      <<~PUPPET
 
-      class { 'cron':
-        allowed_users => [ 'luke' ],
-      }
+        class { 'cron':
+          allowed_users => [ 'luke' ],
+        }
 
-      user { 'luke': ensure => present }
+        user { 'luke': ensure => present }
 
-    PUPPET
+      PUPPET
 
-    idempotent_apply pp
+    idempotent_apply(pp)
 
     describe command('sudo -u luke env EDITOR=cat crontab -e') do
       its(:exit_status) { is_expected.to eq 0 }
@@ -41,15 +44,17 @@ describe 'crontab(1)' do
   end
 
   context 'clean up' do
-    pp = <<~PUPPET
+    let(:pp) do
+      <<~PUPPET
 
-      include cron
+        include cron
 
-      user { 'luke': ensure => absent }
+        user { 'luke': ensure => absent }
 
-    PUPPET
+      PUPPET
+    end
 
-    idempotent_apply pp
+    idempotent_apply(pp)
 
     describe user('luke') do
       it { is_expected.not_to exist }
