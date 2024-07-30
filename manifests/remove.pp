@@ -2,7 +2,6 @@
 #
 # @api private
 class cron::remove {
-
   service { 'cron':
     ensure => stopped,
   }
@@ -20,5 +19,4 @@ class cron::remove {
       ensure => absent,
       force  => true,
   }
-
 }

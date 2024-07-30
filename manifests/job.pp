@@ -42,7 +42,6 @@ define cron::job (
   Cron::Month    $month    = '*',
   Cron::Weekday  $weekday  = '*',
 ) {
-
   include cron
 
   cron { $title:
@@ -55,5 +54,4 @@ define cron::job (
     month    => $month,
     weekday  => $weekday,
   }
-
 }

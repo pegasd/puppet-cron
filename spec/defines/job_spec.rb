@@ -24,6 +24,7 @@ describe 'cron::job' do
 
   context 'with ensure => absent' do
     let(:params) { { ensure: :absent }.merge(super()) }
+
     it { is_expected.to compile.with_all_deps }
     it { is_expected.to contain_cron('backup').with_ensure(:absent) }
   end

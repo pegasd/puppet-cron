@@ -1,2 +1,10 @@
 ---
 osfamily: Debian
+os:
+  distro:
+    codename: noble
+  family: Debian
+  name: Ubuntu
+  release:
+    full: 24.04
+...

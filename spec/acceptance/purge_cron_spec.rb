@@ -3,22 +3,22 @@
 require 'spec_helper_acceptance'
 
 describe 'cron::purge' do
-  context 'first run with two cron::job resources' do
-    pp = <<~PUPPET
+  describe 'first run with two cron::job resources' do
+    let(:pp) do
+      <<~PUPPET
+        include cron
+        cron::job { 'backup':
+          command => '/usr/bin/backup';
+        }
+        cron::job { 'other-backup':
+          command => '/usr/bin/other-backup';
+        }
+      PUPPET
+    end
 
-      include cron
-
-      cron::job { 'backup':
-        command => '/usr/bin/backup';
-      }
-
-      cron::job { 'other-backup':
-        command => '/usr/bin/other-backup';
-      }
-
-    PUPPET
-
-    apply_and_test_idempotence(pp)
+    it 'behaves idempotently' do
+      idempotent_apply(pp)
+    end
 
     describe cron do
       it { is_expected.to have_entry '* * * * * /usr/bin/backup' }
@@ -34,18 +34,19 @@ describe 'cron::purge' do
     end
   end
 
-  context 'second run with one of the resources removed' do
-    pp = <<~PUPPET
+  describe 'second run with one of the resources removed' do
+    let(:pp) do
+      <<~PUPPET
+        include cron
+        cron::job { 'backup':
+          command => '/usr/bin/backup';
+        }
+      PUPPET
+    end
 
-      include cron
-
-      cron::job { 'backup':
-        command => '/usr/bin/backup';
-      }
-
-    PUPPET
-
-    apply_and_test_idempotence(pp)
+    it 'behaves idempotently' do
+      idempotent_apply(pp)
+    end
 
     describe cron do
       it { is_expected.to have_entry '* * * * * /usr/bin/backup' }

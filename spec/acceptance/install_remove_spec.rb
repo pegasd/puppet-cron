@@ -3,14 +3,12 @@
 require 'spec_helper_acceptance'
 
 describe 'cron' do
-  context 'installs?' do
-    pp = <<~PUPPET
+  describe 'installs?' do
+    let(:pp) { 'include cron' }
 
-      include cron
-
-    PUPPET
-
-    apply_and_test_idempotence(pp)
+    it 'behaves idempotently' do
+      idempotent_apply(pp)
+    end
 
     describe package('cron') do
       it { is_expected.to be_installed }
@@ -35,16 +33,18 @@ describe 'cron' do
     end
   end
 
-  context 'removes?' do
-    pp = <<~PUPPET
+  describe 'removes?' do
+    let(:pp) do
+      <<~PUPPET
+        class { 'cron':
+          ensure => absent
+        }
+      PUPPET
+    end
 
-      class { 'cron':
-        ensure => absent
-      }
-
-    PUPPET
-
-    apply_and_test_idempotence(pp)
+    it 'behaves idempotently' do
+      idempotent_apply(pp)
+    end
 
     describe package('cron') do
       it { is_expected.not_to be_installed }
@@ -54,9 +54,7 @@ describe 'cron' do
       it { is_expected.not_to be_running }
     end
 
-    managed_files = ['/etc/cron.allow', '/etc/cron.deny', '/etc/cron.d']
-
-    managed_files.each do |absent_file|
+    ['/etc/cron.allow', '/etc/cron.deny', '/etc/cron.d'].each do |absent_file|
       describe file(absent_file) do
         it { is_expected.not_to exist }
       end

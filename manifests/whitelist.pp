@@ -4,12 +4,10 @@
 # @example Using cron::whitelist resource
 #   cron::whitelist { 'sample_name': }
 define cron::whitelist {
-
   include cron
 
   file { "/etc/cron.d/${title}":
     ensure  => file,
     replace => false,
   }
-
 }

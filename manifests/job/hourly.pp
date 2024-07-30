@@ -10,7 +10,6 @@ define cron::job::hourly (
   Cron::Minute  $minute = 0,
   Cron::User    $user   = 'root',
 ) {
-
   cron::job { $title:
     ensure   => $ensure,
     command  => $command,
@@ -21,5 +20,4 @@ define cron::job::hourly (
     weekday  => '*',
     user     => $user,
   }
-
 }

@@ -14,7 +14,6 @@ define cron::job::weekly (
   Cron::Weekday $weekday = 0,
   Cron::User    $user    = 'root',
 ) {
-
   cron::job { $title:
     ensure   => $ensure,
     command  => $command,
@@ -25,5 +24,4 @@ define cron::job::weekly (
     weekday  => $weekday,
     user     => $user,
   }
-
 }

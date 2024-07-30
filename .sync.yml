@@ -1,30 +1,10 @@
 ---
 spec/spec_helper.rb:
-  mock_with: ':rspec'
-  spec_overrides:
-    - 'RSpec.configure do |c|'
-    - '  c.formatter = :documentation'
-    - '  c.color     = true'
-    - '  c.after(:suite) { RSpec::Puppet::Coverage.report!(100) }'
-    - 'end'
+  minimum_code_coverage_percentage: 100
 
-# deleted
 .rspec:
-  unmanaged: true
-appveyor.yml:
-  unmanaged: true
-.gitlab-ci.yml:
-  unmanaged: true
-.vscode/extensions.json:
-  unmanaged: true
+  delete: true
 
-# custom
-.rubocop.yml:
-  unmanaged: true
-.travis.yml:
-  unmanaged: true
-Gemfile:
-  unmanaged: true
-Rakefile:
-  unmanaged: true
+.vscode/extensions.json:
+  delete: true
 ...

@@ -12,7 +12,6 @@ define cron::job::daily (
   Cron::Hour    $hour   = 0,
   Cron::User    $user   = 'root',
 ) {
-
   cron::job { $title:
     ensure   => $ensure,
     command  => $command,
@@ -23,5 +22,4 @@ define cron::job::daily (
     weekday  => '*',
     user     => $user,
   }
-
 }

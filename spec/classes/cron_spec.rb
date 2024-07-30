@@ -56,18 +56,21 @@ describe 'cron' do
 
     context 'do not manage the service' do
       let(:params) { { service_manage: false } }
+
       it { is_expected.to compile.with_all_deps }
       it { is_expected.not_to contain_service('cron') }
     end
 
     context 'ensure => stopped' do
       let(:params) { { service_ensure: :stopped } }
+
       it { is_expected.to compile.with_all_deps }
       it { is_expected.to contain_service('cron').with_ensure(:stopped) }
     end
 
     context 'enable => false' do
       let(:params) { { service_enable: false } }
+
       it { is_expected.to compile.with_all_deps }
       it { is_expected.to contain_service('cron').with_enable(false) }
     end
@@ -103,8 +106,6 @@ describe 'cron' do
     it { is_expected.not_to contain_class('cron::install') }
     it { is_expected.not_to contain_class('cron::config') }
     it { is_expected.not_to contain_class('cron::purge') }
-    it { is_expected.not_to contain_class('cron::service') }
-
     it { is_expected.not_to contain_class('cron::service') }
 
     removed_files = ['/etc/cron.d', '/etc/cron.deny', '/etc/cron.allow']
@@ -178,7 +179,7 @@ describe 'cron' do
       }
     end
 
-    it { is_expected.to compile.and_raise_error(/Either allowed or denied cron users must be specified, not both./) }
+    it { is_expected.to compile.and_raise_error(%r{Either allowed or denied cron users must be specified, not both.}) }
   end
 
   context 'with custom package version' do
