@@ -8,7 +8,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Update `stdlib` requirements in `metadata.json`.
 - Update Puppet version requirements in `metadata.json` (now only Puppet 7 and 8 are supported).
-- Update Ubuntu version support (now only 18.04, 20.04, 22.04, 24.04 are supported).
+- Update Ubuntu version support (now only 18.04, 20.04, 22.04 are supported).
+- Switch to Litmus acceptance testing.
+- Switch to GitHub actions for testing.
 
 ## [0.10.0] - 2020-01-27
 ### Added
