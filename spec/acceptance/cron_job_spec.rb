@@ -4,17 +4,21 @@ require 'spec_helper_acceptance'
 
 describe 'cron::job' do
   context 'creates cron::job' do
-    pp = <<~PUPPET
+    let(:pp) do
+      <<~PUPPET
 
-      include cron
+        include cron
 
-      cron::job { 'ping_stuff':
-        command => 'echo hi > /tmp/say_hi',
-      }
+        cron::job { 'ping_stuff':
+          command => 'echo hi > /tmp/say_hi',
+        }
 
-    PUPPET
+      PUPPET
+    end
 
-    idempotent_apply(pp)
+    it 'behaves idempotently' do
+      idempotent_apply(pp)
+    end
 
     describe cron do
       it { is_expected.to have_entry '* * * * * echo hi > /tmp/say_hi' }
@@ -34,17 +38,21 @@ describe 'cron::job' do
   end
 
   context 'clean up after myself' do
-    pp = <<~PUPPET
+    let(:pp) do
+      <<~PUPPET
 
-      file { '/tmp/say_hi':
-        ensure  => absent,
-      }
+        file { '/tmp/say_hi':
+          ensure  => absent,
+        }
 
-      include cron
+        include cron
 
-    PUPPET
+      PUPPET
+    end
 
-    idempotent_apply(pp)
+    it 'behaves idempotently' do
+      idempotent_apply(pp)
+    end
 
     describe file('/tmp/say_hi') do
       it { is_expected.not_to exist }
