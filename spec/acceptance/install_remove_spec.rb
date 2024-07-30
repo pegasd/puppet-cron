@@ -4,7 +4,7 @@ require 'spec_helper_acceptance'
 
 describe 'cron' do
   context 'installs?' do
-    let(:pp) do
+    let(:pp_install) do
       <<~PUPPET
 
         include cron
@@ -12,7 +12,7 @@ describe 'cron' do
       PUPPET
     end
 
-    idempotent_apply(pp)
+    idempotent_apply(pp_install)
 
     describe package('cron') do
       it { is_expected.to be_installed }
@@ -38,7 +38,7 @@ describe 'cron' do
   end
 
   context 'removes?' do
-    let(:pp) do
+    let(:pp_remove) do
       <<~PUPPET
 
         class { 'cron':
@@ -48,7 +48,7 @@ describe 'cron' do
       PUPPET
     end
 
-    idempotent_apply(pp)
+    idempotent_apply(pp_remove)
 
     describe package('cron') do
       it { is_expected.not_to be_installed }
