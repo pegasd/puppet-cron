@@ -35,6 +35,7 @@ describe 'crontab(1)' do
         user { 'luke': ensure => present }
 
       PUPPET
+    end
 
     idempotent_apply(pp)
 
