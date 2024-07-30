@@ -10,5 +10,4 @@ fixtures:
     facts: https://github.com/puppetlabs/puppetlabs-facts
     provision: https://github.com/puppetlabs/provision
     puppet_agent: https://github.com/puppetlabs/puppetlabs-puppet_agent
-    registry: https://github.com/puppetlabs/puppetlabs-registry.git
 ...
