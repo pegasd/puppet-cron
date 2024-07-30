@@ -4,10 +4,6 @@ require 'spec_helper_acceptance'
 
 describe 'cron::job' do
   context 'creates cron::job' do
-    before(:all) do
-      pre_run
-    end
-
     pp = <<~PUPPET
 
       include cron
@@ -38,10 +34,6 @@ describe 'cron::job' do
   end
 
   context 'clean up after myself' do
-    before(:all) do
-      pre_run
-    end
-
     pp = <<~PUPPET
 
       file { '/tmp/say_hi':
