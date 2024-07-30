@@ -5,7 +5,7 @@ require 'spec_helper_acceptance'
 describe 'cron::purge' do
   describe 'first run with two cron::job resources' do
     let(:pp) do
-      <<-MANIFEST
+      <<~PUPPET
         include cron
         cron::job { 'backup':
           command => '/usr/bin/backup';
@@ -13,7 +13,7 @@ describe 'cron::purge' do
         cron::job { 'other-backup':
           command => '/usr/bin/other-backup';
         }
-      MANIFEST
+      PUPPET
     end
 
     it 'behaves idempotently' do
@@ -36,12 +36,12 @@ describe 'cron::purge' do
 
   describe 'second run with one of the resources removed' do
     let(:pp) do
-      <<-MANIFEST
+      <<~PUPPET
         include cron
         cron::job { 'backup':
           command => '/usr/bin/backup';
         }
-      MANIFEST
+      PUPPET
     end
 
     it 'behaves idempotently' do
