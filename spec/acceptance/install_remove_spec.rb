@@ -4,15 +4,11 @@ require 'spec_helper_acceptance'
 
 describe 'cron' do
   describe 'installs?' do
-    let(:pp) do
-      <<~PUPPET
+    let(:pp) { 'include cron' }
 
-        include cron
-
-      PUPPET
+    it 'behaves idempotently' do
+      idempotent_apply(pp)
     end
-
-    idempotent_apply(pp)
 
     describe package('cron') do
       it { is_expected.to be_installed }
@@ -38,15 +34,17 @@ describe 'cron' do
   end
 
   describe 'removes?' do
-    pp = <<~PUPPET
+    let(:pp) do
+      <<~PUPPET
+        class { 'cron':
+          ensure => absent
+        }
+      PUPPET
+    end
 
-      class { 'cron':
-        ensure => absent
-      }
-
-    PUPPET
-
-    apply_manifest(pp, catch_failures: true)
+    it 'behaves idempotently' do
+      idempotent_apply(pp)
+    end
 
     describe package('cron') do
       it { is_expected.not_to be_installed }
