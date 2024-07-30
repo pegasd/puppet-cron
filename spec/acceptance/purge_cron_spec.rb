@@ -3,7 +3,7 @@
 require 'spec_helper_acceptance'
 
 describe 'cron::purge' do
-  context 'first run with two cron::job resources' do
+  describe 'first run with two cron::job resources' do
     let(:pp) do
       <<~PUPPET
 
@@ -36,7 +36,7 @@ describe 'cron::purge' do
     end
   end
 
-  context 'second run with one of the resources removed' do
+  describe 'second run with one of the resources removed' do
     let(:pp) do
       <<~PUPPET
 

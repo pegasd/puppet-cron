@@ -3,7 +3,7 @@
 require 'spec_helper_acceptance'
 
 describe 'crontab(1)' do
-  context 'luke is not ready yet' do
+  describe 'luke is not ready yet' do
     let(:pp) do
       <<~PUPPET
 
@@ -24,7 +24,7 @@ describe 'crontab(1)' do
     end
   end
 
-  context 'luke has force' do
+  describe 'luke has force' do
     let(:pp) do
       <<~PUPPET
 
@@ -44,7 +44,7 @@ describe 'crontab(1)' do
     end
   end
 
-  context 'clean up' do
+  describe 'clean up' do
     let(:pp) do
       <<~PUPPET
 

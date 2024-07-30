@@ -3,7 +3,7 @@
 require 'spec_helper_acceptance'
 
 describe 'cron::job' do
-  context 'creates cron::job' do
+  describe 'creates cron::job' do
     let(:pp) do
       <<~PUPPET
 
@@ -37,7 +37,7 @@ describe 'cron::job' do
     end
   end
 
-  context 'clean up after myself' do
+  describe 'clean up after myself' do
     let(:pp) do
       <<~PUPPET
 

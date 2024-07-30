@@ -3,7 +3,7 @@
 require 'spec_helper_acceptance'
 
 describe 'cron::whitelist' do
-  context 'fake a cron job and see that it is not purged' do
+  describe 'fake a cron job and see that it is not purged' do
     let(:pp) do
       <<~PUPPET
 
