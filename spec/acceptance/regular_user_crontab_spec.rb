@@ -6,17 +6,15 @@ describe 'crontab(1)' do
   describe 'luke is not ready yet' do
     let(:pp) do
       <<~PUPPET
-
-        include cron
-
-        user { 'luke': ensure => present }
-
         package { 'sudo': ensure => present }
-
+        include cron
+        user { 'luke': ensure => present }
       PUPPET
     end
 
-    idempotent_apply(pp)
+    it 'behaves idempotently' do
+      idempotent_apply(pp)
+    end
 
     describe command('sudo -u luke env EDITOR=cat crontab -e') do
       its(:exit_status) { is_expected.to eq 1 }
@@ -27,17 +25,17 @@ describe 'crontab(1)' do
   describe 'luke has force' do
     let(:pp) do
       <<~PUPPET
-
+        package { 'sudo': ensure => present }
         class { 'cron':
           allowed_users => [ 'luke' ],
         }
-
         user { 'luke': ensure => present }
-
       PUPPET
     end
 
-    idempotent_apply(pp)
+    it 'behaves idempotently' do
+      idempotent_apply(pp)
+    end
 
     describe command('sudo -u luke env EDITOR=cat crontab -e') do
       its(:exit_status) { is_expected.to eq 0 }
@@ -47,15 +45,15 @@ describe 'crontab(1)' do
   describe 'clean up' do
     let(:pp) do
       <<~PUPPET
-
+        package { 'sudo': ensure => absent }
         include cron
-
         user { 'luke': ensure => absent }
-
       PUPPET
     end
 
-    idempotent_apply(pp)
+    it 'behaves idempotently' do
+      idempotent_apply(pp)
+    end
 
     describe user('luke') do
       it { is_expected.not_to exist }

@@ -6,17 +6,16 @@ describe 'cron::whitelist' do
   describe 'fake a cron job and see that it is not purged' do
     let(:pp) do
       <<~PUPPET
-
         class { 'cron':
           purge_crond => true,
         }
-
         cron::whitelist { 'cant_touch_this': }
-
       PUPPET
     end
 
-    idempotent_apply(pp)
+    it 'behaves idempotently' do
+      idempotent_apply(pp)
+    end
 
     describe command('echo hello > /etc/cron.d/cant_touch_this') do
       its(:exit_status) { is_expected.to eq 0 }
