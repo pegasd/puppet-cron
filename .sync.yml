@@ -1,4 +1,10 @@
 ---
+spec/spec_helper.rb:
+  minimum_code_coverage_percentage: 100
+
+.rspec:
+  delete: true
+
 .vscode/extensions.json:
   delete: true
 ...
