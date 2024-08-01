@@ -25,11 +25,9 @@ jobs:
         run: |
           git config --global user.name "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          echo 'machine github.com' > ~/.netrc
+          echo "login ${GITHUB_ACTOR}" >> ~/.netrc
+          echo "password ${{ github.token }}" >> ~/.netrc
 
       - name: Publish
         run: bundle exec rake strings:gh_pages:update
-
-      - uses: EndBug/add-and-commit@v9
-        with:
-          default_author: github_actor
-          new_branch: gh-pages
