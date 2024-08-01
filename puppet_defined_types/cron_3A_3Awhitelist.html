@@ -6,15 +6,15 @@
 <title>
   Defined Type: cron::whitelist
   
-    &mdash; Documentation by YARD 0.9.19
+    &mdash; Documentation by YARD 0.9.36
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "puppet_defined_types::cron::whitelist";
   relpath = '../';
 </script>
@@ -73,12 +73,11 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>Use this to whitelist any system cron jobs you don&#39;t want this module
-to touch. This will make sure <code>/etc/cron.d/${title}</code> won&#39;t
-get deleted or modified.</p>
+<p>Use this to whitelist any system cron jobs you don’t want this module to touch. This will make sure <code>/etc/cron.d/${title}</code> won’t get deleted or modified.</p>
 
   </div>
 </div>
+
 
 
 <div class="tags">
@@ -96,6 +95,7 @@ get deleted or modified.</p>
   </div>
 
 
+
 </div><div class="method_details_list">
   <table class="source_code">
     <tr>
@@ -110,22 +110,18 @@ get deleted or modified.</p>
 10
 11
 12
-13
-14
-15</pre>
+13</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/whitelist.pp', line 6</span>
 
 define cron::whitelist {
-
   include cron
 
   file { &quot;/etc/cron.d/${title}&quot;:
     ensure  =&gt; file,
     replace =&gt; false,
   }
-
 }</pre>
       </td>
     </tr>

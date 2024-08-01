@@ -6,15 +6,15 @@
 <title>
   Defined Type: cron::job::hourly
   
-    &mdash; Documentation by YARD 0.9.19
+    &mdash; Documentation by YARD 0.9.36
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "puppet_defined_types::cron::job::hourly";
   relpath = '../';
 </script>
@@ -79,6 +79,7 @@
 </div>
 
 
+
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
@@ -95,6 +96,24 @@
         &mdash;
         <div class='inline'>
 <p>Command path to be executed</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ensure</span>
+      
+      
+        <span class='type'>(<tt>Cron::Ensure</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>present</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Cron job state</p>
 </div>
       
     </li>
@@ -138,6 +157,7 @@
 </ul>
 
 
+
 </div><div class="method_details_list">
   <table class="source_code">
     <tr>
@@ -145,7 +165,6 @@
         <pre class="lines">
 
 
-6
 7
 8
 9
@@ -161,18 +180,20 @@
 19
 20
 21
-22</pre>
+22
+23</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/job/hourly.pp', line 6</span>
+        <pre class="code"><span class="info file"># File 'manifests/job/hourly.pp', line 7</span>
 
 define cron::job::hourly (
   Cron::Command $command,
+  Cron::Ensure  $ensure = present,
   Cron::Minute  $minute = 0,
   Cron::User    $user   = &#39;root&#39;,
 ) {
-
   cron::job { $title:
+    ensure   =&gt; $ensure,
     command  =&gt; $command,
     minute   =&gt; $minute,
     hour     =&gt; &#39;*&#39;,
@@ -181,7 +202,6 @@ define cron::job::hourly (
     weekday  =&gt; &#39;*&#39;,
     user     =&gt; $user,
   }
-
 }</pre>
       </td>
     </tr>

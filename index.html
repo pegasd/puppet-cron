@@ -6,15 +6,15 @@
 <title>
   File: README
   
-    &mdash; Documentation by YARD 0.9.19
+    &mdash; Documentation by YARD 0.9.36
   
 </title>
 
-  <link rel="stylesheet" href="css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "";
   relpath = '';
 </script>
@@ -60,48 +60,37 @@
       <div id="content"><div id='filecontents'>
 <h1 id="label-Configure+and+manage+cron+jobs+with+focus+on+tidiness">Configure and manage cron jobs with focus on tidiness</h1>
 
-<p><a href="https://travis-ci.org/pegasd/puppet-cron"><img
-src="https://travis-ci.org/pegasd/puppet-cron.svg?branch=master"></a> <a
-href="https://forge.puppetlabs.com/pegas/cron"><img
-src="https://img.shields.io/puppetforge/v/pegas/cron.svg"></a> <a
-href="https://forge.puppetlabs.com/pegas/cron"><img
-src="https://img.shields.io/puppetforge/dt/pegas/cron.svg"></a> <a
-href="https://forge.puppetlabs.com/pegas/cron"><img
-src="https://img.shields.io/puppetforge/f/pegas/cron.svg"></a></p>
+<p><a href="https://travis-ci.org/pegasd/puppet-cron"><img src="https://github.com/pegasd/puppet-cron/actions/workflows/ci.yml/badge.svg"></a> <a href="https://forge.puppetlabs.com/pegas/cron"><img src="https://img.shields.io/puppetforge/v/pegas/cron.svg"></a> <a href="https://forge.puppetlabs.com/pegas/cron"><img src="https://img.shields.io/puppetforge/dt/pegas/cron.svg"></a> <a href="https://forge.puppetlabs.com/pegas/cron"><img src="https://img.shields.io/puppetforge/f/pegas/cron.svg"></a></p>
 
 <h2 id="label-Table+of+Contents">Table of Contents</h2>
 <ol><li>
-<p><a href="#label-Description">Description</a></p>
+<p><a href="#description">Description</a></p>
 </li><li>
-<p><a href="#label-Setup">Setup - The basics of getting started with cron</a></p>
+<p><a href="#setup">Setup - The basics of getting started with cron</a></p>
 </li><li>
-<p><a href="#label-Usage">Usage - Configuration options and additional
-functionality</a></p>
+<p><a href="#usage">Usage - Configuration options and additional functionality</a></p>
 </li><li>
-<p><a href="#label-Reference">Reference - An under-the-hood peek at what the module
-is doing and how</a></p>
+<p><a href="#reference">Reference - An under-the-hood peek at what the module is doing and how</a></p>
 </li><li>
-<p><a href="#label-Limitations">Limitations - OS compatibility, etc.</a></p>
+<p><a href="#limitations">Limitations - OS compatibility, etc.</a></p>
 </li><li>
-<p><a href="#label-Development">Development - Guide for contributing to the
-module</a></p>
+<p><a href="#development">Development - Guide for contributing to the module</a></p>
 </li></ol>
 
 <h2 id="label-Description">Description</h2>
 
-<p>This module is an interface for cron jobs with the main idea to be tidy.
-That means that any jobs that are not managed should not exist. Once you
-switch all cron jobs to this module, simply removing the definition is
-sufficient without worrying about setting <code>ensure =&gt; disable</code>
-and waiting for changes to propagate.</p>
+<p>This module is an interface for cron jobs with the main idea to be tidy. That means that any jobs that are not managed should not exist. Once you switch all cron jobs to this module, simply removing the definition is sufficient without worrying about setting <code>ensure =&gt; disable</code> and waiting for changes to propagate.</p>
 
 <h2 id="label-Setup">Setup</h2>
 
 <h3 id="label-Beginning+with+cron">Beginning with cron</h3>
 
-<p>To start out with cron: <code>puppet include cron </code> This will start
-purging all unmanaged cron resources and also make sure the &#39;cron&#39;
-package is installed and the service is running.</p>
+<p>To start out with cron:</p>
+
+<pre class="code ruby"><code class="ruby"><span class='id identifier rubyid_include'>include</span> <span class='id identifier rubyid_cron'>cron</span>
+</code></pre>
+
+<p>This will start purging all unmanaged cron resources and also make sure the ‘cron’ package is installed and the service is running.</p>
 
 <p><strong>WARNING</strong>: All existing unmanaged cron jobs will be purged!</p>
 
@@ -111,21 +100,25 @@ package is installed and the service is running.</p>
 
 <pre class="code ruby"><code class="ruby">class { &#39;cron&#39;:
   purge_crond =&gt; true,
-}</code></pre>
+}
+</code></pre>
 
 <p>Same result through Hiera:</p>
 
-<pre class="code ruby"><code class="ruby">cron::purge_crond: true</code></pre>
+<pre class="code ruby"><code class="ruby">cron::purge_crond: true
+</code></pre>
 
 <h3 id="label-Wipe+it+all+out">Wipe it all out</h3>
 
 <pre class="code ruby"><code class="ruby">class { &#39;cron&#39;:
   ensure =&gt; absent,
-}</code></pre>
+}
+</code></pre>
 
 <p>Same result through Hiera:</p>
 
-<pre class="code ruby"><code class="ruby">cron::ensure: absent</code></pre>
+<pre class="code ruby"><code class="ruby">cron::ensure: absent
+</code></pre>
 
 <h3 id="label-cron-3A-3Ajob+example">cron::job example</h3>
 
@@ -136,24 +129,23 @@ package is installed and the service is running.</p>
   monthday =&gt; &#39;*/2&#39;,
   month    =&gt; [ 4, 8, 12 ],
   weekday  =&gt; &#39;0-4&#39;,
-}</code></pre>
+}
+</code></pre>
 
 <h3 id="label-cron-3A-3Awhitelist+example">cron::whitelist example</h3>
 
-<pre class="code ruby"><code class="ruby">cron::whitelist { &#39;pkg_backup&#39;: }</code></pre>
+<pre class="code ruby"><code class="ruby">cron::whitelist { &#39;pkg_backup&#39;: }
+</code></pre>
 
-<p>This will make <code>/etc/cron.d/pkg_backup</code> immune, and keep the
-file&#39;s contents untouched.</p>
+<p>This will make <code>/etc/cron.d/pkg_backup</code> immune, and keep the file’s contents untouched.</p>
 
 <h2 id="label-Reference">Reference</h2>
 
 <h3 id="label-Type+Aliases">Type Aliases</h3>
 <ul><li>
-<p><code>Cron::Command</code> - Used for <code>cron::job::command</code>
-parameter. Does not allow newline characters (which breaks crontab).</p>
+<p><code>Cron::Command</code> - Used for <code>cron::job::command</code> parameter. Does not allow newline characters (which breaks crontab).</p>
 </li><li>
-<p><code>Cron::User</code> - Match username to fail early if invalid username
-is provided.</p>
+<p><code>Cron::User</code> - Match username to fail early if invalid username is provided.</p>
 </li><li>
 <p><code>Cron::Minute</code> - Stricter <code>cron::job::minute</code>.</p>
 </li><li>
@@ -168,35 +160,27 @@ is provided.</p>
 
 <h3 id="label-Full+reference">Full reference</h3>
 
-<p>Check out <a href="REFERENCE.md">REFERENCE</a> for up-to-date details.</p>
+<p>Check out <a href="REFERENCE_md.html">REFERENCE</a> for up-to-date details.</p>
 
 <h2 id="label-Limitations">Limitations</h2>
 <ul><li>
 <p>Made for and tested only on the following Ubuntu distributions:</p>
 <ul><li>
-<p>14.04</p>
-</li><li>
-<p>16.04</p>
-</li><li>
 <p>18.04</p>
+</li><li>
+<p>20.04</p>
+</li><li>
+<p>22.04</p>
 </li></ul>
 </li><li>
-<p>Custom <code>Cron::*</code> time types are a lot stricter than builtin
-<code>cron</code> ones. Careful - this may break existing cron jobs  you
-are converting.</p>
+<p>Custom <code>Cron::*</code> time types are a lot stricter than builtin <code>cron</code> ones. Careful - this may break existing cron jobs  you are converting.</p>
 </li><li>
-<p>All cron jobs managed by built-in <code>cron</code> type are fair play.
-They won&#39;t be purged as long as they&#39;re in the catalog.  But using
-this module&#39;s <code>cron::job</code> type does have its advantages.</p>
+<p>All cron jobs managed by built-in <code>cron</code> type are fair play. They won’t be purged as long as they’re in the catalog.  But using this module’s <code>cron::job</code> type does have its advantages.</p>
 </li></ul>
 
 <h2 id="label-Development">Development</h2>
 
-<p>I&#39;ll be happy to know you&#39;re using this for one reason or the
-other. And if you want to contribute - even better. Feel free to <a
-href="https://github.com/pegasd/puppet-cron/issues">submit an issue</a> /
-<a href="https://github.com/pegasd/puppet-cron/pulls">fire up a PR</a> /
-whatever.</p>
+<p>I’ll be happy to know you’re using this for one reason or the other. And if you want to contribute - even better. Feel free to <a href="https://github.com/pegasd/puppet-cron/issues">submit an issue</a> / <a href="https://github.com/pegasd/puppet-cron/pulls">fire up a PR</a> / whatever.</p>
 </div></div>
 
       <div id="footer">

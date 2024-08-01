@@ -6,15 +6,15 @@
 <title>
   Defined Type: cron::job::monthly
   
-    &mdash; Documentation by YARD 0.9.19
+    &mdash; Documentation by YARD 0.9.36
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "puppet_defined_types::cron::job::monthly";
   relpath = '../';
 </script>
@@ -79,6 +79,7 @@
 </div>
 
 
+
 <div class="tags">
   <p class="tag_title">Parameters:</p>
 <ul class="param">
@@ -95,6 +96,24 @@
         &mdash;
         <div class='inline'>
 <p>Command path to be executed</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>ensure</span>
+      
+      
+        <span class='type'>(<tt>Cron::Ensure</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>present</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Cron job state</p>
 </div>
       
     </li>
@@ -174,6 +193,7 @@
 </ul>
 
 
+
 </div><div class="method_details_list">
   <table class="source_code">
     <tr>
@@ -181,7 +201,6 @@
         <pre class="lines">
 
 
-8
 9
 10
 11
@@ -199,20 +218,22 @@
 23
 24
 25
-26</pre>
+26
+27</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/job/monthly.pp', line 8</span>
+        <pre class="code"><span class="info file"># File 'manifests/job/monthly.pp', line 9</span>
 
 define cron::job::monthly (
   Cron::Command  $command,
+  Cron::Ensure   $ensure   = present,
   Cron::Minute   $minute   = 0,
   Cron::Hour     $hour     = 0,
   Cron::Monthday $monthday = 1,
-  Cron::User     $user   = &#39;root&#39;,
+  Cron::User     $user     = &#39;root&#39;,
 ) {
-
   cron::job { $title:
+    ensure   =&gt; $ensure,
     command  =&gt; $command,
     minute   =&gt; $minute,
     hour     =&gt; $hour,
@@ -221,7 +242,6 @@ define cron::job::monthly (
     weekday  =&gt; &#39;*&#39;,
     user     =&gt; $user,
   }
-
 }</pre>
       </td>
     </tr>

@@ -6,15 +6,15 @@
 <title>
   Puppet Class: cron::install
   
-    &mdash; Documentation by YARD 0.9.19
+    &mdash; Documentation by YARD 0.9.36
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "puppet_classes::cron::install";
   relpath = '../';
 </script>
@@ -81,8 +81,10 @@
 </div>
 
 
+
 <div class="tags">
   
+
 
 </div><div class="method_details_list">
   <table class="source_code">
@@ -95,19 +97,15 @@
 5
 6
 7
-8
-9
-10</pre>
+8</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/install.pp', line 4</span>
 
 class cron::install {
-
   package { &#39;cron&#39;:
-    ensure =&gt; $::cron::package_version,
+    ensure =&gt; $cron::package_version,
   }
-
 }</pre>
       </td>
     </tr>

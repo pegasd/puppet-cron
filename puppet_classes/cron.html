@@ -6,15 +6,15 @@
 <title>
   Puppet Class: cron
   
-    &mdash; Documentation by YARD 0.9.19
+    &mdash; Documentation by YARD 0.9.36
   
 </title>
 
-  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
 
-  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
 
-<script type="text/javascript" charset="utf-8">
+<script type="text/javascript">
   pathId = "puppet_classes::cron";
   relpath = '../';
 </script>
@@ -75,11 +75,11 @@
 <div class="docstring">
   <div class="discussion">
     
-<p>Main entry point into all cron-related resources on the host. It purges by
-default. You&#39;ve been warned!</p>
+<p>Main entry point into all cron-related resources on the host. It purges by default. You’ve been warned!</p>
 
   </div>
 </div>
+
 
 
 <div class="tags">
@@ -114,8 +114,7 @@ default. You&#39;ve been warned!</p>
     
       
         <p class="example_title"><div class='inline'>
-<p>Deny <code>crontab(1)</code> usage to all users except &#39;luke&#39; (and
-&#39;root&#39; - he can always do that).</p>
+<p>Deny <code>crontab(1)</code> usage to all users except ‘luke’ (and ‘root’ - he can always do that).</p>
 </div></p>
       
       <pre class="example code"><code>class { &#39;cron&#39;:
@@ -188,13 +187,12 @@ default. You&#39;ve been warned!</p>
         <span class='type'>(<tt>Array[Cron::User]</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>[ ]</tt>)</em>
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
       
       
         &mdash;
         <div class='inline'>
-<p>List of users allowed to use <code>crontab(1)</code>. By default, only root
-can.</p>
+<p>List of users allowed to use <code>crontab(1)</code>. By default, only root can.</p>
 </div>
       
     </li>
@@ -207,14 +205,12 @@ can.</p>
         <span class='type'>(<tt>Array[Cron::User]</tt>)</span>
       
       
-        <em class="default">(defaults to: <tt>[ ]</tt>)</em>
+        <em class="default">(defaults to: <tt>[]</tt>)</em>
       
       
         &mdash;
         <div class='inline'>
-<p>List of users specifically denied to use <code>crontab(1)</code>. Note:
-When this is not empty, all users except ones specified here will be able
-to use <code>crontab</code>.</p>
+<p>List of users specifically denied to use <code>crontab(1)</code>. Note: When this is not empty, all users except ones specified here will be able to use <code>crontab</code>.</p>
 </div>
       
     </li>
@@ -250,7 +246,7 @@ to use <code>crontab</code>.</p>
       
         &mdash;
         <div class='inline'>
-<p>Cron service&#39;s <code>ensure</code> parameter.</p>
+<p>Cron service’s <code>ensure</code> parameter.</p>
 </div>
       
     </li>
@@ -268,7 +264,7 @@ to use <code>crontab</code>.</p>
       
         &mdash;
         <div class='inline'>
-<p>Cron service&#39;s <code>enable</code> parameter.</p>
+<p>Cron service’s <code>enable</code> parameter.</p>
 </div>
       
     </li>
@@ -330,6 +326,7 @@ to use <code>crontab</code>.</p>
 </ul>
 
 
+
   <p class="tag_title">See Also:</p>
   <ul class="see">
     
@@ -377,13 +374,7 @@ to use <code>crontab</code>.</p>
 67
 68
 69
-70
-71
-72
-73
-74
-75
-76</pre>
+70</pre>
       </td>
       <td>
         <pre class="code"><span class="info file"># File 'manifests/init.pp', line 37</span>
@@ -396,8 +387,8 @@ class cron (
 
   # cron::config
   Boolean                $allow_all_users = false,
-  Array[Cron::User]      $allowed_users   = [ ],
-  Array[Cron::User]      $denied_users    = [ ],
+  Array[Cron::User]      $allowed_users   = [],
+  Array[Cron::User]      $denied_users    = [],
 
   # cron::service
   Boolean                $service_manage  = true,
@@ -409,24 +400,18 @@ class cron (
   Boolean                $purge_crond     = false,
   Boolean                $purge_noop      = false,
 ) {
-
   if $ensure == present {
-
     contain cron::install
     contain cron::config
     contain cron::service
 
     contain cron::purge
 
-    Class[&#39;::cron::install&#39;] -&gt; Class[&#39;::cron::service&#39;] -&gt; Class[&#39;::cron::purge&#39;]
-    Class[&#39;::cron::install&#39;] ~&gt; Class[&#39;::cron::service&#39;]
-
+    Class[&#39;cron::install&#39;] -&gt; Class[&#39;cron::service&#39;] -&gt; Class[&#39;cron::purge&#39;]
+    Class[&#39;cron::install&#39;] ~&gt; Class[&#39;cron::service&#39;]
   } else {
-
     contain cron::remove
-
   }
-
 }</pre>
       </td>
     </tr>
