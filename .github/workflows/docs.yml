@@ -9,9 +9,6 @@ env:
 
 jobs:
   release:
-    defaults:
-      run:
-        working-directory: ${{ inputs.working-directory }}
     name: GitHub Pages
     runs-on: ubuntu-latest
     steps:
@@ -22,7 +19,6 @@ jobs:
         with:
           ruby-version: '3.2'
           bundler-cache: true
-          working-directory: ${{ inputs.working-directory }}
       - name: Publish
         env:
           PUPPET_GEM_VERSION: "~> 7.0"
