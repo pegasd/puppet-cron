@@ -37,10 +37,21 @@ jobs:
         run: bundle exec rake strings:gh_pages:update
 
   release:
-    name: Release
-    uses: voxpupuli/gha-puppet/.github/workflows/release.yml@v2
-    with:
-      allowed_owner: "${{ github.actor }}"
-    secrets:
-      username: ${{ secrets.PUPPET_FORGE_USERNAME }}
-      api_key: ${{ secrets.PUPPET_FORGE_API_KEY }}
+    name: 'Puppet Forge'
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.2'
+          bundler-cache: true
+
+      - name: Build and Release
+        env:
+          BLACKSMITH_FORGE_USERNAME: ${{ secrets.PUPPET_FORGE_USERNAME }}
+          BLACKSMITH_FORGE_API_KEY: ${{ secrets.PUPPET_FORGE_API_KEY }}
+        run: bundle exec rake module:push
