@@ -16,6 +16,4 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
       - name: Publish
-        env:
-          PUPPET_GEM_VERSION: "~> 7.0"
         run: bundle exec rake strings:gh_pages:update
