@@ -21,3 +21,5 @@ jobs:
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
       - name: Publish
         run: bundle exec rake strings:gh_pages:update
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
