@@ -8,22 +8,29 @@ jobs:
     name: GitHub Pages
     runs-on: ubuntu-latest
     steps:
+
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          fetch-tags: true
+          ref: repo
+
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2'
           bundler-cache: true
+
       - name: Setup Git
         run: |
           git config --global user.name "${GITHUB_ACTOR}"
           git config --global user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+
       - name: Publish
         run: bundle exec rake strings:gh_pages:update
 
-      - name: Push changes
-        uses: ad-m/github-push-action@master
+      - uses: EndBug/add-and-commit@v9
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: gh-pages
+          default_author: "${GITHUB_ACTOR}"
+          new_branch: gh-pages
