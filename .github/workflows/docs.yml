@@ -12,9 +12,8 @@ jobs:
     defaults:
       run:
         working-directory: ${{ inputs.working-directory }}
-    name: 'Puppet Forge'
+    name: GitHub Pages
     runs-on: ubuntu-latest
-    if: github.repository_owner == inputs.allowed_owner
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
@@ -24,7 +23,7 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
           working-directory: ${{ inputs.working-directory }}
-      - name: GitHub Pages
+      - name: Publish
         env:
           PUPPET_GEM_VERSION: "~> 7.0"
         run: bundle exec rake strings:gh_pages:update
