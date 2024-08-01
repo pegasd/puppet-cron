@@ -9,6 +9,8 @@ jobs:
   docs:
     name: GitHub Pages
     runs-on: ubuntu-latest
+    env:
+      PUPPET_GEM_VERSION: "~> 8.0"
     steps:
 
       - name: Checkout repository
@@ -39,8 +41,6 @@ jobs:
     uses: voxpupuli/gha-puppet/.github/workflows/release.yml@v2
     with:
       allowed_owner: "${{ github.actor }}"
-    env:
-      PUPPET_GEM_VERSION: "~> 8.0"
     secrets:
       username: ${{ secrets.PUPPET_FORGE_USERNAME }}
       api_key: ${{ secrets.PUPPET_FORGE_API_KEY }}
