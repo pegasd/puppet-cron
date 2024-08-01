@@ -50,8 +50,11 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
 
-      - name: Build and Release
-        env:
-          BLACKSMITH_FORGE_USERNAME: ${{ secrets.PUPPET_FORGE_USERNAME }}
-          BLACKSMITH_FORGE_API_KEY: ${{ secrets.PUPPET_FORGE_API_KEY }}
-        run: bundle exec rake module:push
+      - name: PDK build
+        uses: docker://puppet/pdk:nightly
+        with:
+          args: build"
+      - name: Publish module
+        uses: docker://puppet/pdk:nightly
+        with:
+          args: release publish --forge-token ${{ secrets.PUPPET_FORGE_API_KEY }}
