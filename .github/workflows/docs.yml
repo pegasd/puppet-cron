@@ -3,10 +3,6 @@ name: Documentation
 
 on: [ push ]
 
-env:
-  BUNDLE_WITHOUT: system_tests
-  BUNDLE_WITH: release_prep
-
 jobs:
   release:
     name: GitHub Pages
