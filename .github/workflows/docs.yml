@@ -4,7 +4,7 @@ name: Documentation
 on: [ push ]
 
 env:
-  BUNDLE_WITHOUT: development:system_tests
+  BUNDLE_WITHOUT: system_tests
   BUNDLE_WITH: release_prep
 
 jobs:
