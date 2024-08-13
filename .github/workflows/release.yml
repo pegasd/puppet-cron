@@ -50,11 +50,13 @@ jobs:
           ruby-version: '3.2'
           bundler-cache: true
 
-      - name: PDK build
+      - name: Build module
         uses: docker://puppet/pdk:nightly
         with:
-          args: build"
+          args: build
+
       - name: Publish module
         uses: docker://puppet/pdk:nightly
         with:
           args: release publish --forge-token ${{ secrets.PUPPET_FORGE_API_KEY }}
+...
