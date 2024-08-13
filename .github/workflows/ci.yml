@@ -34,7 +34,7 @@ jobs:
     - name: Setup Acceptance Test Matrix
       id: get-matrix
       run: |
-        bundle exec matrix_from_metadata_v2 --exclude-platforms '["Ubuntu-22.04-arm"]'
+        bundle exec matrix_from_metadata_v3 --matrix matrix.json --output github
 
   Acceptance:
     name: "${{matrix.platforms.label}}, ${{matrix.collection}}"
@@ -70,6 +70,14 @@ jobs:
       run: |
         sudo systemctl disable apparmor
         sudo systemctl stop apparmor
+
+    - name: Install vagrant
+      if: ${{matrix.platforms.provider == 'vagrant'}}
+      run: |
+        sudo add-apt-repository ppa:evgeni/vagrant
+        sudo apt-get update
+        sudo apt-get install -y --no-install-recommends vagrant vagrant-libvirt libvirt-daemon-system libvirt-daemon qemu-system-x86 qemu-utils dnsmasq
+        sudo chmod 666 /var/run/libvirt/libvirt-sock
 
     - name: Provision test environment
       run: |
