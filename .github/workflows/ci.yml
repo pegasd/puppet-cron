@@ -42,7 +42,7 @@ jobs:
       - setup_matrix
     if: ${{ needs.setup_matrix.outputs.matrix != '{}' }}
 
-    runs-on: "${{matrix.platform.runner}}"
+    runs-on: "${{matrix.platforms.runner}}"
     strategy:
       fail-fast: false
       matrix: ${{fromJson(needs.setup_matrix.outputs.matrix)}}
