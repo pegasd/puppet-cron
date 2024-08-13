@@ -85,7 +85,7 @@
                 "22.04": { "x86_64": "litmusimage/ubuntu:22.04" }
             }
         },
-        "vagrant": {
+        "vagrant_libvirt": {
           "FreeBSD": {
             "13": { "x86_64": "freebsd/FreeBSD-13.0-STABLE" },
             "14": { "x86_64": "freebsd/FreeBSD-14.0-STABLE" }
@@ -96,7 +96,7 @@
         "docker": {
             "^(AmazonLinux-2|(CentOS|OracleLinux|Scientific)-7|Ubuntu-18|Debian-10)": "ubuntu-20.04"
         },
-        "vagrant": {
+        "vagrant_libvirt": {
             "^FreeBSD": "ubuntu-24.04"
         }
     }

@@ -72,7 +72,7 @@ jobs:
         sudo systemctl stop apparmor
 
     - name: Install vagrant
-      if: ${{matrix.platforms.provider == 'vagrant'}}
+      if: ${{matrix.platforms.provider == 'vagrant_libvirt'}}
       run: |
         sudo add-apt-repository ppa:evgeni/vagrant
         sudo apt-get update
