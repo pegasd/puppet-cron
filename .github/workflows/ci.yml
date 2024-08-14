@@ -65,12 +65,6 @@ jobs:
       run: |
         bundle env
 
-    - name: Disable apparmor
-      if: ${{matrix.platforms.provider == 'docker'}}
-      run: |
-        sudo systemctl disable apparmor
-        sudo systemctl stop apparmor
-
     - name: Install vagrant
       if: ${{matrix.platforms.provider == 'vagrant'}}
       run: |
@@ -81,8 +75,14 @@ jobs:
         export VAGRANT_DEFAULT_PROVIDER=libvirt
 
     - name: Provision test environment
+      if: ${{matrix.platforms.provider == 'docker'}}
       run: |
         bundle exec rake 'litmus:provision[${{matrix.platforms.provider}},${{ matrix.platforms.image }}]'
+
+    - name: Provision test environment
+      if: ${{matrix.platforms.provider == 'vagrant'}}
+      run: |
+        bundle exec rake 'litmus:provision[${{matrix.platforms.provider}},${{ matrix.platforms.image }},provider=libvirt]'
 
     - name: Install agent
       run: |
