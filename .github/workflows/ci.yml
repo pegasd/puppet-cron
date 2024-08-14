@@ -82,7 +82,7 @@ jobs:
     - name: Provision test environment
       if: ${{ matrix.platforms.provider == 'vagrant' }}
       run: |
-        bundle exec rake 'litmus:provision[${{ matrix.platforms.provider }}, ${{ matrix.platforms.image }}, provider: libvirt]'
+        bundle exec rake 'litmus:provision[${{ matrix.platforms.provider }}, ${{ matrix.platforms.image }}, vagrant_provider: libvirt]'
 
     - name: Install agent
       run: |
