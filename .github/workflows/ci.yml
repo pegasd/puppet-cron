@@ -19,10 +19,10 @@ jobs:
     - name: Checkout Source
       uses: actions/checkout@v4
 
-    - name: Activate Ruby 2.7
+    - name: Activate Ruby 3.2
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: "2.7"
+        ruby-version: '3.2'
         bundler-cache: true
 
     - name: Print bundle environment
@@ -37,12 +37,12 @@ jobs:
         bundle exec matrix_from_metadata_v3 --matrix matrix.json --output github
 
   Acceptance:
-    name: "${{matrix.platforms.label}}, ${{matrix.collection}}"
+    name: "${{ matrix.platforms.label }}, ${{ matrix.collection }}"
     needs:
       - setup_matrix
     if: ${{ needs.setup_matrix.outputs.matrix != '{}' }}
 
-    runs-on: "${{matrix.platforms.runner}}"
+    runs-on: ${{ matrix.platforms.runner }}
     strategy:
       fail-fast: false
       matrix: ${{fromJson(needs.setup_matrix.outputs.matrix)}}
@@ -55,10 +55,10 @@ jobs:
     - name: Checkout Source
       uses: actions/checkout@v4
 
-    - name: Activate Ruby 2.7
+    - name: Activate Ruby 3.2
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: "2.7"
+        ruby-version: '3.2'
         bundler-cache: true
 
     - name: Print bundle environment
@@ -77,12 +77,12 @@ jobs:
     - name: Provision test environment
       if: ${{matrix.platforms.provider == 'docker'}}
       run: |
-        bundle exec rake 'litmus:provision[${{matrix.platforms.provider}},${{ matrix.platforms.image }}]'
+        bundle exec rake 'litmus:provision[${{ matrix.platforms.provider }}, ${{ matrix.platforms.image }}]'
 
     - name: Provision test environment
       if: ${{matrix.platforms.provider == 'vagrant'}}
       run: |
-        bundle exec rake 'litmus:provision[${{matrix.platforms.provider}},${{ matrix.platforms.image }},provider=libvirt]'
+        bundle exec rake 'litmus:provision[${{ matrix.platforms.provider }}, ${{ matrix.platforms.image }}, provider: libvirt]'
 
     - name: Install agent
       run: |
