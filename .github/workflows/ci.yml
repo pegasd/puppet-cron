@@ -36,7 +36,7 @@ jobs:
       run: |
         bundle exec matrix_from_metadata_v3 --output github
 
-  Acceptance w-Docker:
+  Acceptance_Docker:
     name: "${{ matrix.platforms.label }}, ${{ matrix.collection }}"
     needs:
       - setup_matrix
@@ -87,7 +87,7 @@ jobs:
       run: |
         bundle exec rake 'litmus:tear_down'
 
-  Acceptance w-Vagrant:
+  Acceptance_Vagrant:
     name: FreeBSD 14.0, Puppet 8
     runs-on: ubuntu-24.04
 
