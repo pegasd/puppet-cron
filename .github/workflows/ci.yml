@@ -19,10 +19,10 @@ jobs:
     - name: Checkout Source
       uses: actions/checkout@v4
 
-    - name: Activate Ruby 2.7
+    - name: Activate Ruby 3.2
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: "2.7"
+        ruby-version: '3.2'
         bundler-cache: true
 
     - name: Print bundle environment
@@ -34,15 +34,15 @@ jobs:
     - name: Setup Acceptance Test Matrix
       id: get-matrix
       run: |
-        bundle exec matrix_from_metadata_v2 --exclude-platforms '["Ubuntu-22.04-arm"]'
+        bundle exec matrix_from_metadata_v3 --output github
 
-  Acceptance:
-    name: "${{matrix.platforms.label}}, ${{matrix.collection}}"
+  Acceptance_Docker:
+    name: "${{ matrix.platforms.label }}, ${{ matrix.collection }}"
     needs:
       - setup_matrix
     if: ${{ needs.setup_matrix.outputs.matrix != '{}' }}
 
-    runs-on: ubuntu-20.04
+    runs-on: ${{ matrix.platforms.runner }}
     strategy:
       fail-fast: false
       matrix: ${{fromJson(needs.setup_matrix.outputs.matrix)}}
@@ -55,29 +55,70 @@ jobs:
     - name: Checkout Source
       uses: actions/checkout@v4
 
-    - name: Activate Ruby 2.7
+    - name: Activate Ruby 3.2
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: "2.7"
+        ruby-version: '3.2'
         bundler-cache: true
 
     - name: Print bundle environment
       run: |
         bundle env
 
-    - name: Disable apparmor
-      if: ${{matrix.platforms.provider == 'docker'}}
-      run: |
-        sudo systemctl disable apparmor
-        sudo systemctl stop apparmor
-
     - name: Provision test environment
       run: |
-        bundle exec rake 'litmus:provision[${{matrix.platforms.provider}},${{ matrix.platforms.image }}]'
+        bundle exec rake 'litmus:provision[${{ matrix.platforms.provider }}, ${{ matrix.platforms.image }}]'
 
     - name: Install agent
       run: |
         bundle exec rake 'litmus:install_agent[${{ matrix.collection }}]'
+
+    - name: Install module
+      run: |
+        bundle exec rake 'litmus:install_module'
+
+    - name: Run acceptance tests
+      run: |
+        bundle exec rake 'litmus:acceptance:parallel'
+
+    - name: Remove test environment
+      if: ${{ always() }}
+      continue-on-error: true
+      run: |
+        bundle exec rake 'litmus:tear_down'
+
+  Acceptance_Vagrant:
+    name: FreeBSD 14.0, Puppet 8
+    runs-on: ubuntu-24.04
+
+    steps:
+    - name: Checkout Source
+      uses: actions/checkout@v4
+
+    - name: Activate Ruby 3.2
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.2'
+        bundler-cache: true
+
+    - name: Print bundle environment
+      run: |
+        bundle env
+
+    - name: Install vagrant
+      run: |
+        sudo add-apt-repository ppa:evgeni/vagrant
+        sudo apt-get update
+        sudo apt-get install -y --no-install-recommends vagrant vagrant-libvirt libvirt-daemon-system libvirt-daemon qemu-system-x86 qemu-utils dnsmasq
+        sudo chmod 666 /var/run/libvirt/libvirt-sock
+
+    - name: Provision test environment
+      run: |
+        bundle exec rake 'litmus:provision_list[vagrant]'
+
+    - name: Install agent
+      run: |
+        bundle exec rake 'litmus:install_agent[puppet8-nightly]'
 
     - name: Install module
       run: |

@@ -21,6 +21,13 @@
         "20.04",
         "22.04"
       ]
+    },
+    {
+      "operatingsystem": "FreeBSD",
+      "operatingsystemrelease": [
+        "13",
+        "14"
+      ]
     }
   ],
   "requirements": [
