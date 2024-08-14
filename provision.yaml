@@ -1,0 +1,7 @@
+---
+vagrant:
+  provisioner: vagrant
+  images: ['freebsd/FreeBSD-14.0-CURRENT']
+  params:
+    vagrant_provider: libvirt
+...

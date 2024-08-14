@@ -34,9 +34,9 @@ jobs:
     - name: Setup Acceptance Test Matrix
       id: get-matrix
       run: |
-        bundle exec matrix_from_metadata_v3 --matrix matrix.json --output github
+        bundle exec matrix_from_metadata_v3 --output github
 
-  Acceptance:
+  Acceptance (Docker):
     name: "${{ matrix.platforms.label }}, ${{ matrix.collection }}"
     needs:
       - setup_matrix
@@ -65,28 +65,60 @@ jobs:
       run: |
         bundle env
 
+    - name: Provision test environment
+      run: |
+        bundle exec rake 'litmus:provision[${{ matrix.platforms.provider }}, ${{ matrix.platforms.image }}]'
+
+    - name: Install agent
+      run: |
+        bundle exec rake 'litmus:install_agent[${{ matrix.collection }}]'
+
+    - name: Install module
+      run: |
+        bundle exec rake 'litmus:install_module'
+
+    - name: Run acceptance tests
+      run: |
+        bundle exec rake 'litmus:acceptance:parallel'
+
+    - name: Remove test environment
+      if: ${{ always() }}
+      continue-on-error: true
+      run: |
+        bundle exec rake 'litmus:tear_down'
+
+  Acceptance (Vagrant):
+    name: FreeBSD 14.0, Puppet 8
+    runs-on: ubuntu-24.04
+
+    steps:
+    - name: Checkout Source
+      uses: actions/checkout@v4
+
+    - name: Activate Ruby 3.2
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: '3.2'
+        bundler-cache: true
+
+    - name: Print bundle environment
+      run: |
+        bundle env
+
     - name: Install vagrant
-      if: ${{ matrix.platforms.provider == 'vagrant' }}
       run: |
         sudo add-apt-repository ppa:evgeni/vagrant
         sudo apt-get update
         sudo apt-get install -y --no-install-recommends vagrant vagrant-libvirt libvirt-daemon-system libvirt-daemon qemu-system-x86 qemu-utils dnsmasq
         sudo chmod 666 /var/run/libvirt/libvirt-sock
-        export VAGRANT_DEFAULT_PROVIDER=libvirt
 
     - name: Provision test environment
-      if: ${{ matrix.platforms.provider == 'docker' }}
       run: |
-        bundle exec rake 'litmus:provision[${{ matrix.platforms.provider }}, ${{ matrix.platforms.image }}]'
-
-    - name: Provision test environment
-      if: ${{ matrix.platforms.provider == 'vagrant' }}
-      run: |
-        bundle exec rake 'litmus:provision[${{ matrix.platforms.provider }}, ${{ matrix.platforms.image }}, vagrant_provider: libvirt]'
+        bundle exec rake 'litmus:provision_list[vagrant]'
 
     - name: Install agent
       run: |
-        bundle exec rake 'litmus:install_agent[${{ matrix.collection }}]'
+        bundle exec rake 'litmus:install_agent[puppet8-nightly]'
 
     - name: Install module
       run: |
