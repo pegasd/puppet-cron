@@ -23,6 +23,7 @@
 #   }
 #
 # @param ensure Whether to enable or disable cron on the system.
+# @param manage_package Whether to manage cron package on the system.
 # @param package_version Custom `cron` package version.
 # @param allow_all_users Allow all users to manage crontab.
 # @param allowed_users List of users allowed to use `crontab(1)`. By default, only root can.
@@ -38,6 +39,7 @@ class cron (
   Enum[present, absent]  $ensure          = present,
 
   # cron::install
+  Boolean                $manage_package  = true,
   Pattern[/\A[^\n]+\z/]  $package_version = installed,
 
   # cron::config

@@ -14,7 +14,13 @@ describe 'cron' do
     it { is_expected.to contain_class('cron::service') }
 
     describe 'cron::install' do
-      it { is_expected.to contain_package('cron').with_ensure(:installed) }
+      on_supported_os.each do |os_name, facts|
+        context "on #{os_name}" do
+          let(:facts) { facts }
+
+          it { is_expected.to contain_package('cron').with_ensure(:installed) }
+        end
+      end
     end
 
     describe 'cron::config' do

@@ -2,7 +2,9 @@
 #
 # @api private
 class cron::install {
-  package { 'cron':
-    ensure => $cron::package_version,
+  if $cron::manage_package {
+    package { 'cron':
+      ensure => $cron::package_version,
+    }
   }
 }

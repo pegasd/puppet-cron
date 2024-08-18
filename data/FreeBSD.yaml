@@ -1,0 +1,3 @@
+---
+cron::manage_package: false
+...
