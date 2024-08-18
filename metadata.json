@@ -15,6 +15,12 @@
   ],
   "operatingsystem_support": [
     {
+      "operatingsystem": "FreeBSD",
+      "operatingsystemrelease": [
+        "14"
+      ]
+    },
+    {
       "operatingsystem": "Ubuntu",
       "operatingsystemrelease": [
         "18.04",
