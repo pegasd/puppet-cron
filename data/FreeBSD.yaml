@@ -1,3 +1,4 @@
 ---
+cron::root_group: wheel
 cron::manage_package: false
 ...

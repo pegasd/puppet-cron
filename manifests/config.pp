@@ -10,7 +10,7 @@ class cron::config {
     default:
       force => true,
       owner => 'root',
-      group => 'root',
+      group => $cron::root_group,
       mode  => '0644';
     '/etc/cron.allow':
       ensure  => if (!$cron::allow_all_users and empty($cron::denied_users)) { file } else { absent },
