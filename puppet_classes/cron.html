@@ -145,6 +145,24 @@
   
     <li>
       
+        <span class='name'>manage_package</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>true</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Whether to manage cron package on the system.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
         <span class='name'>package_version</span>
       
       
@@ -157,6 +175,60 @@
         &mdash;
         <div class='inline'>
 <p>Custom <code>cron</code> package version.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>root_group</span>
+      
+      
+        <span class='type'>(<tt>Pattern[/\A[^\n]+\z/]</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;root&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Name of the root group.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>allow_file</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;/etc/cron.allow&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Path to the <code>cron.allow</code> file.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>deny_file</span>
+      
+      
+        <span class='type'>(<tt>Stdlib::Absolutepath</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>&#39;/etc/cron.deny&#39;</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Path to the <code>cron.deny</code> file.</p>
 </div>
       
     </li>
@@ -341,10 +413,6 @@
         <pre class="lines">
 
 
-37
-38
-39
-40
 41
 42
 43
@@ -374,18 +442,30 @@
 67
 68
 69
-70</pre>
+70
+71
+72
+73
+74
+75
+76
+77
+78</pre>
       </td>
       <td>
-        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 37</span>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 41</span>
 
 class cron (
   Enum[present, absent]  $ensure          = present,
 
   # cron::install
+  Boolean                $manage_package  = true,
   Pattern[/\A[^\n]+\z/]  $package_version = installed,
 
   # cron::config
+  Pattern[/\A[^\n]+\z/]  $root_group      = &#39;root&#39;,
+  Stdlib::Absolutepath   $allow_file      = &#39;/etc/cron.allow&#39;,
+  Stdlib::Absolutepath   $deny_file       = &#39;/etc/cron.deny&#39;,
   Boolean                $allow_all_users = false,
   Array[Cron::User]      $allowed_users   = [],
   Array[Cron::User]      $denied_users    = [],

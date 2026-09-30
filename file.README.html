@@ -60,7 +60,7 @@
       <div id="content"><div id='filecontents'>
 <h1 id="label-Configure+and+manage+cron+jobs+with+focus+on+tidiness">Configure and manage cron jobs with focus on tidiness</h1>
 
-<p><a href="https://travis-ci.org/pegasd/puppet-cron"><img src="https://github.com/pegasd/puppet-cron/actions/workflows/ci.yml/badge.svg"></a> <a href="https://forge.puppetlabs.com/pegas/cron"><img src="https://img.shields.io/puppetforge/v/pegas/cron.svg"></a> <a href="https://forge.puppetlabs.com/pegas/cron"><img src="https://img.shields.io/puppetforge/dt/pegas/cron.svg"></a> <a href="https://forge.puppetlabs.com/pegas/cron"><img src="https://img.shields.io/puppetforge/f/pegas/cron.svg"></a></p>
+<p><a href="https://travis-ci.org/pegasd/puppet-cron"><img src="https://github.com/pegasd/puppet-cron/actions/workflows/ci.yml/badge.svg?branch=main"></a> <a href="https://forge.puppetlabs.com/pegas/cron"><img src="https://img.shields.io/puppetforge/v/pegas/cron.svg"></a> <a href="https://forge.puppetlabs.com/pegas/cron"><img src="https://img.shields.io/puppetforge/dt/pegas/cron.svg"></a> <a href="https://forge.puppetlabs.com/pegas/cron"><img src="https://img.shields.io/puppetforge/f/pegas/cron.svg"></a></p>
 
 <h2 id="label-Table+of+Contents">Table of Contents</h2>
 <ol><li>
@@ -139,6 +139,28 @@
 
 <p>This will make <code>/etc/cron.d/pkg_backup</code> immune, and keep the file’s contents untouched.</p>
 
+<h3 id="label-crontab+access+on+FreeBSD">crontab access on FreeBSD</h3>
+
+<p><strong>This module changes the stock FreeBSD default for who may use <code>crontab(1)</code>.</strong></p>
+
+<p>Out of the box, FreeBSD ships without <code>/var/cron/allow</code> or <code>/var/cron/deny</code>, which lets <em>every</em> user manage their own crontab. This module is restrictive by design, so including it writes a <code>/var/cron/allow</code> file — which means <strong>only the listed users may use <code>crontab(1)</code></strong>. By default that list is just <code>root</code>, matching the module’s “only root by default” behavior on Linux.</p>
+
+<p>Note that on FreeBSD <code>cron.allow</code> governs <code>root</code> too (unlike Linux, where <code>root</code> always bypasses it), so <code>root</code> must be listed explicitly. The module’s FreeBSD data does this for you.</p>
+
+<p>To allow extra users, <strong>keep <code>root</code> in the list</strong> (setting <code>allowed_users</code> replaces the default, it does not append to it):</p>
+
+<pre class="code ruby"><code class="ruby">class { &#39;cron&#39;:
+  allowed_users =&gt; [&#39;root&#39;, &#39;alice&#39;],
+}
+</code></pre>
+
+<p>To restore stock FreeBSD behavior (all users may use <code>crontab</code>, no allow/deny files managed):</p>
+
+<pre class="code ruby"><code class="ruby">class { &#39;cron&#39;:
+  allow_all_users =&gt; true,
+}
+</code></pre>
+
 <h2 id="label-Reference">Reference</h2>
 
 <h3 id="label-Type+Aliases">Type Aliases</h3>
@@ -164,14 +186,14 @@
 
 <h2 id="label-Limitations">Limitations</h2>
 <ul><li>
-<p>Made for and tested only on the following Ubuntu distributions:</p>
+<p>Supported and tested on:</p>
 <ul><li>
-<p>18.04</p>
+<p>Ubuntu 20.04, 22.04, 24.04</p>
 </li><li>
-<p>20.04</p>
-</li><li>
-<p>22.04</p>
+<p>FreeBSD 13, 14, 15 (acceptance-tested on 14 and 15)</p>
 </li></ul>
+</li><li>
+<p>On FreeBSD the module manages <code>/var/cron/{allow,deny}</code> and, by default, restricts  <code>crontab(1)</code> to <code>root</code> — which differs from stock FreeBSD, where all users may use  <code>crontab</code>. See access on FreeBSD[#crontab-access-on-freebsd].</p>
 </li><li>
 <p>Custom <code>Cron::*</code> time types are a lot stricter than builtin <code>cron</code> ones. Careful - this may break existing cron jobs  you are converting.</p>
 </li><li>

@@ -125,12 +125,12 @@ class cron::config {
     default:
       force =&gt; true,
       owner =&gt; &#39;root&#39;,
-      group =&gt; &#39;root&#39;,
+      group =&gt; $cron::root_group,
       mode  =&gt; &#39;0644&#39;;
-    &#39;/etc/cron.allow&#39;:
+    $cron::allow_file:
       ensure  =&gt; if (!$cron::allow_all_users and empty($cron::denied_users)) { file } else { absent },
       content =&gt; join(suffix($cron::allowed_users, &quot;\n&quot;));
-    &#39;/etc/cron.deny&#39;:
+    $cron::deny_file:
       ensure  =&gt; unless empty($cron::denied_users) { file } else { absent },
       content =&gt; join(suffix($cron::denied_users, &quot;\n&quot;));
   }

@@ -146,7 +146,7 @@ class cron::purge {
     file { &#39;/etc/cron.d&#39;:
       ensure  =&gt; directory,
       owner   =&gt; &#39;root&#39;,
-      group   =&gt; &#39;root&#39;,
+      group   =&gt; $cron::root_group,
       mode    =&gt; &#39;0755&#39;,
       recurse =&gt; true,
       purge   =&gt; true,
