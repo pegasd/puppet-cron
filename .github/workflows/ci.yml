@@ -17,7 +17,7 @@ jobs:
 
     steps:
     - name: Checkout Source
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Activate Ruby 3.2
       uses: ruby/setup-ruby@v1
@@ -55,7 +55,7 @@ jobs:
 
     steps:
     - name: Checkout Source
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Activate Ruby 3.2
       uses: ruby/setup-ruby@v1
@@ -117,7 +117,7 @@ jobs:
 
     steps:
     - name: Checkout Source
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
 
     - name: Run acceptance tests in a FreeBSD VM
       uses: vmactions/freebsd-vm@v1
