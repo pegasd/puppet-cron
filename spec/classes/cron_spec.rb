@@ -73,7 +73,7 @@ describe 'cron' do
         is_expected.to contain_file('/var/cron/allow').only_with(
           ensure:  :file,
           force:   true,
-          content: '',
+          content: "root\n",
           owner:   'root',
           group:   'wheel',
           mode:    '0644',

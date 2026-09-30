@@ -28,6 +28,9 @@
 # @param root_group Name of the root group.
 # @param allow_file Path to the `cron.allow` file.
 # @param deny_file Path to the `cron.deny` file.
+# @param allow_root Explicitly list `root` in `cron.allow`. Required on FreeBSD,
+#   where `cron.allow` governs `root` as well, so an otherwise empty allow file
+#   would lock `root` out. On Linux `root` may always use cron regardless.
 # @param allow_all_users Allow all users to manage crontab.
 # @param allowed_users List of users allowed to use `crontab(1)`. By default, only root can.
 # @param denied_users List of users specifically denied to use `crontab(1)`.
@@ -49,6 +52,7 @@ class cron (
   Pattern[/\A[^\n]+\z/]  $root_group      = 'root',
   Stdlib::Absolutepath   $allow_file      = '/etc/cron.allow',
   Stdlib::Absolutepath   $deny_file       = '/etc/cron.deny',
+  Boolean                $allow_root      = false,
   Boolean                $allow_all_users = false,
   Array[Cron::User]      $allowed_users   = [],
   Array[Cron::User]      $denied_users    = [],

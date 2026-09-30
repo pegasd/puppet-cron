@@ -34,7 +34,13 @@ describe 'cron' do
 
     describe file(cron_allow) do
       it { is_expected.to exist }
-      its(:content) { is_expected.to eq('') }
+      # On FreeBSD cron.allow governs root too, so root is listed to keep cron
+      # usable; on Linux root is implicit and the file is empty by default.
+      if freebsd
+        its(:content) { is_expected.to match(%r{^root$}) }
+      else
+        its(:content) { is_expected.to eq('') }
+      end
     end
 
     describe file(cron_deny) do

@@ -11,6 +11,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - New `allow_file` and `deny_file` parameters for the `cron.allow`/`cron.deny`
   paths (defaulting to `/etc/cron.allow` and `/etc/cron.deny`, and set to
   `/var/cron/allow` and `/var/cron/deny` on FreeBSD).
+- New `allow_root` parameter (enabled on FreeBSD) that keeps `root` listed in
+  `cron.allow`; on FreeBSD `cron.allow` governs `root` too, so an otherwise empty
+  allow file would lock `root` out of `crontab(1)`.
 
 ### Changed
 - Relax `puppetlabs/stdlib` version requirement to `< 11.0.0` (now that
