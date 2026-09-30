@@ -15,6 +15,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Relax `puppetlabs/stdlib` version requirement to `< 11.0.0` (now that
   stdlib 10.x is released) so `dependency-checker` passes.
 
+### Removed
+- Drop Puppet 7 support (now require Puppet >= 8), following upstream
+  `puppetlabs/cron_core` which no longer supports Puppet 7.
+
 ## [0.11.0] - 2024-08-01
 ### Changed
 - Update `stdlib` requirements in `metadata.json`.

@@ -19,10 +19,10 @@ jobs:
     - name: Checkout Source
       uses: actions/checkout@v4
 
-    - name: Activate Ruby 2.7
+    - name: Activate Ruby 3.2
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: "2.7"
+        ruby-version: "3.2"
         bundler-cache: true
 
     - name: Print bundle environment
@@ -48,17 +48,17 @@ jobs:
       matrix: ${{fromJson(needs.setup_matrix.outputs.matrix)}}
 
     env:
-      PUPPET_GEM_VERSION: '~> 7.24'
+      PUPPET_GEM_VERSION: '~> 8.0'
       FACTER_GEM_VERSION: 'https://github.com/puppetlabs/facter#main'
 
     steps:
     - name: Checkout Source
       uses: actions/checkout@v4
 
-    - name: Activate Ruby 2.7
+    - name: Activate Ruby 3.2
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: "2.7"
+        ruby-version: "3.2"
         bundler-cache: true
 
     - name: Print bundle environment
@@ -120,7 +120,7 @@ jobs:
           pkg install -y ruby devel/ruby-gems git rsync gmake
           gem install bundler --no-document
         run: |
-          export PUPPET_GEM_VERSION='~> 7.24'
+          export PUPPET_GEM_VERSION='~> 8.0'
           export TARGET_HOST=localhost
           bundle config set --local path vendor/bundle
           bundle install --jobs 4 --retry 3
