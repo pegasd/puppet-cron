@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   paths (defaulting to `/etc/cron.allow` and `/etc/cron.deny`, and set to
   `/var/cron/allow` and `/var/cron/deny` on FreeBSD).
 
+### Changed
+- Relax `puppetlabs/stdlib` version requirement to `< 11.0.0` (now that
+  stdlib 10.x is released) so `dependency-checker` passes.
+
 ## [0.11.0] - 2024-08-01
 ### Changed
 - Update `stdlib` requirements in `metadata.json`.

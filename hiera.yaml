@@ -8,6 +8,4 @@ defaults:
 hierarchy:
   - name: Operating System Family
     path: '%{facts.os.family}.yaml'
-  - name: Common Configuration
-    path: common.yaml
 ...

@@ -14,16 +14,11 @@ describe 'cron' do
     it { is_expected.to contain_class('cron::service') }
 
     describe 'cron::install' do
-      on_supported_os.each do |os_name, os_facts|
+      on_supported_os.each do |os_name, facts|
         context "on #{os_name}" do
-          let(:facts) { os_facts }
+          let(:facts) { facts }
 
-          if os_facts[:os]['family'] == 'FreeBSD'
-            # cron ships in the FreeBSD base system, so there is no package to manage.
-            it { is_expected.not_to contain_package('cron') }
-          else
-            it { is_expected.to contain_package('cron').with_ensure(:installed) }
-          end
+          it { is_expected.to contain_package('cron').with_ensure(:installed) }
         end
       end
     end
@@ -52,29 +47,39 @@ describe 'cron' do
     end
   end
 
-  on_supported_os.select { |os_name, _| os_name.start_with?('freebsd') }.each do |os_name, os_facts|
-    context "on #{os_name}" do
-      let(:facts) { os_facts }
+  context 'on FreeBSD' do
+    # NB: spec/default_module_facts.yml pins `os` to Ubuntu for every context, so
+    # `on_supported_os` cannot exercise FreeBSD here; set explicit facts instead.
+    let(:facts) do
+      {
+        os: {
+          'family'  => 'FreeBSD',
+          'name'    => 'FreeBSD',
+          'release' => { 'major' => '14', 'full' => '14.0' },
+        },
+        osfamily: 'FreeBSD',
+      }
+    end
 
-      it { is_expected.to compile.with_all_deps }
+    it { is_expected.to compile.with_all_deps }
 
-      describe 'cron::install' do
-        it { is_expected.not_to contain_package('cron') }
-      end
+    describe 'cron::install' do
+      # cron ships in the FreeBSD base system, so there is no package to manage.
+      it { is_expected.not_to contain_package('cron') }
+    end
 
-      describe 'cron::config' do
-        it {
-          is_expected.to contain_file('/var/cron/allow').only_with(
-            ensure:  :file,
-            force:   true,
-            content: '',
-            owner:   'root',
-            group:   'wheel',
-            mode:    '0644',
-          )
-        }
-        it { is_expected.to contain_file('/var/cron/deny').with_ensure(:absent).with_force(true) }
-      end
+    describe 'cron::config' do
+      it {
+        is_expected.to contain_file('/var/cron/allow').only_with(
+          ensure:  :file,
+          force:   true,
+          content: '',
+          owner:   'root',
+          group:   'wheel',
+          mode:    '0644',
+        )
+      }
+      it { is_expected.to contain_file('/var/cron/deny').with_ensure(:absent).with_force(true) }
     end
   end
 
