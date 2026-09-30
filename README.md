@@ -81,6 +81,38 @@ cron::whitelist { 'pkg_backup': }
 ```
 This will make `/etc/cron.d/pkg_backup` immune, and keep the file's contents untouched.
 
+### crontab access on FreeBSD
+
+**This module changes the stock FreeBSD default for who may use `crontab(1)`.**
+
+Out of the box, FreeBSD ships without `/var/cron/allow` or `/var/cron/deny`, which
+lets *every* user manage their own crontab. This module is restrictive by design,
+so including it writes a `/var/cron/allow` file — which means **only the listed
+users may use `crontab(1)`**. By default that list is just `root`, matching the
+module's "only root by default" behavior on Linux.
+
+Note that on FreeBSD `cron.allow` governs `root` too (unlike Linux, where `root`
+always bypasses it), so `root` must be listed explicitly. The module's FreeBSD
+data does this for you.
+
+To allow extra users, **keep `root` in the list** (setting `allowed_users`
+replaces the default, it does not append to it):
+
+```puppet
+class { 'cron':
+  allowed_users => ['root', 'alice'],
+}
+```
+
+To restore stock FreeBSD behavior (all users may use `crontab`, no allow/deny
+files managed):
+
+```puppet
+class { 'cron':
+  allow_all_users => true,
+}
+```
+
 ## Reference
 
 ### Type Aliases
@@ -99,10 +131,12 @@ Check out [REFERENCE](REFERENCE.md) for up-to-date details.
 
 ## Limitations
 
-* Made for and tested only on the following Ubuntu distributions:
-    * 18.04
-    * 20.04
-    * 22.04
+* Supported and tested on:
+    * Ubuntu 20.04, 22.04, 24.04
+    * FreeBSD 13, 14, 15 (acceptance-tested on 14 and 15)
+* On FreeBSD the module manages `/var/cron/{allow,deny}` and, by default, restricts
+  `crontab(1)` to `root` — which differs from stock FreeBSD, where all users may use
+  `crontab`. See [crontab access on FreeBSD](#crontab-access-on-freebsd).
 * Custom `Cron::*` time types are a lot stricter than builtin `cron` ones. Careful - this may break existing cron jobs
   you are converting.
 * All cron jobs managed by built-in `cron` type are fair play. They won't be purged as long as they're in the catalog.

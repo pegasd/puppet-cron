@@ -6,24 +6,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- FreeBSD support (13, 14 and 15), including acceptance testing of 14 and 15 on
-  a disposable FreeBSD VM.
+- FreeBSD support (13, 14 and 15), including acceptance testing on 14.5 and 15.1.
 - New `allow_file` and `deny_file` parameters for the `cron.allow`/`cron.deny`
   paths (defaulting to `/etc/cron.allow` and `/etc/cron.deny`, and set to
   `/var/cron/allow` and `/var/cron/deny` on FreeBSD).
-- New `allow_root` parameter (enabled on FreeBSD) that keeps `root` listed in
-  `cron.allow`; on FreeBSD `cron.allow` governs `root` too, so an otherwise empty
-  allow file would lock `root` out of `crontab(1)`.
+- Default `allowed_users` to `['root']` on FreeBSD, where `cron.allow` governs
+  `root` too (an otherwise empty allow file would lock `root` out of `crontab(1)`).
 
 ### Changed
 - Relax `puppetlabs/stdlib` version requirement to `< 11.0.0` (now that
-  stdlib 10.x is released) so `dependency-checker` passes.
-- Update supported Ubuntu releases to 20.04/22.04/24.04 (drop 18.04, which
-  Puppet 8 no longer supports; add 24.04).
+  stdlib 10.x is released).
+- Update supported Ubuntu releases to 20.04, 22.04, and 24.04.
 
 ### Removed
-- Drop Puppet 7 support (now require Puppet >= 8), following upstream
-  `puppetlabs/cron_core` which no longer supports Puppet 7.
+- Drop Puppet 7 support.
+- Drop Ubuntu 18.04 support.
 
 ## [0.11.0] - 2024-08-01
 ### Changed

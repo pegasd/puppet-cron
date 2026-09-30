@@ -14,11 +14,16 @@ describe 'cron' do
     it { is_expected.to contain_class('cron::service') }
 
     describe 'cron::install' do
-      on_supported_os.each do |os_name, facts|
+      on_supported_os.each do |os_name, os_facts|
         context "on #{os_name}" do
-          let(:facts) { facts }
+          let(:facts) { os_facts }
 
-          it { is_expected.to contain_package('cron').with_ensure(:installed) }
+          if os_facts[:os]['family'] == 'FreeBSD'
+            # cron ships in the FreeBSD base system, so there is no package to manage.
+            it { is_expected.not_to contain_package('cron') }
+          else
+            it { is_expected.to contain_package('cron').with_ensure(:installed) }
+          end
         end
       end
     end
@@ -48,8 +53,8 @@ describe 'cron' do
   end
 
   context 'on FreeBSD' do
-    # NB: spec/default_module_facts.yml pins `os` to Ubuntu for every context, so
-    # `on_supported_os` cannot exercise FreeBSD here; set explicit facts instead.
+    # Exercise the FreeBSD data (cron.allow/deny under /var/cron, wheel group, no
+    # managed package, root kept in cron.allow) with explicit facts.
     let(:facts) do
       {
         os: {
@@ -225,6 +230,17 @@ describe 'cron' do
   end
 
   context 'with custom package version' do
+    # A versioned package needs a `versionable` provider, so pin to a Linux target
+    # (the host's own OS would otherwise be used now that there is no default).
+    let(:facts) do
+      {
+        os: {
+          'family'  => 'Debian',
+          'name'    => 'Ubuntu',
+          'release' => { 'major' => '22.04', 'full' => '22.04' },
+        },
+      }
+    end
     let(:params) { { package_version: '3.0pl1-124ubuntu2' } }
 
     it { is_expected.to compile.with_all_deps }
