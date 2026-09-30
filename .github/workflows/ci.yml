@@ -34,7 +34,9 @@ jobs:
     - name: Setup Acceptance Test Matrix
       id: get-matrix
       run: |
-        bundle exec matrix_from_metadata_v2 --exclude-platforms '["Ubuntu-22.04-arm"]'
+        # FreeBSD has no Docker image / litmus provisioner; it is covered by the
+        # dedicated `FreeBSD` job (vmactions VM) instead, so exclude it here.
+        bundle exec matrix_from_metadata_v2 --exclude-platforms '["Ubuntu-22.04-arm", "Ubuntu-24.04-arm", "FreeBSD-13", "FreeBSD-14", "FreeBSD-15"]'
 
   Acceptance:
     name: "${{matrix.platforms.label}}, ${{matrix.collection}}"
@@ -77,7 +79,11 @@ jobs:
 
     - name: Install agent
       run: |
-        bundle exec rake 'litmus:install_agent[${{ matrix.collection }}]'
+        # matrix_from_metadata_v2 only emits `-nightly` collections, but
+        # nightlies.puppet.com has been decommissioned; install from the
+        # release repo (apt.puppet.com) instead.
+        collection='${{ matrix.collection }}'
+        bundle exec rake "litmus:install_agent[${collection%-nightly}]"
 
     - name: Install module
       run: |

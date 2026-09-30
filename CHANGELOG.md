@@ -18,6 +18,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Relax `puppetlabs/stdlib` version requirement to `< 11.0.0` (now that
   stdlib 10.x is released) so `dependency-checker` passes.
+- Update supported Ubuntu releases to 20.04/22.04/24.04 (drop 18.04, which
+  Puppet 8 no longer supports; add 24.04).
 
 ### Removed
 - Drop Puppet 7 support (now require Puppet >= 8), following upstream
