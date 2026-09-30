@@ -22,7 +22,7 @@ class cron::purge {
     file { '/etc/cron.d':
       ensure  => directory,
       owner   => 'root',
-      group   => 'root',
+      group   => $cron::root_group,
       mode    => '0755',
       recurse => true,
       purge   => true,

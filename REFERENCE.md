@@ -87,7 +87,11 @@ class { 'cron':
 The following parameters are available in the `cron` class:
 
 * [`ensure`](#-cron--ensure)
+* [`manage_package`](#-cron--manage_package)
 * [`package_version`](#-cron--package_version)
+* [`root_group`](#-cron--root_group)
+* [`allow_file`](#-cron--allow_file)
+* [`deny_file`](#-cron--deny_file)
 * [`allow_all_users`](#-cron--allow_all_users)
 * [`allowed_users`](#-cron--allowed_users)
 * [`denied_users`](#-cron--denied_users)
@@ -106,6 +110,14 @@ Whether to enable or disable cron on the system.
 
 Default value: `present`
 
+##### <a name="-cron--manage_package"></a>`manage_package`
+
+Data type: `Boolean`
+
+Whether to manage cron package on the system.
+
+Default value: `true`
+
 ##### <a name="-cron--package_version"></a>`package_version`
 
 Data type: `Pattern[/\A[^\n]+\z/]`
@@ -113,6 +125,30 @@ Data type: `Pattern[/\A[^\n]+\z/]`
 Custom `cron` package version.
 
 Default value: `installed`
+
+##### <a name="-cron--root_group"></a>`root_group`
+
+Data type: `Pattern[/\A[^\n]+\z/]`
+
+Name of the root group.
+
+Default value: `'root'`
+
+##### <a name="-cron--allow_file"></a>`allow_file`
+
+Data type: `Stdlib::Absolutepath`
+
+Path to the `cron.allow` file.
+
+Default value: `'/etc/cron.allow'`
+
+##### <a name="-cron--deny_file"></a>`deny_file`
+
+Data type: `Stdlib::Absolutepath`
+
+Path to the `cron.deny` file.
+
+Default value: `'/etc/cron.deny'`
 
 ##### <a name="-cron--allow_all_users"></a>`allow_all_users`
 

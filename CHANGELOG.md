@@ -5,6 +5,22 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- FreeBSD support (13, 14 and 15), including acceptance testing on 14.5 and 15.1.
+- New `allow_file` and `deny_file` parameters for the `cron.allow`/`cron.deny`
+  paths (defaulting to `/etc/cron.allow` and `/etc/cron.deny`, and set to
+  `/var/cron/allow` and `/var/cron/deny` on FreeBSD).
+- Default `allowed_users` to `['root']` on FreeBSD, where `cron.allow` governs
+  `root` too (an otherwise empty allow file would lock `root` out of `crontab(1)`).
+
+### Changed
+- Relax `puppetlabs/stdlib` version requirement to `< 11.0.0` (now that
+  stdlib 10.x is released).
+- Update supported Ubuntu releases to 20.04, 22.04, and 24.04.
+
+### Removed
+- Drop Puppet 7 support.
+- Drop Ubuntu 18.04 support.
 
 ## [0.11.0] - 2024-08-01
 ### Changed

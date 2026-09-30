@@ -34,7 +34,7 @@ group :development do
   gem "rubocop-performance", '= 1.16.0',         require: false
   gem "rubocop-rspec", '= 2.19.0',               require: false
   gem "rb-readline", '= 0.5.5',                  require: false, platforms: [:mswin, :mingw, :x64_mingw]
-  gem "rexml", '>= 3.0.0', '< 3.2.7',            require: false
+  gem "rexml", '>= 3.3.9',                       require: false
 end
 group :development, :release_prep do
   gem "puppet-strings", '~> 4.0',         require: false
@@ -44,6 +44,21 @@ group :system_tests do
   gem "puppet_litmus", '~> 1.0',   require: false, platforms: [:ruby, :x64_mingw]
   gem "CFPropertyList", '< 3.0.7', require: false, platforms: [:mswin, :mingw, :x64_mingw]
   gem "serverspec", '~> 2.41',     require: false
+end
+
+# Ruby 3.4 promoted several former default gems to "bundled" gems, so they are no
+# longer available under `bundle exec` unless listed here. Puppet/Bolt/Facter
+# still `require` them (e.g. Puppet's `posix` feature does `require 'syslog'`,
+# otherwise raising "Cannot determine basic system flavour"). The FreeBSD
+# acceptance VM ships Ruby 3.4; Linux CI (Ruby 3.2) still bundles them, so guard
+# on the version to avoid changing that resolution.
+if RUBY_VERSION >= '3.4'
+  gem "base64",     require: false
+  gem "bigdecimal", require: false
+  gem "csv",        require: false
+  gem "getoptlong", require: false
+  gem "mutex_m",    require: false
+  gem "syslog",     require: false
 end
 
 puppet_version = ENV['PUPPET_GEM_VERSION']

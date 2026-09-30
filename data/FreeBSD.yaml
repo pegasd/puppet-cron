@@ -1,0 +1,10 @@
+---
+cron::root_group: wheel
+cron::manage_package: false
+cron::allow_file: /var/cron/allow
+cron::deny_file: /var/cron/deny
+# cron.allow governs root too on FreeBSD, so an otherwise empty allow file would
+# lock root out of crontab(1). Keep root allowed by default.
+cron::allowed_users:
+  - root
+...
