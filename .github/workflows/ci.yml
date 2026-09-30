@@ -98,14 +98,16 @@ jobs:
   # disposable FreeBSD guest with vmactions/freebsd-vm and run the acceptance
   # suite against localhost *inside* that VM. The guest is thrown away with the
   # job, which is important: the suite stops cron and purges unmanaged crontabs.
-  #
-  # NOTE: this job is expected to need version tweaks on its first real run
-  # (Ruby/Puppet/Litmus gem compatibility on FreeBSD); adjust the versions below
-  # once CI reports what the older Gemfile needs.
   FreeBSD:
-    name: "FreeBSD 14, localhost"
+    name: "FreeBSD ${{ matrix.release }}, localhost"
     needs: Spec
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        release:
+          - "14.5"
+          - "15.1"
 
     steps:
     - name: Checkout Source
@@ -114,7 +116,7 @@ jobs:
     - name: Run acceptance tests in a FreeBSD VM
       uses: vmactions/freebsd-vm@v1
       with:
-        release: "14.1"
+        release: "${{ matrix.release }}"
         usesh: true
         prepare: |
           pkg install -y ruby devel/ruby-gems git rsync gmake
