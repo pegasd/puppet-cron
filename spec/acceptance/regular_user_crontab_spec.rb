@@ -4,7 +4,7 @@ require 'spec_helper_acceptance'
 
 # Relies on Linux crontab(1) allow/deny enforcement, its exact denial message,
 # and the `sudo` package name; revisit once FreeBSD expectations are explicit.
-describe 'crontab(1)', unless: fact('os.family') == 'FreeBSD' do
+describe 'crontab(1)', unless: freebsd_target? do
   describe 'luke is not ready yet' do
     let(:pp) do
       <<~PUPPET

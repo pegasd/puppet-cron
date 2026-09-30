@@ -3,7 +3,7 @@
 require 'spec_helper_acceptance'
 
 # /etc/cron.d is a Linux vixie-cron concept; the FreeBSD base cron does not read it.
-describe 'cron::whitelist', unless: fact('os.family') == 'FreeBSD' do
+describe 'cron::whitelist', unless: freebsd_target? do
   describe 'fake a cron job and see that it is not purged' do
     let(:pp) do
       <<~PUPPET

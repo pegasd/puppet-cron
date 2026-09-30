@@ -3,7 +3,7 @@
 require 'spec_helper_acceptance'
 
 describe 'cron' do
-  freebsd = fact('os.family') == 'FreeBSD'
+  freebsd = freebsd_target?
 
   # cron ships in the FreeBSD base system and uses /var/cron/{allow,deny}
   # rather than a managed package and /etc/cron.{allow,deny}.

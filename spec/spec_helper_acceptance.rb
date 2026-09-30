@@ -9,3 +9,12 @@ RSpec.configure do |c|
   c.formatter = :documentation
   c.color     = true
 end
+
+# Whether the machine under test is FreeBSD.
+#
+# `litmus:acceptance:localhost` runs rspec on the target itself, so `uname` is
+# authoritative and, unlike litmus's `fact` helper, is available at file-load
+# time (i.e. in `describe`/metadata scope, where these guards are evaluated).
+def freebsd_target?
+  `uname -s`.strip == 'FreeBSD'
+end
