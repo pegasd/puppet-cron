@@ -46,6 +46,21 @@ group :system_tests do
   gem "serverspec", '~> 2.41',     require: false
 end
 
+# Ruby 3.4 promoted several former default gems to "bundled" gems, so they are no
+# longer available under `bundle exec` unless listed here. Puppet/Bolt/Facter
+# still `require` them (e.g. Puppet's `posix` feature does `require 'syslog'`,
+# otherwise raising "Cannot determine basic system flavour"). The FreeBSD
+# acceptance VM ships Ruby 3.4; Linux CI (Ruby 3.2) still bundles them, so guard
+# on the version to avoid changing that resolution.
+if RUBY_VERSION >= '3.4'
+  gem "base64",     require: false
+  gem "bigdecimal", require: false
+  gem "csv",        require: false
+  gem "getoptlong", require: false
+  gem "mutex_m",    require: false
+  gem "syslog",     require: false
+end
+
 puppet_version = ENV['PUPPET_GEM_VERSION']
 facter_version = ENV['FACTER_GEM_VERSION']
 hiera_version = ENV['HIERA_GEM_VERSION']
