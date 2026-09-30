@@ -26,6 +26,8 @@
 # @param manage_package Whether to manage cron package on the system.
 # @param package_version Custom `cron` package version.
 # @param root_group Name of the root group.
+# @param allow_file Path to the `cron.allow` file.
+# @param deny_file Path to the `cron.deny` file.
 # @param allow_all_users Allow all users to manage crontab.
 # @param allowed_users List of users allowed to use `crontab(1)`. By default, only root can.
 # @param denied_users List of users specifically denied to use `crontab(1)`.
@@ -45,6 +47,8 @@ class cron (
 
   # cron::config
   Pattern[/\A[^\n]+\z/]  $root_group      = 'root',
+  Stdlib::Absolutepath   $allow_file      = '/etc/cron.allow',
+  Stdlib::Absolutepath   $deny_file       = '/etc/cron.deny',
   Boolean                $allow_all_users = false,
   Array[Cron::User]      $allowed_users   = [],
   Array[Cron::User]      $denied_users    = [],

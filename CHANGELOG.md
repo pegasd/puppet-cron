@@ -6,7 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 ### Added
-- Preliminary FreeBSD support (no acceptance testing, ouch).
+- FreeBSD support, including acceptance testing on a disposable FreeBSD VM.
+- New `allow_file` and `deny_file` parameters for the `cron.allow`/`cron.deny`
+  paths (defaulting to `/etc/cron.allow` and `/etc/cron.deny`, and set to
+  `/var/cron/allow` and `/var/cron/deny` on FreeBSD).
 
 ## [0.11.0] - 2024-08-01
 ### Changed

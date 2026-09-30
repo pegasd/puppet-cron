@@ -13,8 +13,8 @@ class cron::remove {
   file {
     [
       '/etc/cron.d',
-      '/etc/cron.deny',
-      '/etc/cron.allow',
+      $cron::deny_file,
+      $cron::allow_file,
     ]:
       ensure => absent,
       force  => true,

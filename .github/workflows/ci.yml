@@ -92,4 +92,38 @@ jobs:
       continue-on-error: true
       run: |
         bundle exec rake 'litmus:tear_down'
+
+  # FreeBSD cannot run in a Docker container, so the Litmus matrix above (which
+  # provisions Linux containers on the runner) can't cover it. Instead we boot a
+  # disposable FreeBSD guest with vmactions/freebsd-vm and run the acceptance
+  # suite against localhost *inside* that VM. The guest is thrown away with the
+  # job, which is important: the suite stops cron and purges unmanaged crontabs.
+  #
+  # NOTE: this job is expected to need version tweaks on its first real run
+  # (Ruby/Puppet/Litmus gem compatibility on FreeBSD); adjust the versions below
+  # once CI reports what the older Gemfile needs.
+  FreeBSD:
+    name: "FreeBSD 14, localhost"
+    needs: Spec
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Source
+      uses: actions/checkout@v4
+
+    - name: Run acceptance tests in a FreeBSD VM
+      uses: vmactions/freebsd-vm@v1
+      with:
+        release: "14.1"
+        usesh: true
+        prepare: |
+          pkg install -y ruby devel/ruby-gems git rsync gmake
+          gem install bundler --no-document
+        run: |
+          export PUPPET_GEM_VERSION='~> 7.24'
+          export TARGET_HOST=localhost
+          bundle config set --local path vendor/bundle
+          bundle install --jobs 4 --retry 3
+          bundle exec rake spec_prep
+          bundle exec rake 'litmus:acceptance:localhost'
 ...

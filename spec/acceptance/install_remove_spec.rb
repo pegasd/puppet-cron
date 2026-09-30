@@ -3,6 +3,13 @@
 require 'spec_helper_acceptance'
 
 describe 'cron' do
+  freebsd = fact('os.family') == 'FreeBSD'
+
+  # cron ships in the FreeBSD base system and uses /var/cron/{allow,deny}
+  # rather than a managed package and /etc/cron.{allow,deny}.
+  cron_allow = freebsd ? '/var/cron/allow' : '/etc/cron.allow'
+  cron_deny  = freebsd ? '/var/cron/deny'  : '/etc/cron.deny'
+
   describe 'installs?' do
     let(:pp) { 'include cron' }
 
@@ -10,25 +17,27 @@ describe 'cron' do
       idempotent_apply(pp)
     end
 
-    describe package('cron') do
-      it { is_expected.to be_installed }
+    unless freebsd
+      describe package('cron') do
+        it { is_expected.to be_installed }
+      end
+
+      describe file('/etc/cron.d') do
+        it { is_expected.to exist }
+        it { is_expected.to be_directory }
+      end
     end
 
     describe service('cron') do
       it { is_expected.to be_running }
     end
 
-    describe file('/etc/cron.d') do
-      it { is_expected.to exist }
-      it { is_expected.to be_directory }
-    end
-
-    describe file('/etc/cron.allow') do
+    describe file(cron_allow) do
       it { is_expected.to exist }
       its(:content) { is_expected.to eq('') }
     end
 
-    describe file('/etc/cron.deny') do
+    describe file(cron_deny) do
       it { is_expected.not_to exist }
     end
   end
@@ -46,15 +55,17 @@ describe 'cron' do
       idempotent_apply(pp)
     end
 
-    describe package('cron') do
-      it { is_expected.not_to be_installed }
+    unless freebsd
+      describe package('cron') do
+        it { is_expected.not_to be_installed }
+      end
     end
 
     describe service('cron') do
       it { is_expected.not_to be_running }
     end
 
-    ['/etc/cron.allow', '/etc/cron.deny', '/etc/cron.d'].each do |absent_file|
+    [cron_allow, cron_deny, '/etc/cron.d'].each do |absent_file|
       describe file(absent_file) do
         it { is_expected.not_to exist }
       end

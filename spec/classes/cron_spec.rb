@@ -14,11 +14,16 @@ describe 'cron' do
     it { is_expected.to contain_class('cron::service') }
 
     describe 'cron::install' do
-      on_supported_os.each do |os_name, facts|
+      on_supported_os.each do |os_name, os_facts|
         context "on #{os_name}" do
-          let(:facts) { facts }
+          let(:facts) { os_facts }
 
-          it { is_expected.to contain_package('cron').with_ensure(:installed) }
+          if os_facts[:os]['family'] == 'FreeBSD'
+            # cron ships in the FreeBSD base system, so there is no package to manage.
+            it { is_expected.not_to contain_package('cron') }
+          else
+            it { is_expected.to contain_package('cron').with_ensure(:installed) }
+          end
         end
       end
     end
@@ -44,6 +49,32 @@ describe 'cron' do
     describe 'cron::purge' do
       it { is_expected.to contain_resources('cron').only_with(purge: true) }
       it { is_expected.not_to contain_file('/etc/cron.d') }
+    end
+  end
+
+  on_supported_os.select { |os_name, _| os_name.start_with?('freebsd') }.each do |os_name, os_facts|
+    context "on #{os_name}" do
+      let(:facts) { os_facts }
+
+      it { is_expected.to compile.with_all_deps }
+
+      describe 'cron::install' do
+        it { is_expected.not_to contain_package('cron') }
+      end
+
+      describe 'cron::config' do
+        it {
+          is_expected.to contain_file('/var/cron/allow').only_with(
+            ensure:  :file,
+            force:   true,
+            content: '',
+            owner:   'root',
+            group:   'wheel',
+            mode:    '0644',
+          )
+        }
+        it { is_expected.to contain_file('/var/cron/deny').with_ensure(:absent).with_force(true) }
+      end
     end
   end
 

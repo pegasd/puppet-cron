@@ -29,7 +29,8 @@ describe 'cron::purge' do
       it { is_expected.to be_running }
     end
 
-    describe package('cron') do
+    # cron ships in the FreeBSD base system, so there is no package to assert on.
+    describe package('cron'), unless: fact('os.family') == 'FreeBSD' do
       it { is_expected.to be_installed }
     end
   end
