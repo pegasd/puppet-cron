@@ -36,7 +36,7 @@ jobs:
       run: |
         # FreeBSD has no Docker image / litmus provisioner; it is covered by the
         # dedicated `FreeBSD` job (vmactions VM) instead, so exclude it here.
-        bundle exec matrix_from_metadata_v2 --exclude-platforms '["Ubuntu-22.04-arm", "Ubuntu-24.04-arm", "FreeBSD-13", "FreeBSD-14", "FreeBSD-15"]'
+        bundle exec matrix_from_metadata_v2 --exclude-platforms '["Ubuntu-22.04-arm", "Ubuntu-24.04-arm", "FreeBSD-14", "FreeBSD-15"]'
 
   Acceptance:
     name: "${{matrix.platforms.label}}, ${{matrix.collection}}"

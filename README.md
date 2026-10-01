@@ -133,7 +133,7 @@ Check out [REFERENCE](REFERENCE.md) for up-to-date details.
 
 * Supported and tested on:
     * Ubuntu 20.04, 22.04, 24.04
-    * FreeBSD 13, 14, 15 (acceptance-tested on 14 and 15)
+    * FreeBSD 14, 15
 * On FreeBSD the module manages `/var/cron/{allow,deny}` and, by default, restricts
   `crontab(1)` to `root` — which differs from stock FreeBSD, where all users may use
   `crontab`. See [crontab access on FreeBSD](#crontab-access-on-freebsd).
