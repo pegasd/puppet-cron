@@ -22,9 +22,9 @@ group :development do
   gem "racc", '~> 1.4.0',                        require: false if Gem::Requirement.create(['>= 2.7.0', '< 3.0.0']).satisfied_by?(Gem::Version.new(RUBY_VERSION.dup))
   gem "deep_merge", '~> 1.2.2',                  require: false
   gem "voxpupuli-puppet-lint-plugins", '~> 5.0', require: false
-  gem "facterdb", '~> 1.26',                     require: false
+  gem "facterdb", '~> 4.0',                      require: false
   gem "metadata-json-lint", '~> 4.0',            require: false
-  gem "rspec-puppet-facts", '~> 3.0',            require: false
+  gem "rspec-puppet-facts", '~> 6.0',            require: false
   gem "dependency_checker", '~> 1.0.0',          require: false
   gem "parallel_tests", '= 3.12.1',              require: false
   gem "pry", '~> 0.10',                          require: false
@@ -47,17 +47,20 @@ group :system_tests do
 end
 
 # Ruby 3.4 promoted several former default gems to "bundled" gems, so they are no
-# longer available under `bundle exec` unless listed here. Puppet/Bolt/Facter
-# still `require` them (e.g. Puppet's `posix` feature does `require 'syslog'`,
-# otherwise raising "Cannot determine basic system flavour"). The FreeBSD
-# acceptance VM ships Ruby 3.4; Linux CI (Ruby 3.2) still bundles them, so guard
-# on the version to avoid changing that resolution.
-if RUBY_VERSION >= '3.4'
+# longer available under `bundle exec`; Ruby 3.3 still ships them but warns about
+# the upcoming removal. Puppet and friends still `require` them (e.g. Puppet's
+# `posix` feature does `require 'syslog'`, otherwise raising "Cannot determine
+# basic system flavour"; rspec-puppet via CFPropertyList does `require 'kconv'`,
+# which lives in nkf). List them here to work on 3.4 and silence the 3.3
+# deprecation warnings. Linux CI (Ruby 3.2) neither warns nor drops them, so guard
+# on >= 3.3 to leave that resolution untouched.
+if RUBY_VERSION >= '3.3'
   gem "base64",     require: false
   gem "bigdecimal", require: false
   gem "csv",        require: false
   gem "getoptlong", require: false
   gem "mutex_m",    require: false
+  gem "nkf",        require: false
   gem "syslog",     require: false
 end
 

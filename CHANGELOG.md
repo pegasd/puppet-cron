@@ -5,6 +5,12 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- Bump `facterdb` and `rspec-puppet-facts` so unit specs cover FreeBSD via
+  `on_supported_os` factsets (dropping the bespoke explicit-facts context).
+
+### Removed
+- Drop FreeBSD 13 support (supported and tested versions now match: 14 and 15).
 
 ## [0.12.0] - 2026-09-30
 ### Added
